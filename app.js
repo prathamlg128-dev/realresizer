@@ -15,7 +15,8 @@
   // Each `ratio` is the mathematically exact w:h of the listed pixel target.
   const PRESET_REGISTRY = [
     // --- Instagram ---
-    { id: 'ig-story',        name: 'Instagram',          desc: 'Story / Reel (1080 × 1920)',   ratio: 9 / 16,       ratioLabel: '9:16',     targetW: 1080, targetH: 1920 },
+    { id: 'ig-story',        name: 'Instagram',          desc: 'Story (1080 × 1920)',          ratio: 9 / 16,       ratioLabel: '9:16',     targetW: 1080, targetH: 1920 },
+    { id: 'ig-reel',         name: 'Instagram',          desc: 'Reel (1080 × 1920)',           ratio: 9 / 16,       ratioLabel: '9:16',     targetW: 1080, targetH: 1920 },
     { id: 'ig-square',       name: 'Instagram',          desc: 'Post / Square (1080 × 1080)',  ratio: 1 / 1,        ratioLabel: '1:1',      targetW: 1080, targetH: 1080 },
     { id: 'ig-portrait',     name: 'Instagram',          desc: 'Portrait Feed (1080 × 1350)',  ratio: 4 / 5,        ratioLabel: '4:5',      targetW: 1080, targetH: 1350 },
     { id: 'ig-landscape',    name: 'Instagram',          desc: 'Landscape Feed (1080 × 566)',  ratio: 1080 / 566,   ratioLabel: '1.91:1',   targetW: 1080, targetH: 566 },
@@ -161,87 +162,146 @@
     }
 
     /**
-     * Premium physical CUT sound.
+     * Premium swoosh for CUT, synchronized with the Genie fold-to-bin motion.
      *
-     * Three layered voices, all quiet and short:
-     *   1. Low sine thud  — body/weight of the cut (110 Hz, ~55 ms)
-     *   2. Mid noise burst — material/paper texture (bandpass ~500 Hz, ~70 ms)
-     *   3. Subtle high texture — edge definition (bandpass ~2.5 kHz, ~30 ms)
+     * A short, smooth, modern "whoosh" made from a band-passed noise sweep plus
+     * a gentle low sine swell for weight. The filter sweeps upward so the tone
+     * rises as the discarded pieces stretch toward the bin, then the gain
+     * decays so it finishes exactly as the pieces disappear into the bin — the
+     * audio mirrors the visual movement.
      *
-     * No highpass filter. No electronic character.
+     * startMs/endMs are the animation timeline moments (in ms) where the first
+     * piece starts moving and the last piece finishes disappearing. The sweep
+     * is scheduled for a total duration of (endMs - startMs) — so a longer /
+     * more staggered fold gets a correspondingly longer, slower sweep.
      */
-    playCut() {
+    playSweep(startMs, endMs) {
       if (!this.enabled) return;
       this.init();
       if (!this.ctx) return;
 
       try {
-        const t = this.ctx.currentTime;
         const ac = this.ctx;
+        const t = ac.currentTime;
+        const dur = Math.max(220, (endMs - startMs)) / 1000; // seconds
+        const attack = Math.min(0.06, dur * 0.25);
+        const release = Math.min(0.12, dur * 0.35);
 
-        // --- Voice 1: low sine thud ---
-        const thud = ac.createOscillator();
-        const thudGain = ac.createGain();
-        thud.type = 'sine';
-        thud.frequency.setValueAtTime(110, t);
-        thud.frequency.exponentialRampToValueAtTime(55, t + 0.055);
-        thudGain.gain.setValueAtTime(0.0, t);
-        thudGain.gain.linearRampToValueAtTime(0.18, t + 0.004);
-        thudGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.055);
-        thud.connect(thudGain);
-        thudGain.connect(ac.destination);
-        thud.start(t);
-        thud.stop(t + 0.06);
+        // --- Voice 1: band-passed noise sweeping upward (the "whoosh") ---
+        const len = Math.ceil(ac.sampleRate * dur);
+        const buf = ac.createBuffer(1, len, ac.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+        const noise = ac.createBufferSource();
+        noise.buffer = buf;
 
-        // --- Voice 2: mid noise burst (material texture) ---
-        const midLen = Math.ceil(ac.sampleRate * 0.07);
-        const midBuf = ac.createBuffer(1, midLen, ac.sampleRate);
-        const midData = midBuf.getChannelData(0);
-        for (let i = 0; i < midLen; i++) midData[i] = Math.random() * 2 - 1;
-        const midNoise = ac.createBufferSource();
-        midNoise.buffer = midBuf;
-        const midBp = ac.createBiquadFilter();
-        midBp.type = 'bandpass';
-        midBp.frequency.value = 500;
-        midBp.Q.value = 0.8;
-        const midGain = ac.createGain();
-        midGain.gain.setValueAtTime(0.0, t);
-        midGain.gain.linearRampToValueAtTime(0.09, t + 0.003);
-        midGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
-        midNoise.connect(midBp);
-        midBp.connect(midGain);
-        midGain.connect(ac.destination);
-        midNoise.start(t);
-        midNoise.stop(t + 0.075);
+        const bp = ac.createBiquadFilter();
+        bp.type = 'bandpass';
+        bp.Q.value = 1.6;
+        bp.frequency.setValueAtTime(700, t);
+        bp.frequency.exponentialRampToValueAtTime(3200, t + dur);
 
-        // --- Voice 3: subtle high texture (edge definition) ---
-        const hiLen = Math.ceil(ac.sampleRate * 0.03);
-        const hiBuf = ac.createBuffer(1, hiLen, ac.sampleRate);
-        const hiData = hiBuf.getChannelData(0);
-        for (let i = 0; i < hiLen; i++) hiData[i] = Math.random() * 2 - 1;
-        const hiNoise = ac.createBufferSource();
-        hiNoise.buffer = hiBuf;
-        const hiBp = ac.createBiquadFilter();
-        hiBp.type = 'bandpass';
-        hiBp.frequency.value = 2500;
-        hiBp.Q.value = 1.5;
-        const hiGain = ac.createGain();
-        hiGain.gain.setValueAtTime(0.0, t);
-        hiGain.gain.linearRampToValueAtTime(0.035, t + 0.001);
-        hiGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.03);
-        hiNoise.connect(hiBp);
-        hiBp.connect(hiGain);
-        hiGain.connect(ac.destination);
-        hiNoise.start(t);
-        hiNoise.stop(t + 0.035);
+        const nGain = ac.createGain();
+        nGain.gain.setValueAtTime(0.0001, t);
+        nGain.gain.exponentialRampToValueAtTime(0.12, t + attack);
+        // Hold roughly through the middle, then decay as pieces are drawn in.
+        nGain.gain.setValueAtTime(0.12, t + Math.max(attack, dur * 0.55));
+        nGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
 
-        setTimeout(() => {
+        noise.connect(bp);
+        bp.connect(nGain);
+        nGain.connect(ac.destination);
+        noise.start(t);
+        noise.stop(t + dur + 0.05);
+
+        // --- Voice 2: soft low swell for physical weight ---
+        const osc = ac.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(180, t);
+        osc.frequency.exponentialRampToValueAtTime(120, t + dur);
+
+        const oGain = ac.createGain();
+        oGain.gain.setValueAtTime(0.0001, t);
+        oGain.gain.exponentialRampToValueAtTime(0.05, t + attack);
+        oGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+        osc.connect(oGain);
+        oGain.connect(ac.destination);
+        osc.start(t);
+        osc.stop(t + dur + 0.05);
+
+        const cleanup = () => {
           try {
-            thud.disconnect(); thudGain.disconnect();
-            midNoise.disconnect(); midBp.disconnect(); midGain.disconnect();
-            hiNoise.disconnect(); hiBp.disconnect(); hiGain.disconnect();
+            noise.disconnect(); bp.disconnect(); nGain.disconnect();
+            osc.disconnect(); oGain.disconnect();
           } catch (_) {}
-        }, 120);
+        };
+        noise.onended = cleanup;
+      } catch (e) {}
+    }
+
+    /**
+     * Premium whoosh for CUT — smooth bandpass noise sweep + subtle low swell.
+     * ~450ms fixed duration. Clean, professional, no glitch artifacts.
+     */
+    playCutWhoosh() {
+      if (!this.enabled) return;
+      this.init();
+      if (!this.ctx) return;
+
+      try {
+        const ac = this.ctx;
+        const t = ac.currentTime;
+        const dur = 0.45; // 450ms
+
+        // Voice 1: bandpass noise sweep (the whoosh)
+        const len = Math.ceil(ac.sampleRate * dur);
+        const buf = ac.createBuffer(1, len, ac.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+        const noise = ac.createBufferSource();
+        noise.buffer = buf;
+
+        const bp = ac.createBiquadFilter();
+        bp.type = 'bandpass';
+        bp.Q.value = 1.2;
+        bp.frequency.setValueAtTime(400, t);
+        bp.frequency.exponentialRampToValueAtTime(2800, t + dur);
+
+        const nGain = ac.createGain();
+        nGain.gain.setValueAtTime(0.0, t);
+        nGain.gain.linearRampToValueAtTime(0.1, t + 0.02);
+        nGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+        noise.connect(bp);
+        bp.connect(nGain);
+        nGain.connect(ac.destination);
+        noise.start(t);
+        noise.stop(t + dur + 0.02);
+
+        // Voice 2: soft low sine swell for weight
+        const osc = ac.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(140, t);
+        osc.frequency.exponentialRampToValueAtTime(80, t + dur);
+
+        const oGain = ac.createGain();
+        oGain.gain.setValueAtTime(0.0, t);
+        oGain.gain.linearRampToValueAtTime(0.03, t + 0.03);
+        oGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+        osc.connect(oGain);
+        oGain.connect(ac.destination);
+        osc.start(t);
+        osc.stop(t + dur + 0.02);
+
+        const cleanup = () => {
+          try {
+            noise.disconnect(); bp.disconnect(); nGain.disconnect();
+            osc.disconnect(); oGain.disconnect();
+          } catch (_) {}
+        };
+        noise.onended = cleanup;
       } catch (e) {}
     }
 
@@ -269,6 +329,102 @@
 
         osc.start();
         osc.stop(this.ctx.currentTime + 0.05);
+      } catch (e) {}
+    }
+
+    /**
+     * Glitch sound for CUT — digital, crisp, ~750ms.
+     * Short noise bursts with pitch glitches + bitcrusher feel.
+     * Matches the 750ms glitch animation.
+     */
+    playGlitch() {
+      if (!this.enabled) return;
+      this.init();
+      if (!this.ctx) return;
+
+      try {
+        const ac = this.ctx;
+        const t = ac.currentTime;
+        const dur = 0.75; // 750ms total
+
+        // Voice 1: 3 short noise bursts with bandpass sweeps (the "glitch")
+        for (let i = 0; i < 3; i++) {
+          const burstT = t + i * 0.2;
+          const burstDur = 0.15;
+
+          const len = Math.ceil(ac.sampleRate * burstDur);
+          const buf = ac.createBuffer(1, len, ac.sampleRate);
+          const data = buf.getChannelData(0);
+          for (let j = 0; j < len; j++) data[j] = Math.random() * 2 - 1;
+
+          const noise = ac.createBufferSource();
+          noise.buffer = buf;
+
+          const bp = ac.createBiquadFilter();
+          bp.type = 'bandpass';
+          bp.Q.value = 2;
+          bp.frequency.setValueAtTime(2000, burstT);
+          bp.frequency.exponentialRampToValueAtTime(500, burstT + burstDur);
+
+          const nGain = ac.createGain();
+          nGain.gain.setValueAtTime(0.0, burstT);
+          nGain.gain.linearRampToValueAtTime(0.18, burstT + 0.005);
+          nGain.gain.exponentialRampToValueAtTime(0.0001, burstT + burstDur);
+
+          noise.connect(bp);
+          bp.connect(nGain);
+          nGain.connect(ac.destination);
+          noise.start(burstT);
+          noise.stop(burstT + burstDur + 0.02);
+        }
+
+        // Voice 2: Square wave pitch glitches (digital feel)
+        for (let i = 0; i < 4; i++) {
+          const glitchT = t + 0.05 + i * 0.15;
+          const glitchDur = 0.08;
+
+          const osc = ac.createOscillator();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(1200, glitchT);
+          osc.frequency.exponentialRampToValueAtTime(300, glitchT + glitchDur);
+
+          const oGain = ac.createGain();
+          oGain.gain.setValueAtTime(0.0, glitchT);
+          oGain.gain.linearRampToValueAtTime(0.06, glitchT + 0.003);
+          oGain.gain.exponentialRampToValueAtTime(0.0001, glitchT + glitchDur);
+
+          osc.connect(oGain);
+          oGain.connect(ac.destination);
+          osc.start(glitchT);
+          osc.stop(glitchT + glitchDur);
+        }
+
+        // Voice 3: Subtle bitcrusher-style low sample rate texture
+        const bitLen = Math.ceil(ac.sampleRate * dur);
+        const bitBuf = ac.createBuffer(1, bitLen, ac.sampleRate * 0.125); // 1/8 sample rate = bitcrush
+        const bitData = bitBuf.getChannelData(0);
+        for (let i = 0; i < bitLen; i++) bitData[i] = (Math.random() * 2 - 1) * 0.3;
+
+        const bitNoise = ac.createBufferSource();
+        bitNoise.buffer = bitBuf;
+        bitNoise.playbackRate.value = 8; // speed up to compensate
+
+        const bitGain = ac.createGain();
+        bitGain.gain.setValueAtTime(0.0, t);
+        bitGain.gain.linearRampToValueAtTime(0.04, t + 0.1);
+        bitGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+        bitNoise.connect(bitGain);
+        bitGain.connect(ac.destination);
+        bitNoise.start(t);
+        bitNoise.stop(t + dur + 0.05);
+
+        // Cleanup
+        setTimeout(() => {
+          try {
+            // sources auto-disconnect on stop
+          } catch (_) {}
+        }, 800);
       } catch (e) {}
     }
   }
@@ -347,6 +503,7 @@
     soundOnIcon: document.querySelector('.sound-on-icon'),
     soundOffIcon: document.querySelector('.sound-off-icon'),
     brandLogo: document.getElementById('brand-logo'),
+    btnFullscreen: document.getElementById('btn-fullscreen'),
 
     // Metadata Display
     thumbnailImg: document.getElementById('thumbnail-img'),
@@ -371,6 +528,7 @@
     btnUndo: document.getElementById('btn-undo'),
     btnReplace: document.getElementById('btn-replace'),
     btnClear: document.getElementById('btn-clear'),
+    workspaceActions: document.querySelector('.workspace-actions'),
 
     // Selection Info Pill (replaces the removed zoom slider)
     zoomBar: document.getElementById('zoom-bar'),
@@ -538,10 +696,11 @@
   // Post-CUT UI helpers
   // ---------------------------------------------------------------------------
 
-  function resolvePostCutElements() {
+function resolvePostCutElements() {
     postCut.btnPreview       = document.getElementById('btn-preview');
     postCut.postCutPreviewCta = document.getElementById('post-cut-preview-cta');
     postCut.btnDownloadOpen  = document.getElementById('btn-download-open');
+    postCut.actionsCluster   = document.getElementById('post-cut-actions');
     postCut.downloadPanel    = document.getElementById('download-panel');
     postCut.dlFilename       = document.getElementById('dl-filename');
     postCut.dlExtBadge       = document.getElementById('dl-ext-badge');
@@ -560,9 +719,48 @@
     postCut.btnBaBefore      = document.getElementById('btn-ba-before');
   }
 
+  // Desktop-only POST-CUT: relocate the shared utility action buttons
+  // (Cancel / Undo / Download) into the top file information card so they read
+  // as a compact action cluster on the card's right side. The buttons are the
+  // SAME DOM nodes used by the pre-cut dock (handlers + disabled state intact);
+  // they are moved back into the pre-cut dock on exit. Mobile/tablet post-cut
+  // is never touched (relocation is gated on the desktop breakpoint).
+  function isDesktopPostCut() {
+    return window.matchMedia && window.matchMedia('(min-width: 901px)').matches;
+  }
+
+  function relocatePostCutActionsToCard() {
+    if (!postCut.actionsCluster || !elements.workspaceActions) return;
+    const targets = [
+      elements.btnClear,
+      elements.btnUndo,
+      postCut.btnDownloadOpen
+    ];
+    targets.forEach((btn) => {
+      if (btn && btn.parentNode !== postCut.actionsCluster) {
+        postCut.actionsCluster.appendChild(btn);
+      }
+    });
+  }
+
+  function restorePostCutActionsToDock() {
+    if (!elements.workspaceActions) return;
+    const targets = [
+      elements.btnClear,
+      elements.btnUndo,
+      postCut.btnDownloadOpen
+    ];
+    targets.forEach((btn) => {
+      if (btn && btn.parentNode === postCut.actionsCluster) {
+        elements.workspaceActions.appendChild(btn);
+      }
+    });
+  }
+
   function showPostCutActions() {
+    if (isDesktopPostCut()) relocatePostCutActionsToCard();
     if (postCut.btnPreview)      postCut.btnPreview.classList.remove('hidden');
-    if (postCut.postCutPreviewCta) postCut.postCutPreviewCta.classList.remove('hidden');
+    if (postCut.postCutPreviewCta && isDesktopPostCut()) postCut.postCutPreviewCta.classList.remove('hidden');
     if (postCut.btnDownloadOpen) postCut.btnDownloadOpen.classList.remove('hidden');
     // Hide pre-cut editing controls
     if (elements.modeSwitchWrapper) elements.modeSwitchWrapper.classList.add('hidden');
@@ -598,9 +796,14 @@
     if (elements.btnCut) elements.btnCut.classList.remove('hidden');
     if (elements.zoomBar) elements.zoomBar.classList.remove('hidden');
     // Restore top-aligned editing flow.
-    if (elements.loadedView) elements.loadedView.classList.remove('is-post-cut');
+    if (elements.loadedView) {
+      elements.loadedView.classList.remove('is-post-cut');
+      elements.loadedView.classList.remove('is-square');
+    }
     // Restore the editing chrome (rails, cut-bin, checkerboard).
     if (elements.canvasFrame) elements.canvasFrame.classList.remove('is-post-cut');
+    // Move the shared utility buttons back into the pre-cut action dock.
+    restorePostCutActionsToDock();
     // Switch back from the finished-result container to the live editor stage.
     hidePostCutResult();
   }
@@ -629,6 +832,17 @@
     elements.postCutResultImg.style.maxHeight = '';
     if (elements.canvasFrame) elements.canvasFrame.classList.add('hidden');
     elements.postCutResult.classList.remove('hidden');
+    // Tag square results so CSS can size them dynamically — the card hugs the
+    // image (flex:0) and the stage centers the card+controls group vertically.
+    function applySquareClass() {
+      var img = elements.postCutResultImg;
+      if (!img || !img.naturalWidth) return;
+      var nw = img.naturalWidth, nh = img.naturalHeight;
+      var sq = nw > 0 && nh > 0 && Math.abs(nw - nh) / Math.max(nw, nh) < 0.05;
+      if (elements.loadedView) elements.loadedView.classList.toggle('is-square', sq);
+    }
+    elements.postCutResultImg.onload = applySquareClass;
+    if (elements.postCutResultImg.complete) applySquareClass();
   }
 
   function hidePostCutResult() {
@@ -793,6 +1007,7 @@
   const VERTICAL_FULLSCREEN_PRESETS = [
     'youtube-short',
     'ig-story',
+    'ig-reel',
     'tiktok',
     'snapchat'
   ];
@@ -808,7 +1023,8 @@
     'youtube-short':     [{ key: 'phone',  label: 'Shorts' }],
     'ig-square':         [{ key: 'feed',   label: 'Feed' }, { key: 'reels', label: 'Reels' }],
     'ig-portrait':       [{ key: 'feed',   label: 'Feed' }, { key: 'reels', label: 'Reels' }],
-    'ig-story':          [{ key: 'reels',  label: 'Story / Reel' }],
+    'ig-story':          [{ key: 'story',  label: 'Story' }],
+    'ig-reel':           [{ key: 'reels',  label: 'Reel' }],
     'ig-landscape':      [{ key: 'feed',   label: 'Feed' }],
     'tiktok':            [{ key: 'phone',  label: 'For You' }],
     'tiktok-avatar':     [{ key: 'feed',   label: 'Profile' }],
@@ -1039,6 +1255,8 @@
     } else if (preset === 'ig-square' || preset === 'ig-portrait' || preset === 'ig-landscape') {
       node = ctx2 === 'reels' ? buildReelsMockup() : buildIgFeedMockup();
     } else if (preset === 'ig-story') {
+      node = device === 'desktop' ? buildIgStoryDesktopMockup() : buildIgStoryMockup();
+    } else if (preset === 'ig-reel') {
       node = device === 'desktop' ? buildReelsDesktopMockup() : buildReelsMockup();
     } else if (preset === 'youtube-short') {
       node = device === 'desktop' ? buildShortsDesktopMockup() : buildShortsMockup();
@@ -1099,8 +1317,9 @@
     shell.appendChild(chromebar());
     const grid = document.createElement('div');
     grid.className = `yt-grid ${device}`;
-    const cols = device === 'tv' ? 4 : device === 'mobile' ? 1 : 3;
-    for (let i = 0; i < cols; i++) {
+    // Mobile: show 4 cards vertically stacked; Desktop: 3 columns; TV: 4 columns
+    const cardCount = device === 'mobile' ? 4 : (device === 'tv' ? 4 : 3);
+    for (let i = 0; i < cardCount; i++) {
       const card = document.createElement('div');
       card.className = 'yt-card';
       const thumb = document.createElement('div');
@@ -1305,31 +1524,67 @@
     return wrapPhoneFrame(screen, 'pf-reels');
   }
 
-  /** Snapchat story phone: progress chips + time, brand, author + caption,
-   *  right rail (Add, Comment/Chat, Send), and a "Send to" action pill. */
+  /** Instagram Story phone: progress bar + brand + full-screen content + bottom send bar. */
+  function buildIgStoryMockup() {
+    const screen = mh('div', 'sf-screen');
+    screen.appendChild(makePreviewImg('width:100%;height:100%;object-fit:cover;display:block;'));
+    screen.appendChild(sfStatusBar());
+
+    // Progress bar at top (story segments)
+    const progress = mh('div', 'ig-story-progress');
+    for (let i = 0; i < 4; i++) {
+      const seg = mh('div', 'ig-story-seg' + (i === 0 ? ' ig-story-seg-active' : ''));
+      seg.appendChild(mh('div', 'ig-story-seg-fill'));
+      progress.appendChild(seg);
+    }
+    screen.appendChild(progress);
+
+    // Brand/logo at top
+    const brand = mh('div', 'ig-story-brand');
+    brand.appendChild(mh('span', 'ig-story-brand-name', 'realresizer'));
+    screen.appendChild(brand);
+
+    // Bottom: username + send message bar
+    const bottom = mh('div', 'ig-story-bottom');
+    const userrow = mh('div', 'ig-story-userrow');
+    userrow.appendChild(mh('div', 'ig-story-avatar', ''));
+    userrow.appendChild(mh('span', 'ig-story-username', 'realresizer'));
+    bottom.appendChild(userrow);
+
+    const sendBar = mh('div', 'ig-story-sendbar');
+    sendBar.appendChild(mh('span', 'ig-story-sendtext', 'Send message'));
+    sendBar.appendChild(mic('ig-story-sendicon', 'send'));
+    bottom.appendChild(sendBar);
+
+    screen.appendChild(bottom);
+
+    return wrapPhoneFrame(screen, 'pf-ig-story');
+  }
+
+/** Snapchat Snap Ad phone: sponsored story with brand, creative, and swipe-up CTA.
+ *  This is a Snap Ad (paid placement), NOT a user Story. */
   function buildSnapchatMockup() {
     const screen = mh('div', 'sf-screen');
     screen.appendChild(makePreviewImg('width:100%;height:100%;object-fit:cover;display:block;'));
     screen.appendChild(sfStatusBar());
 
-    const top = mh('div', 'sc-top');
-    const chips = [0, 1, 2, 3];
-    chips.forEach((i) => {
-      const chip = mh('div', 'sc-chip' + (i === 0 ? ' sc-chip-active' : ''));
-      chip.appendChild(mh('span', 'sc-chip-fill', ''));
-      top.appendChild(chip);
-    });
-    top.appendChild(mh('span', 'sc-time', '0:12'));
-    screen.appendChild(top);
+    // Sponsored label at top
+    const sponsored = mh('div', 'sc-sponsored');
+    sponsored.appendChild(mh('span', 'sc-sponsored-label', 'Sponsored'));
+    screen.appendChild(sponsored);
 
-    screen.appendChild(mh('div', 'sc-brand', 'Snapchat'));
+    // Brand header
+    const brandHeader = mh('div', 'sc-brand-header');
+    brandHeader.appendChild(mh('div', 'sc-brand-avatar', ''));
+    const brandInfo = mh('div', 'sc-brand-info');
+    brandInfo.appendChild(mh('span', 'sc-brand-name', 'RealResizer'));
+    brandInfo.appendChild(mh('span', 'sc-brand-sub', 'Sponsored'));
+    brandHeader.appendChild(brandInfo);
+    screen.appendChild(brandHeader);
 
-    const author = mh('div', 'sc-author');
-    author.appendChild(mh('div', 'sc-avatar', ''));
-    author.appendChild(mh('span', 'sc-name', 'realresizer'));
-    author.appendChild(mh('span', 'sc-caption', 'Tap to view'));
-    screen.appendChild(author);
+    // The ad creative fills the screen (already added as background image)
 
+    // Right rail: minimal for ads (just more options)
     const right = mh('div', 'sc-right');
     const scBtn = (iconName, label) => {
       const b = mh('div', 'sc-btn');
@@ -1338,14 +1593,14 @@
       return b;
     };
     right.appendChild(scBtn('more', '·'));
-    right.appendChild(scBtn('flame', '12'));
-    right.appendChild(scBtn('comment', ''));
-    right.appendChild(scBtn('send', ''));
     screen.appendChild(right);
 
+    // Bottom CTA: Swipe up action
     const cta = mh('div', 'sc-cta');
     cta.appendChild(mh('span', 'sc-swipeup', 'Swipe up'));
-    cta.appendChild(mh('div', 'sc-sendto', 'Send to  ▾'));
+    const actionBtn = mh('button', 'sc-action-btn', 'Install');
+    actionBtn.type = 'button';
+    cta.appendChild(actionBtn);
     screen.appendChild(cta);
 
     return wrapPhoneFrame(screen, 'pf-snap');
@@ -1466,6 +1721,56 @@
     const input = mh('div', 'rd-input', 'Add a comment...');
     panel.appendChild(phead); panel.appendChild(list); panel.appendChild(input);
     body.appendChild(panel);
+    shell.appendChild(body);
+    return shell;
+  }
+
+  /** Instagram Web Story viewer — top progress bar, centered story content, bottom send bar. */
+  function buildIgStoryDesktopMockup() {
+    const shell = mh('div', 'mockup-shell web-shell ig-story-desktop');
+    shell.appendChild(chromebar());
+    const nav = mh('div', 'wd-nav ig');
+    const logo = mh('div', 'wd-nav-logo');
+    logo.innerHTML = mockIcon('camera');
+    logo.appendChild(mh('span', 'wd-nav-logo-txt ig', 'Instagram'));
+    const search = mh('div', 'wd-search');
+    search.appendChild(mh('span', 'wd-search-ico'));
+    nav.appendChild(logo); nav.appendChild(search); nav.appendChild(mockAvatar('wd-nav-av', ''));
+    shell.appendChild(nav);
+
+    const body = mh('div', 'wd-body ig-story');
+    const main = mh('div', 'wd-main ig-story');
+
+    // Progress bar
+    const progress = mh('div', 'ig-story-progress');
+    for (let i = 0; i < 4; i++) {
+      const seg = mh('div', 'ig-story-seg' + (i === 0 ? ' ig-story-seg-active' : ''));
+      seg.appendChild(mh('div', 'ig-story-seg-fill'));
+      progress.appendChild(seg);
+    }
+    main.appendChild(progress);
+
+    // Story content
+    const story = mh('div', 'ig-story-player');
+    story.appendChild(makePreviewImg('width:100%;height:100%;object-fit:cover;display:block;'));
+    main.appendChild(story);
+
+    // Brand header
+    const brandHeader = mh('div', 'ig-story-brand-header');
+    brandHeader.appendChild(mh('div', 'ig-story-brand-avatar', ''));
+    const brandInfo = mh('div', 'ig-story-brand-info');
+    brandInfo.appendChild(mh('span', 'ig-story-brand-name', 'realresizer'));
+    brandInfo.appendChild(mh('span', 'ig-story-brand-sub', 'Story'));
+    brandHeader.appendChild(brandInfo);
+    main.appendChild(brandHeader);
+
+    // Bottom send bar
+    const sendBar = mh('div', 'ig-story-sendbar');
+    sendBar.appendChild(mh('span', 'ig-story-sendtext', 'Send message'));
+    sendBar.appendChild(mic('ig-story-sendicon', 'send'));
+    main.appendChild(sendBar);
+
+    body.appendChild(main);
     shell.appendChild(body);
     return shell;
   }
@@ -2296,8 +2601,9 @@
       zoomH = elements.zoomBar.getBoundingClientRect().height;
     }
     const pillH = elements.stageStatusPill ? elements.stageStatusPill.offsetHeight : 0;
+    const actionsH = elements.workspaceActions ? elements.workspaceActions.getBoundingClientRect().height : 0;
     const stageGap = 16; // .stage-container column gap (~2x --space-xs)
-    const availableForStage = Math.max(0, (usableBottom - loadedTop) - wsH - zoomH - pillH - stageGap);
+    const availableForStage = Math.max(0, (usableBottom - loadedTop) - wsH - zoomH - pillH - actionsH - stageGap);
     // Single-screen hard clamp: the whole frame must fit within calc(100vh - 200px)
     // (mirrors .stage-canvas-frame { max-height }). Using min() keeps the JS size
     // consistent with the CSS clamp so the ruler handles never misalign.
@@ -2905,23 +3211,23 @@ handleBindings.forEach(({ el, id, guide }) => {
       // boundary (0 or 1) the matching pill rail stretches along its axis in
       // the pulled direction (transform-origin anchors the opposite end). The
       // stretch amount tracks the normalized overshoot delta live, capped at
-      // 0.2 so the pill can't balloon out of control.
+      // 0.03 so the resistance stays restrained.
       // Covers Custom-mode freeform handle drags; rule handles are hidden in
       // preset mode so the stretch only ever triggers from Custom handles.
       let stretchDir = null;
       let stretchAmount = 0;
       if (state.dragging === 'handle-right-top') {
         const over = -(initialTop + deltaY);
-        if (over > 0) { stretchDir = 'top'; stretchAmount = Math.min(0.2, over); }
+        if (over > 0) { stretchDir = 'top'; stretchAmount = Math.min(0.03, over); }
       } else if (state.dragging === 'handle-right-bottom') {
         const over = (initialBottom + deltaY) - 1;
-        if (over > 0) { stretchDir = 'bottom'; stretchAmount = Math.min(0.2, over); }
+        if (over > 0) { stretchDir = 'bottom'; stretchAmount = Math.min(0.03, over); }
       } else if (state.dragging === 'handle-bottom-left') {
         const over = -(initialLeft + deltaX);
-        if (over > 0) { stretchDir = 'left'; stretchAmount = Math.min(0.2, over); }
+        if (over > 0) { stretchDir = 'left'; stretchAmount = Math.min(0.03, over); }
       } else if (state.dragging === 'handle-bottom-right') {
         const over = (initialRight + deltaX) - 1;
-        if (over > 0) { stretchDir = 'right'; stretchAmount = Math.min(0.2, over); }
+        if (over > 0) { stretchDir = 'right'; stretchAmount = Math.min(0.03, over); }
       }
       applyRulerStretch(stretchDir, stretchAmount);
 
@@ -3050,7 +3356,6 @@ handleBindings.forEach(({ el, id, guide }) => {
 
     triggerHaptic(30);
     soundEngine.init();
-    soundEngine.playCut();
 
     state.undoState = {
       image: state.image,
@@ -3124,18 +3429,20 @@ handleBindings.forEach(({ el, id, guide }) => {
   }
 
   function animateLiquidCutToBin(cropX, cropY, cropW, cropH, callback) {
-    // Skip animation for users who prefer reduced motion
+    // Skip animation for users who prefer reduced motion; still give a short
+    // glitch sound so the cut never feels silent, then finish immediately.
     if (prefersReducedMotion()) {
+      soundEngine.playGlitch();
       if (callback) callback();
       return;
     }
 
-    if (!elements.scrapLayer || !elements.cutBin) {
+    if (!elements.editorViewport || !elements.cutBin) {
+      soundEngine.playGlitch();
       if (callback) callback();
       return;
     }
 
-    elements.scrapLayer.innerHTML = '';
     const { imageX, imageY, imageWidth, imageHeight } = state.viewport;
 
     const bands = [];
@@ -3177,49 +3484,113 @@ handleBindings.forEach(({ el, id, guide }) => {
     elements.cutBin.classList.add('open', 'absorbing');
 
     const viewportRect = elements.editorViewport.getBoundingClientRect();
-    const binRect = elements.cutBin.getBoundingClientRect();
-    const binTargetX = binRect.left - viewportRect.left + binRect.width / 2;
-    const binTargetY = binRect.top - viewportRect.top + binRect.height / 2;
 
-    bands.forEach((band, idx) => {
-      const piece = document.createElement('div');
-      piece.className = 'scrap-piece elevated';
-      piece.style.left = `${band.x}px`;
-      piece.style.top = `${band.y}px`;
-      piece.style.width = `${band.w}px`;
-      piece.style.height = `${band.h}px`;
+    // Create animation overlay (fixed position, full viewport, no clipping)
+    let overlay = null;
+    function createOverlay() {
+      overlay = document.createElement('div');
+      overlay.id = 'cut-animation-overlay';
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:visible;';
+      document.body.appendChild(overlay);
+      return overlay;
+    }
+    function removeOverlay() {
+      if (overlay && overlay.parentNode) {
+        overlay.parentNode.removeChild(overlay);
+        overlay = null;
+      }
+    }
 
-      const sliceUrl = getSliceDataUrl(band.x, band.y, band.w, band.h);
-      if (sliceUrl) {
-        piece.style.backgroundImage = `url(${sliceUrl})`;
+try {
+      createOverlay();
+
+      // ---------------------------------------------------------------
+      // Glitch + Dissolve animation — 750ms pure CSS.
+      // Each discarded piece gets the .cut-glitch class with staggered delay.
+      // No JS rAF loop, no manual transform math, no coordinate confusion.
+      // ---------------------------------------------------------------
+
+      const pieces = [];
+      for (let idx = 0; idx < bands.length; idx++) {
+        const band = bands[idx];
+        const el = document.createElement('div');
+        el.className = 'scrap-piece elevated';
+        const startX = band.x + viewportRect.left;
+        const startY = band.y + viewportRect.top;
+        el.style.left = `${startX}px`;
+        el.style.top = `${startY}px`;
+        el.style.width = `${band.w}px`;
+        el.style.height = `${band.h}px`;
+        const sliceUrl = getSliceDataUrl(band.x, band.y, band.w, band.h);
+        if (sliceUrl) {
+          el.style.backgroundImage = `url(${sliceUrl})`;
+        }
+        overlay.appendChild(el);
+        pieces.push({ el, delay: 80 + idx * 60 });
       }
 
-      elements.scrapLayer.appendChild(piece);
+      // Play premium whoosh sound (non-blocking)
+      try { setTimeout(() => soundEngine.playCutWhoosh(), 80); } catch (_) {}
 
-      // Pieces pause briefly before being drawn in — "pulled" feeling.
-      // Stagger is wider (50 ms per band) so they don't all move at once.
-      const moveDelay = 120 + idx * 50;
-      setTimeout(() => {
-        const pieceCenterX = band.x + band.w / 2;
-        const pieceCenterY = band.y + band.h / 2;
-        const deltaX = binTargetX - pieceCenterX;
-        const deltaY = binTargetY - pieceCenterY;
-        // Gentle rotation — less spin than before
-        const rot = (idx % 2 === 0 ? 1 : -1) * (8 + idx * 3);
+      let finished = 0;
+      let callbackFired = false;
+      const totalPieces = pieces.length;
 
-        // Scale to 0.12 instead of 0.06 — pieces don't vanish as aggressively
-        piece.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.12) rotate(${rot}deg)`;
-        piece.classList.add('liquid-flow-to-bin');
-      }, moveDelay);
-    });
+      function fireCallback() {
+        if (!callbackFired) {
+          callbackFired = true;
+          if (callback) callback();
+        }
+      }
 
-    // Callback fires after the longest piece has fully settled.
-    // Longest piece starts at 120 + (bands.length-1)*50 ms, travels 1400 ms.
-    const lastMoveStart = 120 + Math.max(0, bands.length - 1) * 50;
-    setTimeout(() => {
-      elements.scrapLayer.innerHTML = '';
-      if (callback) callback();
-    }, lastMoveStart + 1400 + 150); // +150 ms buffer
+      function cleanup() {
+        if (overlay && overlay.parentNode) {
+          overlay.parentNode.removeChild(overlay);
+          overlay = null;
+        }
+      }
+
+      // Start each piece's CSS animation with staggered delay
+      pieces.forEach((pc) => {
+        setTimeout(() => {
+          pc.el.classList.add('cut-glitch');
+
+          // Listen for animation end on this piece
+          pc.el.addEventListener('animationend', function onAnimEnd() {
+            pc.el.removeEventListener('animationend', onAnimEnd);
+            finished++;
+            if (finished === totalPieces) {
+              fireCallback();
+            }
+          }, { once: true });
+        }, pc.delay);
+      });
+
+      // Safety timeout: guarantee callback fires even if animation events don't fire
+      const safetyTimeout = setTimeout(() => {
+        fireCallback();
+      }, 2000);
+
+      // Override fireCallback to also clean up
+      const originalFireCallback = fireCallback;
+      fireCallback = function() {
+        originalFireCallback();
+        clearTimeout(safetyTimeout);
+        cleanup();
+      };
+    } catch (e) {
+      console.error('Cut animation error:', e);
+      // On error, still fire callback to not block the UI
+      if (!callbackFired) {
+        callbackFired = true;
+        if (callback) callback();
+      }
+      if (overlay && overlay.parentNode) {
+        overlay.parentNode.removeChild(overlay);
+        overlay = null;
+      }
+    }
+    // NOTE: No finally block - callback and cleanup are handled by animationend/safety timeout
   }
 
   function executeUndo() {
@@ -3334,6 +3705,13 @@ handleBindings.forEach(({ el, id, guide }) => {
     if (elements.metaFormat) elements.metaFormat.textContent = state.fileType;
     if (elements.thumbnailImg) elements.thumbnailImg.src = state.objectUrl;
 
+    // Tag non-portrait source images so mobile CSS can vertically center the
+    // short (landscape / square) cropping workflow in the available content
+    // area; portrait stays top-packed exactly as before.
+    if (elements.loadedView && state.naturalWidth && state.naturalHeight) {
+      elements.loadedView.classList.toggle('crop-wide', state.naturalWidth >= state.naturalHeight);
+    }
+
     if (elements.btnUndo) elements.btnUndo.disabled = true;
     if (elements.cutBin) elements.cutBin.classList.remove('has-scraps', 'open', 'absorbing');
     if (elements.binCounter) elements.binCounter.textContent = '0';
@@ -3389,6 +3767,7 @@ handleBindings.forEach(({ el, id, guide }) => {
 
     closePresetsDrawer();
     elements.loadedView.classList.add('hidden');
+    elements.loadedView.classList.remove('crop-wide');
     elements.landingView.classList.remove('hidden');
 
     if (hadImage) triggerHaptic(18);
@@ -3471,6 +3850,11 @@ handle.addEventListener('pointerdown', (e) => {
   // Event Listeners Setup
   // ---------------------------------------------------------------------------
 
+  function openFilePicker() {
+    if (!elements.fileInput) return;
+    elements.fileInput.click();
+  }
+
   function setupEventListeners() {
     // 1. File Input
     if (elements.fileInput) {
@@ -3484,14 +3868,14 @@ handle.addEventListener('pointerdown', (e) => {
     if (elements.dropzone) {
       elements.dropzone.addEventListener('click', () => {
         soundEngine.init();
-        elements.fileInput.click();
+        openFilePicker();
       });
 
       elements.dropzone.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           soundEngine.init();
-          elements.fileInput.click();
+          openFilePicker();
         }
       });
 
@@ -3576,6 +3960,7 @@ handle.addEventListener('pointerdown', (e) => {
         state.activePreset = 'custom';
         updateModeAndPresetUI();
         closePresetsDrawer();
+        renderCanvas();
         soundEngine.playTick();
       });
     }
@@ -3662,7 +4047,7 @@ handle.addEventListener('pointerdown', (e) => {
 
     if (elements.btnReplace) {
       elements.btnReplace.addEventListener('click', () => {
-        elements.fileInput.click();
+        openFilePicker();
       });
     }
 
@@ -3687,6 +4072,21 @@ handle.addEventListener('pointerdown', (e) => {
 
     // 10b. Post-cut panel wiring
     resolvePostCutElements();
+
+    // Reconcile desktop post-cut utilities when the viewport crosses the desktop
+    // breakpoint while a result is showing (keeps mobile/tablet dock intact).
+    const postCutMql = window.matchMedia && window.matchMedia('(min-width: 901px)');
+    if (postCutMql && postCutMql.addEventListener) {
+      postCutMql.addEventListener('change', (e) => {
+        const inPostCut = !!(elements.loadedView && elements.loadedView.classList.contains('is-post-cut'));
+        if (!inPostCut) return;
+        if (e.matches) {
+          relocatePostCutActionsToCard();
+        } else {
+          restorePostCutActionsToDock();
+        }
+      });
+    }
 
     if (postCut.btnPreview) {
       postCut.btnPreview.addEventListener('click', openPreviewModal);
@@ -3914,11 +4314,50 @@ handle.addEventListener('pointerdown', (e) => {
     });
   }
 
+  function initFullscreen() {
+    const btn = elements.btnFullscreen;
+    if (!btn) return;
+
+    const enterIcon = btn.querySelector('.fullscreen-enter-icon');
+    const exitIcon = btn.querySelector('.fullscreen-exit-icon');
+
+    function syncFullscreenUI() {
+      const isFullscreen = !!document.fullscreenElement;
+      btn.setAttribute('aria-pressed', String(isFullscreen));
+      btn.title = isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen';
+      btn.setAttribute('aria-label', btn.title);
+      if (enterIcon) enterIcon.classList.toggle('hidden', isFullscreen);
+      if (exitIcon) exitIcon.classList.toggle('hidden', !isFullscreen);
+      if (state.image && !elements.loadedView.classList.contains('hidden')) {
+        requestAnimationFrame(() => {
+          updateViewportGeometry();
+          renderCanvas();
+        });
+      }
+    }
+
+    btn.addEventListener('click', async () => {
+      try {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen();
+        } else {
+          await document.documentElement.requestFullscreen();
+        }
+      } catch (_) {
+        showToast('Fullscreen is not available in this browser.');
+      }
+    });
+
+    document.addEventListener('fullscreenchange', syncFullscreenUI);
+    syncFullscreenUI();
+  }
+
   // ---------------------------------------------------------------------------
   // Initialization
   // ---------------------------------------------------------------------------
   function init() {
     initTheme();
+    initFullscreen();
     renderPresetsDrawer();
     setupEventListeners();
     setupScaleHandle();

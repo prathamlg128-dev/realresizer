@@ -174,6 +174,10 @@ body,
 
 /* Design Tokens */
 :root {
+  /* Fixed header height (top bar incl. safe-area inset). Shared so the editor's
+     post-CUT container can bound itself to the remaining viewport height. */
+  --header-h: calc(60px + env(safe-area-inset-top));
+
   /* Color Palette - Strict Black / White / Grey */
   --bg-app: #0a0a0a;
   --bg-surface: #111111;
@@ -354,7 +358,7 @@ html, body {
    Header
    ========================================================================== */
 .app-header {
-  height: calc(60px + env(safe-area-inset-top));
+  height: var(--header-h);
   padding:
     env(safe-area-inset-top)
     calc(var(--space-xl) + env(safe-area-inset-right))
@@ -372,6 +376,16 @@ html, body {
 }
 [data-theme="light"] .app-header {
   background-color: rgba(255, 255, 255, 0.92);
+}
+
+/* Fullscreen is only useful once the editor is open. Keeping the control out
+   of the upload view avoids the native-picker fullscreen interruption. */
+#btn-fullscreen {
+  display: none;
+}
+
+body:has(.loaded-view:not(.hidden)) #btn-fullscreen {
+  display: inline-flex;
 }
 .brand-logo {
   display: inline-flex;
@@ -727,6 +741,14 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
 .loaded-view .workspace-bar {
   margin-top: 0 !important;
   margin-bottom: auto !important;
+}
+
+/* Desktop POST-CUT utility action cluster (Cancel / Undo / Download) that lives
+   on the right side of the file information card. Hidden by default; only shown
+   on desktop (>=901px) post-cut, where it is populated by relocating the shared
+   action buttons into the card. Mobile/tablet never see it. */
+.post-cut-actions {
+  display: none;
 }
 
 .image-meta {
@@ -1190,6 +1212,24 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   gap: var(--space-xs);
 }
 
+/* Editor action dock: crop controls stay reachable at the bottom edge while
+   the metadata and crop workspace retain their own stable vertical space. */
+body:has(.loaded-view:not(.hidden)) .workspace-actions {
+  position: fixed;
+  left: 50%;
+  bottom: max(var(--space-sm), env(safe-area-inset-bottom));
+  z-index: 40;
+  width: min(1100px, calc(100vw - (2 * var(--space-xl))));
+  justify-content: flex-end;
+  padding: var(--space-xs);
+  box-sizing: border-box;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background-color: color-mix(in srgb, var(--bg-surface) 92%, transparent);
+  box-shadow: var(--shadow-md);
+  transform: translateX(-50%);
+}
+
 /* Live Selection Percentage Pill (replaces the removed zoom slider).
    Reports the fraction of the fixed (1.0x) source image currently selected. */
 .selection-bar {
@@ -1570,6 +1610,55 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   justify-content: center;
 }
 
+/* ---- POST-CUT inline action grid ---------------------------------------
+   On the finished result screen the crop controls leave the shared fixed
+   bottom dock entirely (the dock is a PRE-CUT construct). Preview, Download,
+   Undo and Replace flow inline as a compact centered 2x2 grid directly beneath
+   the result image; Cancel is removed from the result screen. The pre-cut
+   workspace and its bottom dock are untouched. */
+.loaded-view.is-post-cut .stage-container .workspace-actions {
+  position: static;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  top: auto;
+  transform: none;
+  z-index: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: stretch;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Every CUT control in the result grid fills its cell and centers its label;
+   this also neutralizes the legacy tablet/mobile flex pairing rules. */
+.loaded-view.is-post-cut .workspace-actions .btn,
+.loaded-view.is-post-cut .post-cut-action,
+.loaded-view.is-post-cut #btn-undo,
+.loaded-view.is-post-cut #btn-replace,
+.loaded-view.is-post-cut #btn-clear {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  flex: none;
+  margin: 0;
+  justify-content: center;
+}
+
+/* Cancel does not belong on the finished result screen. */
+.loaded-view.is-post-cut #btn-clear {
+  display: none;
+}
+
 
 /* ==========================================================================
    Guide Lines Overlay
@@ -1630,12 +1719,12 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   overflow: hidden;      /* clip ticks + handle undersides to the pill */
   box-shadow: var(--shadow-sm);
   cursor: default;
-  /* Elastic ruler stretch: the springy over-shoot ease animates scaleY on
-     over-boundary handle drags and snaps it back on release. */
+  /* A small, controlled boundary-resistance motion; the handle remains the
+     primary interaction cue rather than the entire rail. */
   transition:
     border-color var(--transition-fast),
     box-shadow var(--transition-fast),
-    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform 140ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* Bottom Horizontal Rail (Col 1, Row 2) — floating standalone pill. */
@@ -1653,15 +1742,15 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   transition:
     border-color var(--transition-fast),
     box-shadow var(--transition-fast),
-    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform 140ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Active drag highlight: a glow around the whole floating pill (no side-border
-   line — the rails no longer share the frame's rectangular corner). */
+/* Keep the rail quiet while dragging: the bright handle provides the active
+   affordance, while the rail receives only a subtle border confirmation. */
 .ruler-track-right.dragging-active,
 .ruler-track-bottom.dragging-active {
-  border-color: var(--border-active);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.10), 0 0 18px rgba(255, 255, 255, 0.07);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Elastic ruler stretch physics — DIRECTIONAL. While a ruler handle is pulled
@@ -1672,8 +1761,8 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
      - left   handle  -> bottom rail grows LEFT   from `right center`
      - right  handle  -> bottom rail grows RIGHT  from `left center`
    `--ruler-stretch` is written by applyRulerStretch() as the live delta
-   (scale factor = 1 + delta). On release the class is dropped and the springy
-   transition above snaps the transform back to scale(1). */
+   (scale factor = 1 + delta). On release the class is dropped and the rail
+   settles directly back to scale(1), without a bouncy overshoot. */
 .ruler-track-right.ruler-stretch-top {
   transform-origin: bottom center;
   transform: scaleY(calc(1 + var(--ruler-stretch, 0.08)));
@@ -1887,7 +1976,38 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   inset: 0;
   pointer-events: none;
   z-index: 30;
-  overflow: hidden;
+  overflow: visible;
+}
+
+/* Fixed animation overlay for CUT transition — covers full viewport,
+   no parent clipping, high z-index for piece travel to bin. */
+#cut-animation-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Clean premium dissolve for CUT transition — 750ms, pure CSS.
+   Smooth fade + subtle blur + slight shrink. No color shifts. */
+@keyframes cut-glitch-dissolve {
+  0%   { opacity: 1; filter: none; transform: scale(1); }
+  100% { opacity: 0; filter: blur(8px); transform: scale(0.95); }
+}
+
+.scrap-piece.cut-glitch {
+  animation: cut-glitch-dissolve 750ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: transform, opacity, filter;
+}
+
+/* Reduced motion: instant hide */
+@media (prefers-reduced-motion: reduce) {
+  .scrap-piece.cut-glitch {
+    animation: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
 }
 
 .scrap-piece {
@@ -1895,16 +2015,26 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   border-radius: var(--radius-xs);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   /*
-   * Slower, smoother travel: 1400 ms with a custom ease that starts
-   * very gradually (pieces feel pulled/drawn rather than flung).
-   * cubic-bezier(0.4, 0, 0.2, 1) = slow start, smooth mid, gentle end.
+   * Authentic OS X Genie "swoosh" piece.
+   *
+   * During the Cut transition each discarded region is transformed toward the
+   * bin with a progressive matrix3d (true projective warp) that stretches the
+   * near corners toward the destination and collapses the far corners into a
+   * narrowing funnel, exactly like window.Minimize(). The transform + opacity
+   * are written every frame from a spring-eased rAF loop in JS, so no CSS
+   * transition drives the motion here — only hardware-promoted properties are
+   * animated (matrix3d / translate3d-style transforms and opacity).
+   *
+   * transform-origin is locked to the top-left so the JS homography maps the
+   * element's own 0..W / 0..H box directly into viewport coordinates.
    */
-  transition:
-    transform 1400ms cubic-bezier(0.4, 0, 0.2, 1),
-    opacity   1200ms cubic-bezier(0.4, 0, 0.6, 1),
-    filter    1200ms ease,
-    box-shadow 600ms ease;
-  will-change: transform, opacity, filter;
+  transform-origin: 0 0;
+  transition: opacity 220ms ease;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  pointer-events: none;
   background-size: cover;
   background-repeat: no-repeat;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1914,9 +2044,16 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
 }
 
-.scrap-piece.liquid-flow-to-bin {
+/* While a piece is actively genie-ing we animate only transform + opacity in
+   the rAF loop; the class just flags the active travel state. */
+.scrap-piece.genie-active {
+  transition: none;
+}
+
+/* Terminal state after the funnel has collapsed into the bin. */
+.scrap-piece.genie-done {
   opacity: 0;
-  filter: blur(3px) brightness(0.5);
+  transition: opacity 160ms ease;
 }
 
 /* Stage Status Info Pill — reads as the output label beneath the canvas.
@@ -2107,7 +2244,11 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px var(--space-md);
+  padding:
+    calc(10px + env(safe-area-inset-top))
+    var(--space-md)
+    10px
+    var(--space-md);
   border-bottom: 1px solid var(--border-subtle);
   background-color: var(--bg-surface);
   flex-shrink: 0;
@@ -3004,6 +3145,116 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   100% { transform: translateX(-50%); }
 }
 
+@keyframes rlMarquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ---- Instagram Story overlay on the 9:16 screen ---- */
+.ig-story-progress {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  z-index: 5;
+  display: flex;
+  gap: 4px;
+  height: 3px;
+}
+
+.ig-story-seg {
+  flex: 1;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.3);
+  overflow: hidden;
+}
+
+.ig-story-seg-fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #fff;
+  border-radius: 999px;
+}
+
+.ig-story-seg-active .ig-story-seg-fill {
+  width: 100%;
+  background: #fff;
+}
+
+.ig-story-brand {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 5;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,.8);
+}
+
+.ig-story-brand-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ig-story-bottom {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 16px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,.8);
+}
+
+.ig-story-userrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ig-story-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+  flex-shrink: 0;
+}
+
+.ig-story-username {
+  font-size: 13.5px;
+  font-weight: 800;
+}
+
+.ig-story-sendbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0,0,0,.5);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+
+.ig-story-sendtext {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ig-story-sendicon {
+  width: 22px;
+  height: 22px;
+  color: #fff;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.8));
+}
+
+.pf-ig-story .sf-screen {
+  background: #000;
+}
+
 /* ---- Snapchat story overlay on the 9:16 screen ---- */
 .sc-top {
   position: absolute;
@@ -3101,6 +3352,108 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   text-align: center;
   min-width: 120px;
 }
+
+  /* ---- Snapchat Snap Ad overlay on the 9:16 screen ---- */
+  .sc-sponsored {
+    position: absolute;
+    top: 32px;
+    left: 12px;
+    z-index: 5;
+    background: rgba(0,0,0,.5);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    text-shadow: 0 1px 2px rgba(0,0,0,.8);
+  }
+
+  .sc-brand-header {
+    position: absolute;
+    top: 60px;
+    left: 12px;
+    right: 48px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,.8);
+  }
+
+  .sc-brand-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: #fffc00;
+    flex-shrink: 0;
+  }
+
+  .sc-brand-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .sc-brand-name {
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .sc-brand-sub {
+    font-size: 11px;
+    opacity: .8;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+
+  .sc-right {
+    position: absolute;
+    right: 6px;
+    top: 60px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    color: #fff;
+  }
+
+  .sc-cta {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 20px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sc-swipeup {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,.8);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .sc-action-btn {
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 700;
+    min-width: 140px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.4);
+  }
 
 /* ---- Desktop web mockups for the vertical full-screen presets ----
    A browser shell + the platform's web interface: top nav, main player and a
@@ -3410,6 +3763,106 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   border-radius: var(--radius-full);
   font-size: 11.5px;
   color: var(--text-tertiary);
+}
+
+/* Instagram Story desktop specific */
+.ig-story-desktop .wd-main { flex: 0 0 300px; display: flex; flex-direction: column; gap: 12px; }
+
+.ig-story-desktop .wd-side { flex: 0 0 300px; }
+
+.ig-story-player {
+  width: 300px;
+  height: 532px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #000;
+  position: relative;
+}
+
+.ig-story-progress {
+  display: flex;
+  gap: 4px;
+  height: 3px;
+  padding: 12px 16px 0;
+}
+
+.ig-story-seg {
+  flex: 1;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.3);
+  overflow: hidden;
+}
+
+.ig-story-seg-fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #fff;
+  border-radius: 999px;
+}
+
+.ig-story-seg-active .ig-story-seg-fill {
+  width: 100%;
+  background: #fff;
+}
+
+.ig-story-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px 12px;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,.8);
+}
+
+.ig-story-brand-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+  flex-shrink: 0;
+}
+
+.ig-story-brand-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ig-story-brand-name {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.ig-story-brand-sub {
+  font-size: 11px;
+  opacity: .8;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.ig-story-sendbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0,0,0,.5);
+  border-radius: 999px;
+  padding: 8px 16px;
+  margin: 0 16px 16px;
+}
+
+.ig-story-sendtext {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ig-story-sendicon {
+  width: 22px;
+  height: 22px;
+  color: #fff;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.8));
 }
 
 /* TikTok desktop specific */
@@ -4230,11 +4683,95 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   .loaded-view {
     gap: var(--space-xs);
     padding: 0.75rem 1rem;
+    /* Pack the editor column toward the top instead of spreading its free
+       vertical space into vacant gaps between the controls, the crop stage
+       and the status area (the base rule uses space-between). The crop
+       stage then fills the space left between the controls and the status
+       pill, so the image sits close to the controls with no giant blank
+       band above or below it. */
+    justify-content: flex-start;
+  }
+
+  /* The crop stage sits immediately beneath the controls and sized to its own
+     content (the frame), so there is no vacant centered band pushing the image
+     down or opening blank space between the image and the status pill. The
+     frame's own dimensions still come from updateViewportGeometry(). */
+  .stage-container {
+    flex: 0 1 auto;
+    min-height: 0;
+    justify-content: flex-start;
+  }
+
+  /* Landscape / square source images (tagged `crop-wide` from image load):
+     vertically center the whole cropping workflow (frame, rulers, selection,
+     status pill) in the available content area instead of packing it under the
+     controls. The frame keeps its exact JS-computed size — only its vertical
+     position changes. The editor is given a fixed height that ends just above
+     the fixed action dock, so the content-sized stage's auto margins center it
+     within the visible area; if there is no free space (short viewports) the
+     stage falls back to its normal top position without growing the page. The
+     dock reservation scales with the device safe-area inset. Portrait keeps
+     the top-packed rule above. */
+  .loaded-view.crop-wide:not(.is-post-cut) {
+    flex: 0 0 auto;
+    height: calc(
+      100dvh - var(--header-h) -
+      (106px + max(var(--space-sm), env(safe-area-inset-bottom)))
+    );
+  }
+  .loaded-view.crop-wide:not(.is-post-cut) .stage-container {
+    flex: 0 0 auto;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  /* ---- Post-CUT result screen: make the finished content flow naturally from
+     the top instead of using the base rule's fixed calc(100vh - 250px) and
+     vertically-centered stage. The editor is bound to the dynamic viewport
+     below the fixed header (instead of the app-container's growable
+     min-height) so the stage is height-bounded; the stage top-aligns its
+     children so the result card sits right under the controls. The card hugs
+     the cropped image (no internal spread), the CTA flows directly beneath
+     the image, and the status pill directly beneath the CTA — a compact
+     top-to-bottom flow for both wide and tall outputs, with no giant gap and
+     no page-length scrolling. */
+  .loaded-view.is-post-cut {
+    flex: 0 0 auto;
+    height: calc(100dvh - var(--header-h));
+  }
+
+  .loaded-view.is-post-cut .stage-container {
+    flex: 1;
+    justify-content: flex-start;
+    /* Reserve room for the fixed bottom dock so the result image and any
+       trailing content (CTA, status pill) never sit underneath it. */
+    padding-bottom: 128px;
+  }
+
+  .post-cut-result {
+    height: auto;
+    flex: 0 1 auto;
+    min-height: 0;
+    margin: 0;
+    justify-content: flex-start;
+  }
+
+  /* Hide status pill on mobile post-cut */
+  .loaded-view.is-post-cut .stage-info-pill {
+    display: none;
   }
 
   .workspace-bar {
     padding: var(--space-xs) var(--space-sm);
     gap: var(--space-xs);
+  }
+
+  /* Drop the base rule's `margin-bottom: auto` (which, combined with the now
+     top-packed editor, would open a huge gap under the controls); use a small
+     fixed gap so the crop stage starts right beneath the controls. */
+  .loaded-view .workspace-bar {
+    margin-bottom: var(--space-xs) !important;
+    margin-top: 0 !important;
   }
 
   /* Selection pill: comfortable touch-friendly padding on small screens */
@@ -4260,10 +4797,27 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
     width: 100%;
   }
 
-  /* Spec badges wrap naturally — no overflow */
+  /* Keep the compact image-type badge on a reserved second line. The live crop
+     dimensions change width while rulers move; without this stable row the
+     toolbar would jump. */
   .meta-specs {
     max-width: 100%;
     overflow: hidden;
+    min-height: 2.2rem;
+    align-content: flex-start;
+  }
+
+  .meta-format-row {
+    display: flex;
+    flex: 0 0 100%;
+    height: 1.1rem;
+  }
+
+  .meta-format-row .format-badge {
+    flex: 0 0 3.25rem;
+    width: 3.25rem;
+    box-sizing: border-box;
+    text-align: center;
   }
 
   /* Actions row: wrap and center so all buttons stay on-screen */
@@ -4273,6 +4827,36 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
     gap: var(--space-xs);
     width: 100%;
     max-width: 100%;
+  }
+
+  body:has(.loaded-view:not(.hidden)) .workspace-actions {
+    width: calc(100vw - (2 * var(--space-md)));
+    bottom: max(var(--space-xs), env(safe-area-inset-bottom));
+  }
+
+  /* Mobile POST-CUT: the action controls become a persistent fixed bottom bar,
+     anchored to the viewport and fully independent of the result image (the
+     image's aspect ratio never moves the dock). Side margins + safe-area keep
+     it a comfortable floating dock on phones. Overrides the base in-flow
+     post-cut grid. */
+  .loaded-view.is-post-cut .stage-container .workspace-actions {
+    position: fixed;
+    top: auto;
+    transform: none;
+    left: var(--space-md);
+    right: var(--space-md);
+    bottom: max(var(--space-sm), env(safe-area-inset-bottom));
+    z-index: 40;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xs);
+    width: auto;
+    margin: 0;
+    padding: 10px;
+    background-color: color-mix(in srgb, var(--bg-surface) 92%, transparent);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
   }
 
   /* All buttons can shrink; prevent any single button from overflowing */
@@ -4402,16 +4986,12 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
     justify-content: center;
   }
 
-  /* Replace and Clear: share the third row */
-  #btn-replace {
+  /* Replace and Cancel share the second row of the bottom action dock. */
+  #btn-replace,
+  #btn-clear {
     flex: 1 1 calc(50% - var(--space-xs));
     max-width: calc(50% - var(--space-xs));
     justify-content: center;
-  }
-
-  #btn-clear {
-    flex: 0 0 auto;
-    min-width: 40px;
   }
 
   /* Canvas frame: dimensions owned entirely by updateViewportGeometry();
@@ -5705,4 +6285,186 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   color: var(--text-primary);
   font-weight: 700;
   border-bottom-color: var(--text-primary);
+}
+
+/* Desktop bottom action dock: split the crop controls into two groups that use
+   the available desktop whitespace instead of colliding with the crop
+   workspace. CUT + Undo sit bottom-left; Replace + Cancel sit bottom-right.
+   The dock spans the usable width (its own empty middle is intentional
+   whitespace) and, via Undo's auto right-margin, the two groups are pushed to
+   opposite ends on the same row — clear of the crop frame, rulers, status pill
+   and each other. Desktop-only (the tablet/mobile docks are untouched). */
+@media (min-width: 601px) {
+  /* Tablet + desktop POST-CUT result screen: hug the image and stack it at the
+     top of the stage so the compact 2x2 action grid, the "See how it looks" CTA
+     and the status pill all fit on screen directly beneath, with the image
+     fully visible and unobstructed (no on-screen overlap, no page-length
+     scroll). Mobile (<=600px) has its own tighter top-flow rules. */
+  .loaded-view.is-post-cut .stage-container {
+    justify-content: flex-start;
+  }
+  .loaded-view.is-post-cut .post-cut-result {
+    height: auto;
+    flex: 0 1 auto;
+    min-height: 0;
+    margin: 0;
+    justify-content: flex-start;
+  }
+  /* Bound the result image so it + the action grid + CTA + pill fit within the
+     viewport (contain preserves aspect ratio; the bitmap is untouched). */
+  .loaded-view.is-post-cut .post-cut-result-img {
+    max-height: calc(100dvh - 410px);
+  }
+  .loaded-view.is-post-cut #btn-undo {
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 901px) {
+  /* Desktop PRE-CUT crop controls: remove the full-width bottom dock bar
+     entirely. CUT + Undo float loosely at the bottom-left of the crop workspace
+     and Replace + Cancel at the bottom-right, with NO connecting background,
+     border, shadow, rounding or empty bar behind them. The two groups are still
+     split to opposite corners via Undo's auto right-margin, and the container
+     keeps the same footprint/clearance so the groups stay clear of the frame,
+     rulers and status pill. */
+  body:has(.loaded-view:not(.hidden)) .workspace-actions {
+    width: min(1100px, calc(100vw - (2 * var(--space-xl))));
+    justify-content: space-between;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  #btn-undo {
+    margin-right: auto;
+  }
+
+  /* ------------------------------------------------------------------
+     Desktop POST-CUT result screen.
+     A clean, top-to-bottom flex column bound to the visible viewport (so the
+     whole stack — file card → result image → CTA → status pill — fits on one
+     screen with no page-length scrolling). The result image is the hero:
+     it flexes to absorb all the vertical space between the file card and the
+     CTA and contains-fit (object-fit: contain) inside that region, so any
+     output aspect ratio renders as large as the viewport allows without
+     distortion, cropping or unnecessary scroll:
+       - landscape  → width-limited, wide and dominant
+       - square     → height-limited, large centered square
+       - portrait   → height-limited, tall centered portrait
+     ------------------------------------------------------------------ */
+  .loaded-view.is-post-cut {
+    height: calc(100dvh - var(--header-h));
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    gap: var(--space-md);
+    padding: var(--space-lg) var(--space-xl);
+  }
+
+  /* Pre-cut editing chrome is not part of the finished result screen. The
+     stage-container stays as the inner column that hosts the result hero, CTA
+     and status pill below the file card; the selection pill is removed. */
+  .loaded-view.is-post-cut .selection-bar {
+    display: none;
+  }
+  .loaded-view.is-post-cut .stage-container {
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
+  /* The pre-cut action dock has no role on the desktop result screen; its
+     Cancel / Undo / Download buttons live in the top file card instead. */
+  .loaded-view.is-post-cut .workspace-actions {
+    display: none !important;
+  }
+
+  /* ---- Top file information card with inside-card utility actions ---- */
+  .loaded-view.is-post-cut .workspace-bar {
+    flex-wrap: nowrap;
+    margin-bottom: 0 !important;
+    padding: var(--space-sm) var(--space-lg);
+  }
+  .loaded-view.is-post-cut .workspace-bar .image-meta {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .loaded-view.is-post-cut .post-cut-actions {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-xs);
+    flex: 0 0 auto;
+    margin-left: var(--space-md);
+  }
+  .loaded-view.is-post-cut .post-cut-actions .btn {
+    width: auto;
+    height: 40px;
+    border-radius: var(--radius-md);
+    font-size: 0.84rem;
+  }
+  /* Cancel = compact icon-only control (secondary ghost circle).
+     Undo    = secondary action. Download = strong primary action. */
+  .loaded-view.is-post-cut .post-cut-actions #btn-clear {
+    display: inline-flex;
+    width: 40px;
+    padding: 0;
+    justify-content: center;
+    flex: 0 0 auto;
+  }
+  .loaded-view.is-post-cut .post-cut-actions #btn-clear span {
+    display: none;
+  }
+  .loaded-view.is-post-cut .post-cut-actions #btn-undo {
+    width: auto;
+    margin-right: 0;
+    color: var(--text-primary);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-sm);
+  }
+  .loaded-view.is-post-cut .post-cut-actions #btn-undo:hover:not(:disabled) {
+    background-color: var(--bg-surface-hover);
+    border-color: var(--border-hover);
+  }
+  .loaded-view.is-post-cut .post-cut-actions #btn-download-open {
+    width: auto;
+    background-color: var(--accent-white);
+    color: var(--text-inverse);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  /* ---- Result image hero ---- */
+  .loaded-view.is-post-cut .post-cut-result {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    margin: 0;
+    padding: var(--space-sm) 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .loaded-view.is-post-cut .post-cut-result-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    flex-shrink: 1;
+    object-fit: contain;
+    border-radius: 0;
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  }
+
+  /* ---- Compact centered primary CTA directly beneath the image (desktop) ---- */
+  .loaded-view.is-post-cut .post-cut-preview-cta {
+    margin: 0 auto;
+  }
+
+  /* ---- Bottom status pill (removed from the desktop result screen) ---- */
+  .loaded-view.is-post-cut .stage-info-pill {
+    display: none;
+  }
 }
