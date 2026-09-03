@@ -1,0 +1,423 @@
+/* ==========================================================================
+   RealResizer — SEO Landing-Page Content Styles
+   ==========================================================================
+   Isolated, namespaced styling for the crawlable SEO content and navigation
+   added around the existing application. These rules never touch the editor
+   (which is styled entirely by style.css). Every selector is prefixed with
+   `seo-` so there is no overlap with the application's class names.
+   ========================================================================== */
+
+/* --- Topbar brand ------------------------------------------------ */
+.seo-topbar {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding:
+    env(safe-area-inset-top)
+    calc(var(--space-xl) + env(safe-area-inset-right))
+    var(--space-xs)
+    calc(var(--space-xl) + env(safe-area-inset-left));
+  background-color: var(--bg-app);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.seo-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.seo-brand svg {
+  color: var(--accent-white);
+}
+
+.seo-brand:hover {
+  color: var(--accent-hover);
+}
+
+/* --- Language switcher (compact dropdown in shared header) ---------- */
+.seo-lang-switch {
+  position: relative;
+  display: inline-flex;
+}
+
+.seo-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+}
+
+.seo-lang-toggle:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.seo-lang-toggle .seo-lang-caret {
+  color: var(--text-muted);
+  transition: transform 150ms ease;
+}
+
+.seo-lang-switch.is-open .seo-lang-toggle .seo-lang-caret {
+  transform: rotate(180deg);
+}
+
+/* Popover menu */
+.seo-lang-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 150px;
+  padding: 4px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface-elevated);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+  flex-direction: column;
+  z-index: 70;
+}
+
+.seo-lang-switch.is-open .seo-lang-menu {
+  display: flex;
+}
+
+.seo-lang-menu a {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.seo-lang-menu a:hover {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+}
+
+.seo-lang-menu a[aria-current="true"] {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .seo-lang-toggle {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+  .seo-lang-menu {
+    min-width: 138px;
+  }
+}
+
+/* --- Breadcrumb -------------------------------------------------- */.seo-breadcrumb {
+  padding: var(--space-sm) calc(var(--space-xl) + env(safe-area-inset-left))
+    var(--space-xs) calc(var(--space-xl) + env(safe-area-inset-left));
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.seo-breadcrumb ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.seo-breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.seo-breadcrumb li + li::before {
+  content: "/";
+  color: var(--text-muted);
+}
+
+.seo-breadcrumb a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.seo-breadcrumb a:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+.seo-breadcrumb span[aria-current="page"] {
+  color: var(--text-secondary);
+}
+
+/* --- Hero / H1 intro (above the tool) ----------------------------- */
+.seo-hero {
+  max-width: 760px;
+  margin: var(--space-md) auto var(--space-lg);
+  padding: 0 var(--space-xl);
+  text-align: center;
+}
+
+.seo-hero h1 {
+  font-size: clamp(26px, 4vw, 40px);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.seo-hero-lede {
+  margin-top: var(--space-sm);
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+/* --- Tool wrapper (keeps the app visually intact) ---------------- */
+.seo-tool-wrap {
+  width: 100%;
+}
+
+/* Homepages: vertically center the whole app/hero group in the visible
+   screen — a gentle downward push from the previously (too) high position. */
+.seo-tool-wrap-home .landing-view {
+  margin-top: var(--space-lg);
+}
+
+/* --- Supporting content (below the tool) ------------------------- */
+.seo-content {
+  background-color: var(--bg-app);
+  border-top: 1px solid var(--border-subtle);
+  padding: var(--space-2xl) var(--space-xl) var(--space-xl);
+}
+
+.seo-container {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.seo-block {
+  margin-bottom: var(--space-xl);
+}
+
+.seo-block h2,
+.seo-faq-wrap h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.seo-block p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+  line-height: 1.65;
+}
+
+.seo-block ul {
+  margin: var(--space-sm) 0 var(--space-sm) 1.2em;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.seo-block ul li {
+  margin-bottom: 6px;
+}
+
+.seo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-sm);
+  font-size: 14px;
+}
+
+.seo-table th,
+.seo-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.seo-table th {
+  color: var(--text-primary);
+  background-color: var(--bg-surface-elevated);
+  font-weight: 600;
+}
+
+/* --- FAQ --------------------------------------------------------- */
+.seo-faq-wrap {
+  max-width: 760px;
+  margin: var(--space-xl) auto 0;
+}
+
+.seo-faq {
+  border-bottom: 1px solid var(--border-subtle);
+  padding: var(--space-sm) 0;
+}
+
+.seo-faq summary {
+  cursor: pointer;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.seo-faq summary:hover {
+  color: var(--accent-hover);
+}
+
+.seo-faq p {
+  margin-top: var(--space-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --- Popular resizers (home page crawlable grid) ----------------- */
+.seo-popular {
+  max-width: 760px;
+  margin: 0 auto var(--space-lg);
+}
+
+.seo-popular h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.seo-popular ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.seo-popular li a {
+  display: block;
+  padding: 12px 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.seo-popular li a:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+/* --- Related tools ---------------------------------------------- */
+.seo-related {
+  max-width: 760px;
+  margin: 0 auto var(--space-lg);
+  padding: 0 var(--space-xl);
+}
+
+.seo-related h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.seo-related ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.seo-related li a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.seo-related li a:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+/* --- SEO footer -------------------------------------------------- */
+.seo-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: var(--space-lg) var(--space-xl) var(--space-2xl);
+  background-color: var(--bg-surface);
+}
+
+.seo-footer-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  max-width: 760px;
+  margin: 0 auto var(--space-sm);
+}
+
+.seo-footer-nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.seo-footer-nav a:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+.seo-footer-note {
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* --- Responsive -------------------------------------------------- */
+@media (max-width: 600px) {
+  .seo-topbar {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .seo-breadcrumb {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .seo-hero,
+  .seo-related {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .seo-content {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+}

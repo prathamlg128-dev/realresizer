@@ -439,6 +439,10 @@
   // ---------------------------------------------------------------------------
   // Application State
   // ---------------------------------------------------------------------------
+  // Per-page default preset (set via window.REALRESIZER_DEFAULT_PRESET before
+  // this script runs). Applied automatically once an image is first loaded so
+  // SEO landing pages open with the correct platform crop ratio pre-selected.
+  let defaultPreset = null;
   const state = {
     file: null,
     image: null,           // Current active HTMLImageElement / Canvas
@@ -3684,6 +3688,14 @@ try {
 
       renderLoadedState();
 
+      // Apply the locale-specific default preset (set via
+      // window.REALRESIZER_DEFAULT_PRESET before app.js loads) so the crop
+      // opens pre-selected to the platform ratio on a landing page. Preset is
+      // applied without animation so it appears as the initial crop state.
+      if ((!wasReplacing || state.activePreset === 'custom') && defaultPreset) {
+        applyPreset(defaultPreset, false);
+      }
+
       // Only an initial upload transitions home -> cropper in history;
       // replacing an in-editor image must not grow the history stack.
       if (!wasReplacing) routerPush('cropper', '#crop');
@@ -4358,6 +4370,13 @@ handle.addEventListener('pointerdown', (e) => {
   function init() {
     initTheme();
     initFullscreen();
+    // Honour a per-page default preset, if one was declared before app.js.
+    if (typeof window.REALRESIZER_DEFAULT_PRESET === 'string') {
+      const presetId = window.REALRESIZER_DEFAULT_PRESET;
+      if (PRESET_REGISTRY.some(p => p.id === presetId)) {
+        defaultPreset = presetId;
+      }
+    }
     renderPresetsDrawer();
     setupEventListeners();
     setupScaleHandle();

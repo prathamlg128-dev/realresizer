@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>Redimensionador y Recortador de Historias de Instagram | RealResizer</title>
+    <meta name="description" content="Recorta y redimensiona imágenes a la proporción 9:16 de las Historias de Instagram directamente en tu navegador. Privado, sin subidas y con una vista previa fiel antes de exportar.">
+    <link rel="canonical" href="https://realresizer.pages.dev/es/instagram-story-resizer/">
+    <link rel="alternate" hreflang="en" href="https://realresizer.pages.dev/en/instagram-story-resizer/">
+    <link rel="alternate" hreflang="de" href="https://realresizer.pages.dev/de/instagram-story-resizer/">
+    <link rel="alternate" hreflang="es" href="https://realresizer.pages.dev/es/instagram-story-resizer/">
+    <link rel="alternate" hreflang="ja" href="https://realresizer.pages.dev/ja/instagram-story-resizer/">
+    <link rel="alternate" hreflang="pt" href="https://realresizer.pages.dev/pt/instagram-story-resizer/">
+    <link rel="alternate" hreflang="x-default" href="https://realresizer.pages.dev/en/instagram-story-resizer/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://realresizer.pages.dev/es/instagram-story-resizer/">
+    <meta property="og:title" content="Redimensionador y Recortador de Historias de Instagram | RealResizer">
+    <meta property="og:description" content="Recorta y redimensiona imágenes a la proporción 9:16 de las Historias de Instagram directamente en tu navegador. Privado, sin subidas y con una vista previa fiel antes de exportar.">
+    <meta property="og:site_name" content="RealResizer">
+    <meta property="og:locale" content="es">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Redimensionador y Recortador de Historias de Instagram | RealResizer">
+    <meta name="twitter:description" content="Recorta y redimensiona imágenes a la proporción 9:16 de las Historias de Instagram directamente en tu navegador. Privado, sin subidas y con una vista previa fiel antes de exportar.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2f2f2' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='2' width='20' height='20' rx='2' fill='%230a0a0a'/%3E%3Cpath d='M6 3v18'/%3E%3Cpath d='M18 3v18'/%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M3 18h18'/%3E%3C/svg%3E">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/seo.css">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Redimensionador y Recortador de Historias de Instagram","url":"https://realresizer.pages.dev/es/instagram-story-resizer/","applicationCategory":"MultimediaApplication","operatingSystem":"Any","description":"Recorta y redimensiona imágenes a la proporción 9:16 de las Historias de Instagram directamente en tu navegador. Privado, sin subidas y con una vista previa fiel antes de exportar.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":"es"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://realresizer.pages.dev/"},{"@type":"ListItem","position":2,"name":"Redimensionador y Recortador de Historias de Instagram","item":"https://realresizer.pages.dev/es/instagram-story-resizer/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RealResizer","url":"https://realresizer.pages.dev/","inLanguage":"es"}</script>
+  </head>
+  <body>
+    <div class="seo-app-header-seat">
+    
+        <header class="app-header">
+          <div class="header-brand">
+            <a href="/" class="brand-logo" id="brand-logo" aria-label="RealResizer Home">
+              <div class="logo-mark">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 3v18"></path>
+                  <path d="M18 3v18"></path>
+                  <path d="M3 6h18"></path>
+                  <path d="M3 18h18"></path>
+                </svg>
+              </div>
+              <span class="brand-name">RealResizer</span>
+            </a>
+          </div>
+    
+          <div class="header-actions">
+            <!-- Sound Toggle -->
+            <button type="button" class="btn-icon active" id="btn-sound-toggle" title="Toggle tactile sound effects" aria-label="Toggle sound effects" aria-pressed="true">
+              <svg class="sound-on-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <svg class="sound-off-icon hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+            </button>
+    
+            <!-- Theme Toggle -->
+            <button type="button" class="btn-icon" id="btn-theme-toggle" title="Switch to light theme" aria-label="Switch to light theme" aria-pressed="false">
+              <!-- Moon: shown in dark mode -->
+              <svg class="theme-dark-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <!-- Sun: shown in light mode -->
+              <svg class="theme-light-icon hidden" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </button>
+    
+            <button type="button" class="btn-icon" id="btn-fullscreen" title="Enter fullscreen" aria-label="Enter fullscreen" aria-pressed="false">
+              <svg class="fullscreen-enter-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <polyline points="9 21 3 21 3 15"></polyline>
+                <line x1="21" y1="3" x2="14" y2="10"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+              <svg class="fullscreen-exit-icon hidden" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="9 3 3 3 3 9"></polyline>
+                <polyline points="15 21 21 21 21 15"></polyline>
+                <line x1="3" y1="3" x2="10" y2="10"></line>
+                <line x1="21" y1="21" x2="14" y2="14"></line>
+              </svg>
+            </button>
+    
+            <span class="privacy-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>100% Local &bull; Private</span>
+            </span>
+                      <nav class="seo-lang-switch" aria-label="Idioma">
+                <button type="button" class="seo-lang-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Idioma">
+                  <span class="seo-lang-current">Español</span>
+                  <svg class="seo-lang-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="seo-lang-menu" role="menu" aria-label="Idioma">
+                  <a href="/en/instagram-story-resizer/" hreflang="en" lang="en" role="menuitem">English</a>
+                  <a href="/es/instagram-story-resizer/" hreflang="es" lang="es" aria-current="true" role="menuitem">Español</a>
+                  <a href="/ja/instagram-story-resizer/" hreflang="ja" lang="ja" role="menuitem">日本語</a>
+                  <a href="/de/instagram-story-resizer/" hreflang="de" lang="de" role="menuitem">Deutsch</a>
+                  <a href="/pt/instagram-story-resizer/" hreflang="pt" lang="pt" role="menuitem">Português</a>
+                </div>
+              </nav>
+          </div>
+          </header>
+    </div>
+      <nav class="seo-breadcrumb" aria-label="Breadcrumb">
+        <ol>
+        <li><a href="/">Inicio</a></li>
+        <li><span aria-current="page">Redimensionador y Recortador de Historias de Instagram</span></li>
+        </ol>
+      </nav>
+    <section class="seo-hero">
+      <h1>Redimensionador y Recortador de Historias de Instagram</h1>
+      <p class="seo-hero-lede">Ajusta tus fotos al formato 9:16 a pantalla completa de las Historias y comprueba cómo se verán antes de publicarlas.</p>
+    </section>
+    <div class="seo-tool-wrap">
+    
+      <div class="app-container">
+        <!-- Header -->
+    
+        <!-- Main Content Area -->
+        <main class="app-main" id="app-main">
+          <!-- Landing View (Upload) -->
+          <section class="landing-view" id="landing-view">
+            <div class="hero-content">
+              <h2 class="hero-title">Prepare your image for where it’s going.</h2>
+              <p class="hero-subtitle">Fast, precise, and platform-aware image cropping without the bloat of photo editors.</p>
+            </div>
+    
+            <div class="upload-container">
+              <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Upload an image. Drag and drop file here, paste from clipboard, or click to browse.">
+                <input type="file" id="file-input" class="file-input" accept="image/jpeg,image/png,image/webp,image/jpg" aria-hidden="true" tabindex="-1">
+                
+                <div class="dropzone-inner">
+                  <div class="upload-icon-wrapper">
+                    <svg class="plus-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                  </div>
+    
+                  <div class="upload-text-group">
+                    <h2 class="upload-heading">Upload an image</h2>
+                    <p class="upload-subtext">Drag and drop here, paste from clipboard, or <span class="browse-link">browse files</span></p>
+                  </div>
+    
+                  <div class="supported-formats">
+                    <span class="format-pill">JPG</span>
+                    <span class="format-pill">PNG</span>
+                    <span class="format-pill">WEBP</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div class="feature-highlights">
+              <div class="highlight-item">
+                <span class="highlight-bullet">&bull;</span>
+                <span>Zero server uploads</span>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-bullet">&bull;</span>
+                <span>Lossless browser processing</span>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-bullet">&bull;</span>
+                <span>Platform-tailored presets</span>
+              </div>
+            </div>
+          </section>
+    
+          <!-- Loaded / Stage 2 Interactive 2-Rail Editor View -->
+          <section class="loaded-view hidden" id="loaded-view" aria-live="polite">
+            <!-- Control Bar -->
+            <div class="workspace-bar">
+              <div class="image-meta">
+                <div class="meta-thumbnail" id="meta-thumbnail" aria-hidden="true">
+                  <img id="thumbnail-img" src="" alt="Thumbnail preview">
+                </div>
+                <div class="meta-details">
+                  <span class="meta-name" id="meta-filename">image.png</span>
+                  <div class="meta-specs">
+                    <span class="spec-badge spec-highlight" id="meta-dimensions">0 &times; 0 px</span>
+                    <span class="spec-badge" id="meta-aspect">16:9</span>
+                    <span class="spec-badge" id="meta-filesize">0 KB</span>
+                    <span class="meta-format-row"><span class="spec-badge format-badge" id="meta-format">PNG</span></span>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Primary Mode Switch & Presets Drawer -->
+              <div class="mode-switch-wrapper" id="mode-switch-wrapper">
+                <div class="mode-segmented-control" role="tablist" aria-label="Crop Mode">
+                  <button type="button" class="mode-btn active" id="btn-mode-custom" role="tab" aria-selected="true" title="Freeform custom ruler crop">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 20h9"></path>
+                      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                    <span>Custom</span>
+                  </button>
+                  <button type="button" class="mode-btn" id="btn-mode-presets" role="tab" aria-selected="false" aria-expanded="false" title="Choose a platform preset">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="3" width="7" height="7"></rect>
+                      <rect x="14" y="3" width="7" height="7"></rect>
+                      <rect x="14" y="14" width="7" height="7"></rect>
+                      <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Presets</span>
+                    <svg class="chevron-indicator" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </button>
+                </div>
+    
+                <!-- Presets Liquid Modal Panel (treated as a modal; backdrop below) -->
+                <div class="presets-backdrop hidden" id="presets-backdrop" aria-hidden="true"></div>
+                <div class="presets-drawer hidden" id="presets-drawer" role="dialog" aria-modal="true" aria-label="Choose Destination">
+                  <div class="drawer-header">
+                    <span class="drawer-title">Choose Destination</span>
+                    <button type="button" class="drawer-close" id="btn-close-drawer" aria-label="Close presets panel">&times;</button>
+                  </div>
+                  <input type="text" class="presets-search" id="presets-search" placeholder="Search presets (e.g. Instagram, YouTube, Twitter)..." autocomplete="off" spellcheck="false" aria-label="Search presets">
+                  <div class="presets-grid" id="presets-grid">
+                    <!-- Dynamically populated via PRESET_REGISTRY in app.js -->
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Desktop POST-CUT compact utility actions (Cancel / Undo / Download).
+                   Populated on desktop post-cut by relocating the shared action buttons
+                   here; hidden (and empty) during pre-cut and on mobile/tablet. -->
+              <div class="post-cut-actions" id="post-cut-actions" aria-label="Result actions">
+              </div>
+            </div>
+    
+            <!-- Live Selection Percentage Pill (replaces the removed zoom slider) -->
+            <div class="zoom-bar selection-bar" id="zoom-bar" aria-live="polite" aria-label="Selected image area">
+              <svg class="selection-bar-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                <line x1="9" y1="3" x2="9" y2="21"></line>
+                <line x1="15" y1="3" x2="15" y2="21"></line>
+                <line x1="3" y1="9" x2="21" y2="9"></line>
+                <line x1="3" y1="15" x2="21" y2="15"></line>
+              </svg>
+              <span class="selection-value" id="selection-value">Selected: 100%</span>
+            </div>
+    
+            <!-- Stage Container & 2-Rail Workspace Frame -->
+            <div class="stage-container" id="stage-container">
+              <div class="stage-canvas-frame" id="canvas-frame">
+                <!-- Main Canvas Viewport (Col 1, Row 1) -->
+                <div class="editor-viewport" id="editor-viewport">
+                  <canvas id="editor-canvas" class="editor-canvas"></canvas>
+    
+                  <!-- Dynamic 4 Guide Lines -->
+                  <div class="guide-line-h" id="guide-line-top"></div>
+                  <div class="guide-line-h" id="guide-line-bottom"></div>
+                  <div class="guide-line-v" id="guide-line-left"></div>
+                  <div class="guide-line-v" id="guide-line-right"></div>
+    
+                  <!-- High-Fidelity Liquid Scrap Pieces Layer for Cut/Undo -->
+                  <div class="scrap-layer" id="scrap-layer" aria-hidden="true"></div>
+                </div>
+    
+                <!-- Nothing-style top-left CROP RESIZE puck (a direct child of the
+                     frame so it is never clipped by the viewport's rounded corner).
+                     Dragging it expands/shrinks the crop frame's top-left corner to
+                     capture outer content; the source image never zooms/magnifies. -->
+                <button type="button" class="scale-handle hidden" id="scale-handle" tabindex="0" role="button" aria-label="Resize crop from top-left corner" aria-haspopup="false">
+                  <span class="scale-handle-dot" aria-hidden="true"></span>
+                </button>
+    
+                <!-- Right Vertical Rail (Col 2, Row 1) with 2 Handles: Top & Bottom -->
+                <div class="ruler-track ruler-track-right" id="ruler-right" title="Right Ruler: Adjust top and bottom crop boundaries">
+                  <div class="ruler-ticks"></div>
+                  
+                  <!-- Top edge handle -->
+                  <div class="ruler-handle ruler-handle-v" id="handle-right-top" tabindex="0" role="slider" aria-label="Top crop handle" title="Drag to adjust top boundary">
+                    <div class="handle-pointer pointer-left"></div>
+                  </div>
+    
+                  <!-- Bottom edge handle -->
+                  <div class="ruler-handle ruler-handle-v" id="handle-right-bottom" tabindex="0" role="slider" aria-label="Bottom crop handle" title="Drag to adjust bottom boundary">
+                    <div class="handle-pointer pointer-left"></div>
+                  </div>
+                </div>
+    
+                <!-- Bottom Horizontal Rail (Col 1, Row 2) with 2 Handles: Left & Right -->
+                <div class="ruler-track ruler-track-bottom" id="ruler-bottom" title="Bottom Ruler: Adjust left and right crop boundaries">
+                  <div class="ruler-ticks"></div>
+    
+                  <!-- Left edge handle -->
+                  <div class="ruler-handle ruler-handle-h" id="handle-bottom-left" tabindex="0" role="slider" aria-label="Left crop handle" title="Drag to adjust left boundary">
+                    <div class="handle-pointer pointer-up"></div>
+                  </div>
+    
+                  <!-- Right edge handle -->
+                  <div class="ruler-handle ruler-handle-h" id="handle-bottom-right" tabindex="0" role="slider" aria-label="Right crop handle" title="Drag to adjust right boundary">
+                    <div class="handle-pointer pointer-up"></div>
+                  </div>
+                </div>
+    
+                <!-- Subtle Visual Scraps Bin Widget (Col 2, Row 2) -->
+                <div class="cut-bin" id="cut-bin" title="Cut scraps bin" aria-label="Cut scraps bin">
+                  <div class="bin-lid"></div>
+                  <div class="bin-body">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    <span class="bin-counter" id="bin-counter">0</span>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Post-CUT finished result: a clean, responsive container that shows
+                   the final cropped bitmap at a size constrained to the viewport
+                   (object-fit: contain) and centered vertically. The output's intrinsic
+                   pixel dimensions NEVER set the on-screen size, so a 1080x1920 export
+                   stays comfortably visible without page-length scrolling. -->
+              <div class="post-cut-result hidden" id="post-cut-result">
+                <img id="post-cut-result-img" class="post-cut-result-img" alt="Cropped result">
+              </div>
+    
+              <div class="workspace-actions">
+                <!-- Post-CUT: Preview & Download (hidden until CUT) -->
+                <button type="button" class="btn btn-primary post-cut-action hidden" id="btn-preview" title="See how it looks">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <span>See how it looks</span>
+                </button>
+                <button type="button" class="btn btn-secondary post-cut-action hidden" id="btn-download-open" title="Download cropped image">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Download</span>
+                </button>
+    
+                <button type="button" class="btn btn-primary" id="btn-cut" title="Cut and isolate the active crop region">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="6" cy="6" r="3"></circle>
+                    <circle cx="6" cy="18" r="3"></circle>
+                    <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+                    <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+                    <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+                  </svg>
+                  <span>CUT</span>
+                </button>
+    
+                <button type="button" class="btn btn-secondary" id="btn-undo" title="Undo cut and restore previous image state" disabled>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 7v6h6"></path>
+                    <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"></path>
+                  </svg>
+                  <span>Undo</span>
+                </button>
+    
+                <button type="button" class="btn btn-ghost" id="btn-replace" title="Select a different image">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                    <path d="M3 3v5h5"></path>
+                    <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path>
+                    <path d="M16 21h5v-5"></path>
+                  </svg>
+                  <span>Replace</span>
+                </button>
+    
+                <button type="button" class="btn btn-ghost" id="btn-clear" title="Cancel and remove loaded image" aria-label="Cancel and remove loaded image">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                  <span>Cancel</span>
+                </button>
+              </div>
+    
+              <!-- Prominent primary Preview CTA directly beneath the cropped image (desktop only) -->
+              <button type="button" class="btn btn-primary post-cut-preview-cta hidden" id="post-cut-preview-cta">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <span>See how it looks</span>
+              </button>
+    
+              <!-- Bottom Status Pill -->
+              <div class="stage-info-pill" id="stage-status-pill">
+                <span class="stage-info-dot" id="status-dot"></span>
+                <span id="stage-status-text">Drag ruler handles or select a preset, then press CUT.</span>
+              </div>
+            </div>
+          </section>
+        </main>
+    
+        <!-- ================================================================
+             Preview Modal
+             ================================================================ -->
+        <div class="preview-modal-backdrop hidden" id="preview-modal" role="dialog" aria-modal="true" aria-label="Image preview" tabindex="-1">
+          <div class="preview-modal-shell">
+            <!-- Modal header -->
+            <div class="preview-modal-header">
+              <div class="preview-header-left">
+                <button type="button" class="btn btn-ghost preview-back-btn" id="btn-preview-close" aria-label="Back to editor">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                  <span>Back to edit</span>
+                </button>
+              </div>
+              <div class="preview-header-center">
+                <!-- Platform context selector -->
+                <div class="preview-context-bar" id="preview-context-bar"></div>
+              </div>
+              <div class="preview-header-right">
+                <!-- Device dropdown (shown for YouTube) -->
+                <div class="preview-device-wrap hidden" id="preview-device-wrap">
+                  <select class="preview-select" id="preview-device-select" aria-label="Device context">
+                    <option value="desktop">Desktop</option>
+                    <option value="mobile">Mobile</option>
+                    <option value="tv">TV</option>
+                  </select>
+                </div>
+                <!-- Mobile / Desktop device switcher (shown for the vertical full-screen presets) -->
+                <div class="preview-device-switch hidden" id="preview-device-switch" role="group" aria-label="Device view">
+                  <button type="button" class="preview-device-btn" data-device="mobile">Mobile</button>
+                  <button type="button" class="preview-device-btn" data-device="desktop">Desktop</button>
+                </div>
+                <!-- Before / After toggle -->
+                <div class="preview-ba-toggle" id="preview-ba-toggle" role="group" aria-label="Before / After">
+                  <button type="button" class="preview-ba-btn active" data-ba="after" id="btn-ba-after">After</button>
+                  <button type="button" class="preview-ba-btn" data-ba="before" id="btn-ba-before">Before</button>
+                </div>
+              </div>
+            </div>
+            <!-- Mockup stage -->
+            <div class="preview-stage" id="preview-stage"></div>
+          </div>
+        </div>
+    
+        <!-- ================================================================
+             Download Panel (inline, below workspace bar)
+             ================================================================ -->
+        <div class="download-panel hidden" id="download-panel" aria-label="Download options">
+          <div class="download-panel-inner">
+            <div class="dl-row">
+              <label class="dl-label" for="dl-filename">Filename</label>
+              <input type="text" class="dl-input" id="dl-filename" spellcheck="false" autocomplete="off">
+              <span class="dl-ext-badge" id="dl-ext-badge">.png</span>
+            </div>
+            <div class="dl-row">
+              <label class="dl-label">Format</label>
+              <div class="dl-format-group" role="radiogroup" aria-label="Export format">
+                <label class="dl-format-option">
+                  <input type="radio" name="dl-format" value="png" checked> PNG
+                </label>
+                <label class="dl-format-option">
+                  <input type="radio" name="dl-format" value="jpeg"> JPEG
+                </label>
+                <label class="dl-format-option">
+                  <input type="radio" name="dl-format" value="webp"> WebP
+                </label>
+              </div>
+            </div>
+            <div class="dl-row dl-quality-row" id="dl-quality-row">
+              <label class="dl-label" for="dl-quality">Quality</label>
+              <input type="range" class="dl-slider" id="dl-quality" min="10" max="100" value="92" step="1">
+              <span class="dl-quality-val" id="dl-quality-val">92%</span>
+              <span class="dl-lossless-badge hidden" id="dl-lossless-badge">Lossless</span>
+            </div>
+            <div class="dl-row dl-info-row">
+              <span class="dl-dim-info" id="dl-dim-info"></span>
+              <button type="button" class="btn btn-primary" id="btn-execute-download">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Export
+              </button>
+              <button type="button" class="btn btn-ghost" id="btn-download-close" aria-label="Close download panel">&times;</button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Error / Notification Toast -->
+        <div class="toast-container" id="toast-container" aria-live="assertive" role="alert">
+          <div class="toast hidden" id="toast">
+            <svg class="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span class="toast-message" id="toast-message">Error message</span>
+            <button type="button" class="toast-close" id="toast-close" aria-label="Dismiss message">&times;</button>
+          </div>
+        </div>
+    
+        <!-- Footer -->
+      </div>
+    
+      
+    </div>
+    <section class="seo-content">
+        <div class="seo-container">
+          <section class="seo-block">
+            <h2>Las dimensiones correctas para una Historia</h2>
+            <p>Las Historias de Instagram ocupan toda la pantalla del móvil en posición vertical. El tamaño estándar de una Historia es de 1080 × 1920 píxeles, es decir, la conocida proporción vertical 9:16. El ajuste de Historia de RealResizer fija automáticamente esta proporción para que tu imagen quede encuadrada como espera la aplicación.</p>
+            <p>Como una Historia es alta y estrecha, una imagen horizontal dejará mucho espacio recortado a los lados. Usa la vista previa de recorte para elegir qué parte de tu foto queda en el encuadre y mantén los sujetos importantes lejos de los bordes superior e inferior, donde se sitúan la interfaz y las zonas seguras.</p>
+          </section>
+          <section class="seo-block">
+            <h2>Cómo redimensionar una imagen para una Historia</h2>
+            <ul>
+              <li>Sube tu imagen o arrástrala y suéltala en la herramienta.</li>
+              <li>El ajuste de Historia de Instagram (9:16) viene preseleccionado en esta página.</li>
+              <li>Ajusta el recorte con las reglas y la esquina superior izquierda para encuadrar tu tema.</li>
+              <li>Recorta y luego mira el resultado en la maqueta de Historia con la vista móvil.</li>
+              <li>Exporta en PNG, JPEG o WebP.</li>
+            </ul>
+          </section>
+          <section class="seo-block">
+            <h2>Consejos de recorte para Historias</h2>
+            <ul>
+              <li>Mantén el contenido importante cómodamente dentro del encuadre y céntrate en el centro de la composición.</li>
+              <li>Evita colocar texto o caras demasiado cerca de los bordes superior e inferior, donde pueden aparecer elementos de la interfaz.</li>
+              <li>Revisa la vista previa en tamaño móvil para comprobar que tu tema se lee bien de un vistazo.</li>
+            </ul>
+          </section>
+        </div>
+              <section class="seo-faq-wrap" aria-label="Preguntas frecuentes">
+        <h2>Preguntas frecuentes</h2>
+          <details class="seo-faq">
+            <summary>¿La imagen se sube a algún sitio?</summary>
+            <p>No. Todo el procesamiento ocurre en tu navegador y tu imagen nunca sale de tu dispositivo.</p>
+          </details>
+          <details class="seo-faq">
+            <summary>¿Qué tamaño tiene una Historia de Instagram?</summary>
+            <p>Las Historias se muestran en proporción vertical 9:16 y normalmente se crean a 1080 × 1920 píxeles.</p>
+          </details>
+      </section>
+    </section>
+<footer class="seo-footer">
+      <section class="seo-related" aria-label="Herramientas relacionadas">
+        <h3>Herramientas relacionadas</h3>
+        <ul>
+          <li><a href="/en/instagram-reel-resizer/">Redimensionador de Reels</a></li>
+          <li><a href="/en/youtube-thumbnail-resizer/">Redimensionador de Miniaturas</a></li>
+          <li><a href="/en/youtube-shorts-resizer/">Redimensionador de Shorts</a></li>
+          <li><a href="/en/facebook-cover-resizer/">Redimensionador de Portadas</a></li>
+          <li><a href="/en/linkedin-image-resizer/">Redimensionador de Imágenes</a></li>
+          <li><a href="/en/tiktok-image-resizer/">Redimensionador de Imágenes</a></li>
+          <li><a href="/en/twitter-image-resizer/">Redimensionador de Imágenes para X</a></li>
+          <li><a href="/en/spotify-image-resizer/">Redimensionador de Imágenes de Spotify</a></li>
+          <li><a href="/en/apple-music-image-resizer/">Redimensionador de Portadas de Apple Music</a></li>
+          <li><a href="/en/soundcloud-image-resizer/">Redimensionador de Banners de SoundCloud</a></li>
+        </ul>
+      </section>
+      <nav class="seo-footer-nav" aria-label="Footer">
+        <ul>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/es/">Todas las herramientas</a></li>
+          <li><a href="/sitemap.xml">Mapa del sitio</a></li>
+          <li><span class="shortcut-hint"><kbd>Cmd</kbd>/<kbd>Ctrl</kbd> + <kbd>V</kbd> to paste</span></li>
+        </ul>
+      </nav>
+      <p class="seo-footer-note">&copy; <span id="yr"></span> RealResizer &middot; Todo el procesamiento de imágenes ocurre localmente en tu navegador.</p>
+    </footer>
+    <script>
+      window.REALRESIZER_DEFAULT_PRESET = 'ig-story';
+      document.getElementById('yr').textContent = new Date().getFullYear();
+      (function () {
+  document.querySelectorAll('.seo-lang-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var sw = btn.closest('.seo-lang-switch');
+      var open = sw.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+  document.addEventListener('click', function () {
+    document.querySelectorAll('.seo-lang-switch.is-open').forEach(function (sw) {
+      sw.classList.remove('is-open');
+      sw.querySelector('.seo-lang-toggle').setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.seo-lang-switch.is-open').forEach(function (sw) {
+        sw.classList.remove('is-open');
+        sw.querySelector('.seo-lang-toggle').setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+})();
+    </script>
+    <script>
+      (function () {
+        if (document.documentElement.getAttribute('lang') !== "es") return;
+        function setInput(el, v) { if (el.tagName === 'INPUT') { el.placeholder = v; return true; } return false; }
+        function setText(el, v) {
+          var node = null;
+          el.childNodes.forEach(function (n) {
+            if (n.nodeType === 3 && n.textContent.trim() && !node) node = n;
+          });
+          if (node) node.textContent = v;
+          else el.appendChild(document.createTextNode(v));
+        }
+        function els(sel, text) {
+          document.querySelectorAll(sel).forEach(function (el) {
+            if (setInput(el, text)) return;
+            setText(el, text);
+          });
+        }
+      els('.upload-heading', "Subir una imagen");
+      els('.upload-subtext', "Arrastra y suelta aquí, pega desde el portapapeles o <span class=\"browse-link\">explora archivos</span>");
+      els('.highlight-item:nth-of-type(1)', "Subida cero al servidor");
+      els('.highlight-item:nth-of-type(2)', "Procesamiento sin pérdida");
+      els('.highlight-item:nth-of-type(3)', "Ajustes por plataforma");
+      els('#btn-mode-custom span', "Personalizado");
+      els('#btn-mode-presets span', "Ajustes");
+      els('.drawer-title', "Elegir destino");
+      els('#presets-search', "Buscar ajustes (p. ej. Instagram, YouTube, Twitter)…");
+      els('#btn-cut span', "CORTAR");
+      els('#btn-undo span', "Deshacer");
+      els('#btn-replace span', "Reemplazar");
+      els('#btn-clear span', "Cancelar");
+      els('#btn-preview span', "Ver cómo se ve");
+      els('#btn-download-open span', "Descargar");
+      els('#post-cut-preview-cta span', "Ver cómo se ve");
+      els('#btn-execute-download', "Exportar");
+      els('#btn-preview-close span', "Volver a editar");
+      els('.privacy-badge span', "100% Local · Privado");
+      })();
+    </script>
+    <script src="/app.js"></script>
+  </body>
+</html>

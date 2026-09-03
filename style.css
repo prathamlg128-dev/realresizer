@@ -4761,6 +4761,11 @@ body:has(.loaded-view:not(.hidden)) .workspace-actions {
     display: none;
   }
 
+  /* Hide desktop CTA on mobile; dock button serves this role */
+  .loaded-view.is-post-cut .post-cut-preview-cta {
+    display: none;
+  }
+
   .workspace-bar {
     padding: var(--space-xs) var(--space-sm);
     gap: var(--space-xs);

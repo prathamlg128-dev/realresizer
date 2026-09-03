@@ -9,11 +9,11 @@
   <!-- Primary SEO -->
   <title>RealResizer &mdash; Free Online Image Crop &amp; Resize Tool</title>
   <meta name="description" content="Crop and resize images for YouTube, Instagram, TikTok, LinkedIn, Pinterest, and more &mdash; entirely in your browser. No uploads, no accounts, no data leaves your device.">
-  <link rel="canonical" href="https://realresizer.com/">
+  <link rel="canonical" href="https://realresizer.pages.dev/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://realresizer.com/">
+  <meta property="og:url" content="https://realresizer.pages.dev/">
   <meta property="og:title" content="RealResizer — Free Online Image Crop & Resize Tool">
   <meta property="og:description" content="Crop and resize images for YouTube, Instagram, TikTok, LinkedIn, Pinterest, and more — entirely in your browser. No uploads, no accounts, no data leaves your device.">
 
@@ -27,6 +27,7 @@
 
   <meta name="theme-color" content="#0a0a0a">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="seo.css">
 </head>
 <body>
   <div class="app-container">
@@ -102,6 +103,20 @@
           </svg>
           <span>100% Local &bull; Private</span>
         </span>
+
+        <nav class="seo-lang-switch" aria-label="Language">
+          <button type="button" class="seo-lang-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Language">
+            <span class="seo-lang-current">English</span>
+            <svg class="seo-lang-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="seo-lang-menu" role="menu" aria-label="Language">
+            <a href="/en/" hreflang="en" lang="en" aria-current="true" role="menuitem">English</a>
+            <a href="/es/" hreflang="es" lang="es" role="menuitem">Español</a>
+            <a href="/ja/" hreflang="ja" lang="ja" role="menuitem">日本語</a>
+            <a href="/de/" hreflang="de" lang="de" role="menuitem">Deutsch</a>
+            <a href="/pt/" hreflang="pt" lang="pt" role="menuitem">Português</a>
+          </div>
+        </nav>
       </div>
     </header>
 
@@ -496,6 +511,33 @@
       </div>
     </footer>
   </div>
+
+  <script>
+    (function () {
+      document.querySelectorAll('.seo-lang-toggle').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var sw = btn.closest('.seo-lang-switch');
+          var open = sw.classList.toggle('is-open');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      });
+      document.addEventListener('click', function () {
+        document.querySelectorAll('.seo-lang-switch.is-open').forEach(function (sw) {
+          sw.classList.remove('is-open');
+          sw.querySelector('.seo-lang-toggle').setAttribute('aria-expanded', 'false');
+        });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          document.querySelectorAll('.seo-lang-switch.is-open').forEach(function (sw) {
+            sw.classList.remove('is-open');
+            sw.querySelector('.seo-lang-toggle').setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+    })();
+  </script>
 
   <script src="app.js"></script>
 </body>
