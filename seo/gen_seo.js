@@ -194,6 +194,7 @@ ${buildAlternates(alternates)}
     <meta name="theme-color" content="#0a0a0a">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/seo.css">
+    <meta name="google-adsense-account" content="ca-pub-7094442385340621">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPX45SSSCG"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
