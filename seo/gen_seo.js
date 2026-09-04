@@ -194,6 +194,13 @@ ${buildAlternates(alternates)}
     <meta name="theme-color" content="#0a0a0a">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/seo.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPX45SSSCG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NPX45SSSCG');
+    </script>
   </head>`;
 }
 
