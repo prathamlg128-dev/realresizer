@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://realresizer.pages.dev/</loc>
+    <loc>__SITE_BASE_URL__/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/en/</loc>
+    <loc>__SITE_BASE_URL__/en/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/es/</loc>
+    <loc>__SITE_BASE_URL__/es/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/ja/</loc>
+    <loc>__SITE_BASE_URL__/ja/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/de/</loc>
+    <loc>__SITE_BASE_URL__/de/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/pt/</loc>
+    <loc>__SITE_BASE_URL__/pt/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/en/instagram-story-resizer/</loc>
+    <loc>__SITE_BASE_URL__/en/instagram-story-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/es/instagram-story-resizer/</loc>
+    <loc>__SITE_BASE_URL__/es/instagram-story-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/ja/instagram-story-resizer/</loc>
+    <loc>__SITE_BASE_URL__/ja/instagram-story-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/de/instagram-story-resizer/</loc>
+    <loc>__SITE_BASE_URL__/de/instagram-story-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/pt/instagram-story-resizer/</loc>
+    <loc>__SITE_BASE_URL__/pt/instagram-story-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/en/instagram-reel-resizer/</loc>
+    <loc>__SITE_BASE_URL__/en/instagram-reel-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/en/youtube-thumbnail-resizer/</loc>
+    <loc>__SITE_BASE_URL__/en/youtube-thumbnail-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/en/youtube-shorts-resizer/</loc>
+    <loc>__SITE_BASE_URL__/en/youtube-shorts-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/en/facebook-cover-resizer/</loc>
+    <loc>__SITE_BASE_URL__/en/facebook-cover-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/en/linkedin-image-resizer/</loc>
+    <loc>__SITE_BASE_URL__/en/linkedin-image-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/en/tiktok-image-resizer/</loc>
+    <loc>__SITE_BASE_URL__/en/tiktok-image-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/en/twitter-image-resizer/</loc>
+    <loc>__SITE_BASE_URL__/en/twitter-image-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/en/spotify-image-resizer/</loc>
+    <loc>__SITE_BASE_URL__/en/spotify-image-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/en/apple-music-image-resizer/</loc>
+    <loc>__SITE_BASE_URL__/en/apple-music-image-resizer/</loc>
   </url>
   <url>
-    <loc>https://realresizer.pages.dev/en/soundcloud-image-resizer/</loc>
+    <loc>__SITE_BASE_URL__/en/soundcloud-image-resizer/</loc>
   </url>
 </urlset>

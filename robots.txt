@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://realresizer.pages.dev/sitemap.xml
+Sitemap: __SITE_BASE_URL__/sitemap.xml
