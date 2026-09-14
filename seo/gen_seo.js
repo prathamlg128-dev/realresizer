@@ -162,7 +162,12 @@ const langSwitchScript = `(function () {
 // ---------------------------------------------------------------------------
 // Head builder (canonical, og, hreflang alternates)
 // ---------------------------------------------------------------------------
-const FAVICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2f2f2' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='2' width='20' height='20' rx='2' fill='%230a0a0a'/%3E%3Cpath d='M6 3v18'/%3E%3Cpath d='M18 3v18'/%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M3 18h18'/%3E%3C/svg%3E";
+// Crawlable physical favicon files (kept in sync with root index.html).
+// Do not inline favicons as data URIs: Google and browsers cannot fetch them,
+// so the generic/failed favicon is shown in search results and tabs.
+const FAVICON_LINKS = `    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">`;
 
 // alternates: array of {lang, url}; include x-default + every published locale.
 function buildAlternates(alternates) {
@@ -190,7 +195,7 @@ ${buildAlternates(alternates)}
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="${title}">
     <meta name="twitter:description" content="${description}">
-    <link rel="icon" type="image/svg+xml" href="${FAVICON}">
+    ${FAVICON_LINKS}
     <meta name="theme-color" content="#0a0a0a">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/seo.css">
