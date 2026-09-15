@@ -124,6 +124,15 @@ const CONTENT = {
         { h2: 'Quality and export', p: [
           'Stills you pair with Reels should stay sharp and high-resolution. Export in PNG or high-quality JPEG/WebP to keep fine detail, especially if your image contains text or a product you want viewers to read clearly at a glance.',
         ] },
+        { h2: 'Instagram Reel safe zone', p: [
+          'The Reel player places interface elements — your profile name, caption, and action buttons — along the top and bottom edges of the screen. To keep text, logos, and faces clearly visible, leave roughly the top 14% and the bottom 20% of the frame free of critical content. The safest approach is to keep important subjects in the central horizontal band.',
+        ] },
+        { h2: 'See how it looks before you post', p: [
+          'After you CUT the image, tap the <em>See how it looks</em> button to preview your Reel cover inside a realistic Instagram Reel mockup. Check the mobile view to confirm your subject reads well at a glance before you export.',
+        ] },
+        { h2: 'Related tools', p: [
+          'Resizing for Instagram? You might also need the <a href="/en/instagram-story-resizer/">Instagram Story Resizer</a>, the <a href="/en/tiktok-image-resizer/">TikTok Image Resizer</a>, or the <a href="/en/twitter-image-resizer/">X (Twitter) Image Resizer</a>.',
+        ] },
       ],
       faq: [
         { q: 'What ratio should a Reel image use?', a: 'Reels are vertical at a 9:16 ratio, commonly 1080 × 1920 pixels.' },
@@ -156,6 +165,15 @@ const CONTENT = {
           'Preview across device sizes — most viewers see tiny thumbnails.',
           'Use high contrast so the image stands out in the results grid.',
         ] },
+        { h2: 'YouTube thumbnail safe zone', p: [
+          'The bottom-right corner of a thumbnail is overlaid by the video duration badge on desktop, and mobile viewers see thumbnails at a very small size. Keep faces, text, and logos in the central 80–90% of the frame and avoid the bottom-right corner. If your thumbnail contains text, keep it large and centered so it stays legible when the thumbnail is displayed at thumbnail size in search results.',
+        ] },
+        { h2: 'See how it looks before you post', p: [
+          'After you CUT the image, tap the <em>See how it looks</em> button to preview your thumbnail across desktop, mobile, and TV views. Check each device to confirm your subject reads clearly at small sizes.',
+        ] },
+        { h2: 'Related tools', p: [
+          'Pairing your thumbnail with a Shorts video? Try the <a href="/en/youtube-shorts-resizer/">YouTube Shorts Resizer</a>. You might also need the <a href="/en/facebook-cover-resizer/">Facebook Cover Resizer</a> or the <a href="/en/spotify-image-resizer/">Spotify Cover Resizer</a> for your channel assets.',
+        ] },
       ],
       faq: [
         { q: 'What size is a YouTube thumbnail?', a: 'The commonly recommended size is 1280 × 720 pixels at a 16:9 ratio.' },
@@ -181,6 +199,15 @@ const CONTENT = {
           'Adjust the crop with the rulers or the corner handle.',
           'Preview in the Shorts mockup, checking the mobile view.',
           'Export in your preferred format.',
+        ] },
+        { h2: 'YouTube Shorts safe zone', p: [
+          'The Shorts player shows interface elements (your name, title, and action buttons) at the top and bottom of the screen. Keep critical content in the central area of the frame — roughly the middle 70% — and leave about the top 14% and bottom 20% clear of important detail.',
+        ] },
+        { h2: 'See how it looks before you post', p: [
+          'After you CUT the image, tap the <em>See how it looks</em> button to preview your still inside a realistic Shorts mockup. Use the mobile view to confirm your subject reads well near the screen edges.',
+        ] },
+        { h2: 'Related tools', p: [
+          'Also building a thumbnail for the same video? Try the <a href="/en/youtube-thumbnail-resizer/">YouTube Thumbnail Resizer</a>. You might also want the <a href="/en/tiktok-image-resizer/">TikTok Image Resizer</a> or the <a href="/en/instagram-reel-resizer/">Instagram Reel Resizer</a>.',
         ] },
       ],
       faq: [
@@ -211,6 +238,15 @@ const CONTENT = {
         { h2: 'Practical cropping considerations', p: [
           'Because covers display at a very wide ratio, design for the horizontal center of the image. Keep any text or key subjects well within the 2.7:1 frame, and avoid cropping out subjects near the very top and bottom of a tall source photo.',
         ] },
+        { h2: 'Facebook cover safe zone', p: [
+          'On desktop the profile picture overlaps the bottom-left of the cover, and across devices buttons are placed near the bottom-right. Keep text and logos within the central region — commonly the inner 820 × 360 safe area — and clear of the bottom-left where the profile photo sits.',
+        ] },
+        { h2: 'See how it looks before you post', p: [
+          'After you CUT the image, tap the <em>See how it looks</em> button to preview your cover inside a realistic Facebook profile mockup. Check the desktop view to confirm no critical content hides behind the profile picture.',
+        ] },
+        { h2: 'Related tools', p: [
+          'Preparing other Facebook posts? You might also want the <a href="/en/linkedin-image-resizer/">LinkedIn Image Resizer</a> or the <a href="/en/twitter-image-resizer/">X (Twitter) Image Resizer</a> for your other profile pages.',
+        ] },
       ],
       faq: [
         { q: 'What ratio is a Facebook cover?', a: 'The desktop cover is commonly prepared at about 851 × 315 pixels, near a 2.7:1 ratio.' },
@@ -239,6 +275,15 @@ const CONTENT = {
         ] },
         { h2: 'Considerations for a professional look', p: [
           'LinkedIn content is often viewed on mobile feeds, so keep text legible and subjects centered. A clean landscape crop that matches the 1.91:1 ratio reads well and avoids awkward empty bands when the feed automatically crops the image.',
+        ] },
+        { h2: 'LinkedIn safe zone', p: [
+          'LinkedIn crops feed images to fit its preview frame on mobile and desktop, and company page banners gain UI text over the left edge. Keep essential text and logos in the central horizontal band and toward the right when preparing a banner, so nothing critical is hidden behind the company name or profile elements.',
+        ] },
+        { h2: 'See how it looks before you post', p: [
+          'After you CUT the image, tap the <em>See how it looks</em> button to preview your image inside a realistic LinkedIn mockup before uploading it to the feed.',
+        ] },
+        { h2: 'Related tools', p: [
+          'Tidying up your other profile pages? Try the <a href="/en/facebook-cover-resizer/">Facebook Cover Resizer</a> or the <a href="/en/twitter-image-resizer/">X (Twitter) Image Resizer</a>.',
         ] },
       ],
       faq: [
@@ -269,6 +314,15 @@ const CONTENT = {
         { h2: 'Cropping and export notes', p: [
           'TikTok is heavily viewed on mobile, so check that text and key subjects read at small sizes. Export at high quality to keep detail crisp on large phone screens.',
         ] },
+        { h2: 'TikTok safe zone', p: [
+          'The TikTok player stacks action buttons (like, comment, share) along the right edge and shows the caption with the username near the bottom of the screen. These overlays sit roughly within the right third and the bottom sixth of the frame. Keep important content centered and clear of the right-edge action column.',
+        ] },
+        { h2: 'See how it looks before you post', p: [
+          'After you CUT the image, tap the <em>See how it looks</em> button to preview your cover inside a realistic TikTok mockup. Use the mobile view to confirm nothing important sits behind the right-edge buttons.',
+        ] },
+        { h2: 'Related tools', p: [
+          'Creating content for other vertical platforms? Try the <a href="/en/instagram-reel-resizer/">Instagram Reel Resizer</a> or the <a href="/en/youtube-shorts-resizer/">YouTube Shorts Resizer</a>.',
+        ] },
       ],
       faq: [
         { q: 'What ratio is a TikTok image?', a: 'TikTok uses a vertical 9:16 ratio, commonly 1080 × 1920 pixels.' },
@@ -296,6 +350,15 @@ const CONTENT = {
         ] },
         { h2: 'Cropping considerations for X', p: [
           'Banners are almost fully covered on mobile, so keep text and logos within the central safe area rather than the far edges. For post images, a wide 16:9 crop reads well in the feed and avoids the awkward auto-cropping that happens when the platform resizes your image.',
+        ] },
+        { h2: 'X (Twitter) profile header safe zone', p: [
+          'On mobile the header is heavily cropped and with limited height, and in-stream the grid crops the far edges. Keep your name, logo, and any text within the central region — commonly the inner 1280 × 330 safe area of the 1500 × 500 header — so nothing essential is cut off on small screens.',
+        ] },
+        { h2: 'See how it looks before you post', p: [
+          'After you CUT the image, tap the <em>See how it looks</em> button to preview your header and posts inside a realistic X (Twitter) mockup, and check the mobile view to confirm the safe area looks right.',
+        ] },
+        { h2: 'Related tools', p: [
+          'Also refreshing your other profiles? Try the <a href="/en/linkedin-image-resizer/">LinkedIn Image Resizer</a> or the <a href="/en/facebook-cover-resizer/">Facebook Cover Resizer</a>.',
         ] },
       ],
       faq: [
@@ -325,6 +388,15 @@ const CONTENT = {
         { h2: 'Considerations for Spotify artwork', p: [
           'Spotify displays album art in small circular tiles as well as large full-screen views. Keep key text and artwork centered so it stays legible at thumbnail size, and use a high-resolution source so your cover stays sharp on big screens.',
         ] },
+        { h2: 'Spotify cover safe zone', p: [
+          'Spotify crops artwork into circular tiles and shows text over the bottom band of Artist pages. Keep faces, titles, and logos inside the central 80% of the square so nothing important is clipped by the circular crop or the artist-header UI.',
+        ] },
+        { h2: 'See how it looks before you post', p: [
+          'After you CUT the image, tap the <em>See how it looks</em> button to preview your artwork inside a realistic Spotify mockup. Confirm the tile looks right at a glance before you upload the cover.',
+        ] },
+        { h2: 'Related tools', p: [
+          'Releasing music across platforms? Try the <a href="/en/apple-music-image-resizer/">Apple Music Cover Resizer</a> or the <a href="/en/soundcloud-image-resizer/">SoundCloud Banner Resizer</a>. You might also want the <a href="/en/youtube-thumbnail-resizer/">YouTube Thumbnail Resizer</a> for your channel art.',
+        ] },
       ],
       faq: [
         { q: 'What size is a Spotify cover?', a: 'Spotify album and playlist artwork is square, commonly 1080 × 1080 pixels.' },
@@ -353,6 +425,15 @@ const CONTENT = {
         { h2: 'Considerations for Apple Music artwork', p: [
           'Apple Music shows cover art at many sizes, from tiny search results to large full-screen views. Keep important elements centered and within the safe area, and export a high-resolution file so your artwork stays crisp wherever it appears.',
         ] },
+        { h2: 'Apple Music cover safe zone', p: [
+          'Apple Music crops cover art into rounded tiles and small search rows, and the iTunes Store overlays nothing onto the art itself — so the main risk is detail getting lost at small sizes. Keep text and logos inside the central 80% of the square to stay legible in search results and compact tiles.',
+        ] },
+        { h2: 'See how it looks before you post', p: [
+          'After you CUT the image, tap the <em>See how it looks</em> button to preview your artwork inside a realistic Apple Music mockup before you submit the release.',
+        ] },
+        { h2: 'Related tools', p: [
+          'Also releasing on other platforms? Try the <a href="/en/spotify-image-resizer/">Spotify Cover Resizer</a> or the <a href="/en/soundcloud-image-resizer/">SoundCloud Banner Resizer</a>.',
+        ] },
       ],
       faq: [
         { q: 'What size is Apple Music cover art?', a: 'Apple Music album cover art is square, commonly prepared at 3000 × 3000 pixels.' },
@@ -380,6 +461,15 @@ const CONTENT = {
         ] },
         { h2: 'Cropping considerations for SoundCloud', p: [
           'Banners look best when the main subject and text sit in the center band, well clear of the far left and right edges that get cut on narrower devices. A clean, wide crop keeps your profile looking professional.',
+        ] },
+        { h2: 'SoundCloud banner safe zone', p: [
+          'Because the banner spans a 4:1 ratio, the far left and right edges are often cropped on narrower screens. Keep text, logos, and your artist name within the central horizontal band — roughly the inner 80% of the image — so they stay visible across devices.',
+        ] },
+        { h2: 'See how it looks before you post', p: [
+          'After you CUT the image, tap the <em>See how it looks</em> button to preview your banner inside a realistic SoundCloud mockup and confirm the center band reads well.',
+        ] },
+        { h2: 'Related tools', p: [
+          'Care about your whole music presence? Try the <a href="/en/spotify-image-resizer/">Spotify Cover Resizer</a> or the <a href="/en/apple-music-image-resizer/">Apple Music Cover Resizer</a>.',
         ] },
       ],
       faq: [
@@ -416,6 +506,15 @@ const CONTENT = {
           'Avoid placing text or faces too close to the top and bottom edges, where interface overlays can sit.',
           'Preview at mobile size to check that your subject reads well at a glance.',
         ] },
+        { h2: 'Instagram Story safe zone', p: [
+          'The Story player places your name and other interface elements along the top and bottom of the screen. To keep text and faces clearly visible, leave roughly the top 14% and the bottom 20% of the 1080 × 1920 frame free of critical content — the safest place for important subjects is the central horizontal band.',
+        ] },
+        { h2: 'See how it looks before you post', p: [
+          'After you CUT the image, tap the <em>See how it looks</em> button to preview your photo inside a realistic Instagram Story mockup. Use the mobile view to confirm your subject reads well at a glance before you export.',
+        ] },
+        { h2: 'Related tools', p: [
+          'Preparing other Instagram content? Try the <a href="/en/instagram-reel-resizer/">Instagram Reel Resizer</a> or the <a href="/en/tiktok-image-resizer/">TikTok Image Resizer</a>.',
+        ] },
       ],
       faq: [
         { q: 'Does the image get uploaded anywhere?', a: 'No. All processing happens in your browser and your image never leaves your device.' },
@@ -443,6 +542,15 @@ const CONTENT = {
           'Mantén el contenido importante cómodamente dentro del encuadre y céntrate en el centro de la composición.',
           'Evita colocar texto o caras demasiado cerca de los bordes superior e inferior, donde pueden aparecer elementos de la interfaz.',
           'Revisa la vista previa en tamaño móvil para comprobar que tu tema se lee bien de un vistazo.',
+        ] },
+        { h2: 'Zona segura de las Historias de Instagram', p: [
+          'El reproductor de Historias muestra tu nombre y otros elementos de la interfaz en la parte superior e inferior de la pantalla. Para que el texto y los rostros se vean con claridad, deja libre aproximadamente el 14% superior y el 20% inferior del marco de 1080 × 1920: el lugar más seguro para los sujetos importantes es la banda central.',
+        ] },
+        { h2: 'Mira cómo se verá antes de publicar', p: [
+          'Después de recortar, toca el botón <em>Ver cómo se ve</em> para previsualizar tu foto dentro de una maqueta realista de Instagram. Usa la vista móvil para confirmar que tu tema se lee bien de un vistazo antes de exportar.',
+        ] },
+        { h2: 'Herramientas relacionadas', p: [
+          '¿Preparas otro contenido para Instagram? Prueba el <a href="/en/instagram-reel-resizer/">Redimensionador de Reels de Instagram</a> o el <a href="/en/tiktok-image-resizer/">Redimensionador de Imágenes para TikTok</a>.',
         ] },
       ],
       faq: [
@@ -472,6 +580,15 @@ const CONTENT = {
           'テキストや顔は、インターフェース要素が重なる可能性のある上下の端から離してください。',
           'モバイルサイズでプレビューし、被写体がひと目で分かるか確認しましょう。',
         ] },
+        { h2: 'Instagramストーリーのセーフゾーン', p: [
+          'ストーリープレイヤーは画面上部と下部に名前などのインターフェース要素を表示します。テキストや顔をはっきり見せるには、1080×1920のフレームのおよそ上部14%と下部20%に重要なコンテンツを置かないでください。主要な被写体は中央の横帯に配置するのが最も安全です。',
+        ] },
+        { h2: '投稿する前に見え方を確認', p: [
+          'カットしたら<em>見え方を確認</em>ボタンをタップして、リアルなInstagramストーリーのモックアップで写真をプレビュー。モバイル表示で、被写体がひと目で分かるかを書き出す前に確認しましょう。',
+        ] },
+        { h2: '関連ツール', p: [
+          'Instagramの他のコンテンツも準備しますか？ <a href="/en/instagram-reel-resizer/">Instagramリール リサイズ</a>や<a href="/en/tiktok-image-resizer/">TikTok画像 リサイズ</a>もお試しください。',
+        ] },
       ],
       faq: [
         { q: '画像はどこかにアップロードされますか？', a: 'いいえ。処理はすべてブラウザ内で行われ、画像が端末の外に出ることはありません。' },
@@ -500,6 +617,15 @@ const CONTENT = {
           'Vermeiden Sie Text oder Gesichter zu nahe an den oberen und unteren Kanten, wo Oberflächenelemente liegen können.',
           'Sehen Sie sich die Vorschau in mobiler Größe an, um zu prüfen, ob Ihr Motiv auf einen Blick erkennbar ist.',
         ] },
+        { h2: 'Sichere Zone für Instagram Storys', p: [
+          'Der Story-Player zeigt Ihren Namen und andere Oberflächenelemente am oberen und unteren Bildschirmrand. Damit Text und Gesichter klar sichtbar bleiben, lassen Sie etwa die oberen 14 % und die unteren 20 % des 1080 × 1920-Rahmens frei von wichtigen Inhalten – am sichersten liegen die Hauptmotive im mittleren horizontalen Band.',
+        ] },
+        { h2: 'So sieht es vor dem Posten aus', p: [
+          'Nach dem Ausschneiden tippen Sie auf die Schaltfläche <em>Ansehen</em>, um Ihr Foto in einer realistischen Story-Mockup-Vorschau zu betrachten. Nutzen Sie die mobile Ansicht, um sicherzugehen, dass Ihr Motiv auf einen Blick erkennbar ist, bevor Sie exportieren.',
+        ] },
+        { h2: 'Verwandte Werkzeuge', p: [
+          'Bereiten Sie weitere Instagram-Inhalte vor? Probieren Sie den <a href="/en/instagram-reel-resizer/">Instagram Reel Resizer</a> oder den <a href="/en/tiktok-image-resizer/">TikTok Image Resizer</a>.',
+        ] },
       ],
       faq: [
         { q: 'Wird das Bild irgendwo hochgeladen?', a: 'Nein. Die gesamte Verarbeitung erfolgt in Ihrem Browser, und Ihr Bild verlässt nie Ihr Gerät.' },
@@ -527,6 +653,15 @@ const CONTENT = {
           'Mantenha o conteúdo importante confortavelmente dentro do quadro e foque no centro da composição.',
           'Evite textos ou rostos muito próximos das bordas superior e inferior, onde podem aparecer elementos da interface.',
           'Faça a pré-visualização em tamanho mobile para conferir se o assunto fica claro à primeira vista.',
+        ] },
+        { h2: 'Zona segura dos Stories do Instagram', p: [
+          'O player de Stories mostra seu nome e outros elementos da interface na parte superior e inferior da tela. Para manter texto e rostos claramente visíveis, deixe livres aproximadamente os 14% superiores e os 20% inferiores do quadro de 1080 × 1920 — o lugar mais seguro para os assuntos principais é a faixa central.',
+        ] },
+        { h2: 'Veja como fica antes de publicar', p: [
+          'Depois de recortar, toque no botão <em>Ver como fica</em> para pré-visualizar sua foto dentro de um mockup realista do Instagram. Use a visualização mobile para confirmar se o assunto fica claro à primeira vista antes de exportar.',
+        ] },
+        { h2: 'Ferramentas relacionadas', p: [
+          'Preparando outro conteúdo do Instagram? Experimente o <a href="/en/instagram-reel-resizer/">Redimensionador de Reels do Instagram</a> ou o <a href="/en/tiktok-image-resizer/">Redimensionador de Imagens para TikTok</a>.',
         ] },
       ],
       faq: [

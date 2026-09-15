@@ -75,6 +75,14 @@ appShell = appShell.replace(/\s*<footer class="app-footer">[\s\S]*?<\/footer>/, 
 // (language-switch popover + localizer). Without this, the toggle script would
 // run twice and the dropdown could never open. app.js is re-added by buildPage.
 appShell = appShell.replace(/<script>(?!<\/script>)[\s\S]*?<\/script>/g, '');
+// The root app shell carries an inline AdSense unit, but the live SEO pages do
+// not show ads. Strip it from the extracted shell so a regeneration does not
+// change ad behavior on the generated pages (ads remain root-only).
+appShell = appShell.replace(/\s*<!-- Google AdSense -->[\s\S]*?<\/div>\s*/, '');
+// Root-only SEO copy: the root index.html carries crawlable preview-first copy
+// that must NOT appear inside every generated page. Strip it from the extracted
+// shell using the explicit comment delimiters.
+appShell = appShell.replace(/<!-- SEO-ROOT-COPY-START -->[\s\S]*?<!-- SEO-ROOT-COPY-END -->\s*/g, '');
 
 const headerMatch = appShell.match(/\s*<header class="app-header">[\s\S]*?<\/header>/);
 if (!headerMatch) throw new Error('Could not extract app-header');
@@ -111,7 +119,10 @@ function langSwitch(localeCode, kind, toolSlug) {
   const items = LOCALES.map(loc => {
     let href;
     if (kind === 'home') {
-      href = `/${loc.slug}/`;
+      // Canonical English home is root /; other locales keep /<slug>/.
+      href = loc.code === DEFAULT_LOCALE
+        ? '/'
+        : `/${loc.slug}/`;
     } else {
       const page = PAGES.find(p => p.slug === toolSlug);
       const published = page && page.published.includes(loc.code);
@@ -192,9 +203,14 @@ ${buildAlternates(alternates)}
     <meta property="og:description" content="${description}">
     <meta property="og:site_name" content="RealResizer">
     <meta property="og:locale" content="${htmlLang.replace('-', '_')}">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="${SITE_BASE_URL}/assets/og-preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="RealResizer — preview how your image looks on every platform before you post">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${title}">
     <meta name="twitter:description" content="${description}">
+    <meta name="twitter:image" content="${SITE_BASE_URL}/assets/og-preview.png">
     ${FAVICON_LINKS}
     <meta name="theme-color" content="#0a0a0a">
     <link rel="stylesheet" href="/style.css">
@@ -381,10 +397,11 @@ ${indent(appShell)}
   // Unified footer.
   parts.push('<footer class="seo-footer">');
   if (!isHome) parts.push(relatedToolsFor(PAGES.find(p=>p.slug===toolSlug), localeCode));
+  const footerHomeHref = localeCode === DEFAULT_LOCALE ? '/' : `/${localeCode}/`;
   parts.push(`      <nav class="seo-footer-nav" aria-label="Footer">
         <ul>
           <li><a href="/">${c.footerHome}</a></li>
-          <li><a href="/${localeCode}/">${c.footerAllTools}</a></li>
+          <li><a href="${footerHomeHref}">${c.footerAllTools}</a></li>
           <li><a href="/sitemap.xml">${c.sitemap}</a></li>
           <li><span class="shortcut-hint"><kbd>Cmd</kbd>/<kbd>Ctrl</kbd> + <kbd>V</kbd> to paste</span></li>
         </ul>
@@ -428,14 +445,20 @@ function alternatesFor(localeCode, kind, toolSlug) {
   // Order: en first, then others, for stable deterministic output.
   const ordered = [...locales].sort((a, b) => (a.code === DEFAULT_LOCALE ? -1 : b.code === DEFAULT_LOCALE ? 1 : a.code.localeCompare(b.code)));
   for (const loc of ordered) {
-    const url = kind === 'home'
-      ? `${SITE_BASE_URL}/${loc.slug}/`
-      : `${SITE_BASE_URL}/${loc.slug}/${toolSlug}/`;
+    let url;
+    if (kind === 'home') {
+      // Canonical English home is root /; other locales keep /<slug>/.
+      url = loc.code === DEFAULT_LOCALE
+        ? `${SITE_BASE_URL}/`
+        : `${SITE_BASE_URL}/${loc.slug}/`;
+    } else {
+      url = `${SITE_BASE_URL}/${loc.slug}/${toolSlug}/`;
+    }
     alts.push({ lang: loc.htmlLang, url });
   }
-  // x-default -> English equivalent.
+  // x-default -> English equivalent (root / for home).
   const xDefaultUrl = kind === 'home'
-    ? `${SITE_BASE_URL}/${DEFAULT_LOCALE}/`
+    ? `${SITE_BASE_URL}/`
     : `${SITE_BASE_URL}/${DEFAULT_LOCALE}/${toolSlug}/`;
   alts.push({ lang: 'x-default', url: xDefaultUrl });
   return alts;
@@ -460,47 +483,47 @@ const sitemapEntries = [];
 const HOME_COPY = {
   en: {
     title: 'RealResizer — Free Online Image Crop & Resize Tool',
-    description: 'Crop and resize images for Instagram, YouTube, TikTok, Facebook, LinkedIn and more, entirely in your browser. No uploads, no accounts, no data leaves your device.',
-    h1: 'Crop & resize images online, privately',
-    intro: 'A fast, precise, browser-based image cropper and resizer with platform-tailored presets. Upload, pick a destination, adjust the crop, and export — all on your device.',
-    h2: 'A privacy-first image resize & crop tool',
-    body: 'RealResizer is a client-side image cropper and resizer. Your photos never leave your device: there are no uploads, no accounts, and no server-side processing. Everything happens locally in your browser, which keeps your images private and the tool fast. Choose a destination platform and RealResizer locks in the exact aspect ratio, so you get the framing right the first time — whether you want to resize a photo online for a post or crop an image for a cover.',
+    description: 'See how your image looks on Instagram, YouTube, TikTok, LinkedIn, X, and more — before you post. Crop and resize in realistic platform previews, entirely in your browser. No uploads, no account.',
+    h1: 'See how your image looks on every platform — before you post.',
+    intro: 'Crop, resize, and preview your image inside realistic platform mockups — YouTube, Instagram, TikTok, LinkedIn, X, and more. All processing happens locally in your browser. No uploads, no account, no data leaves your device.',
+    h2: 'Preview before you publish',
+    body: 'RealResizer shows you exactly how your image will appear on any platform — from an Instagram Story to a YouTube thumbnail to a LinkedIn feed post. Pick a destination, crop and resize to the exact dimensions with the platform preset, then cut and preview the result inside a realistic mockup. You see the final look before anything leaves your device. There are no uploads, no accounts, and no server-side processing: everything happens locally in your browser, which keeps your images private and the tool fast.',
     popularHeading: 'Popular resizers',
   },
   es: {
     title: 'RealResizer — Recorta y redimensiona imágenes gratis',
-    description: 'Recorta y redimensiona imágenes para Instagram, YouTube, TikTok, Facebook, LinkedIn y más, completamente en tu navegador. Sin subidas, sin cuentas y sin que tus datos salgan de tu dispositivo.',
-    h1: 'Recorta y redimensiona imágenes en línea y en privado',
-    intro: 'Un recortador y redimensionador de imágenes rápido y preciso que funciona en el navegador, con ajustes pensados para cada plataforma. Sube, elige un destino, ajusta el recorte y exporta: todo en tu dispositivo.',
-    h2: 'Una herramienta de recorte y redimensionado que prioriza la privacidad',
-    body: 'RealResizer es un recortador y redimensionador de imágenes que funciona en tu navegador. Tus fotos nunca salen de tu dispositivo: no hay subidas, ni cuentas, ni procesamiento en servidores. Todo ocurre localmente, lo que mantiene tus imágenes privadas y la herramienta rápida. Elige una plataforma de destino y RealResizer fija la proporción exacta, para que el encuadre salga bien a la primera.',
+    description: 'Mira cómo se verá tu imagen en Instagram, YouTube, TikTok, LinkedIn, X y más antes de publicarla. Recorta y redimensiona con vistas previas realistas, directamente en tu navegador. Sin subidas, sin cuenta.',
+    h1: 'Mira cómo se verá tu imagen en cada plataforma antes de publicar.',
+    intro: 'Recorta, redimensiona y previsualiza tu imagen dentro de maquetas realistas de plataformas: YouTube, Instagram, TikTok, LinkedIn, X y más. Todo el procesamiento ocurre en tu navegador, sin subidas, sin cuentas y sin que tus datos salgan de tu dispositivo.',
+    h2: 'Previsualiza antes de publicar',
+    body: 'RealResizer te muestra exactamente cómo se verá tu imagen en cualquier plataforma, desde una Historia de Instagram hasta una miniatura de YouTube o una publicación en el feed de LinkedIn. Elige un destino, recorta y redimensiona con el ajuste de la plataforma, luego recorta y previsualiza el resultado dentro de una maqueta realista. Ves el resultado final antes de que cualquier cosa salga de tu dispositivo. No hay subidas, ni cuentas, ni procesamiento en servidores: todo ocurre en tu navegador.',
     popularHeading: 'Herramientas populares',
   },
   ja: {
     title: 'RealResizer — 無料のオンライン画像トリミング・リサイズ',
-    description: 'Instagram、YouTube、TikTok、Facebook、LinkedInなどの画像をブラウザ上でそのままトリミング・リサイズ。アップロード不要、アカウント不要、データは端末の外に出ません。',
-    h1: 'オンラインで画像をトリミング・リサイズ、プライベートに',
-    intro: 'ブラウザで動作する高速で正確な画像トリミング・リサイズツール。プラットフォーム別のプリセット付き。アップロードして、保存先を選び、クロップを調整して書き出すまで、すべて端末内で完結します。',
-    h2: 'プライバシーを最優先する画像リサイズ・トリミングツール',
-    body: 'RealResizerはブラウザで動作する画像トリミング・リサイズツールです。写真が端末の外に出ることはありません。アップロードもアカウントもサーバー処理も不要で、すべてブラウザ内で完結します。画像はプライベートに保たれ、ツールも高速です。保存先のプラットフォームを選べば、RealResizerが正確なアスペクト比を自動で設定してくれます。',
+    description: 'Instagram、YouTube、TikTok、LinkedIn、X などで画像がどう見えるか、投稿する前に確認。リアルなプラットフォームプレビュー付きでブラウザのままトリミング・リサイズ。アップロード不要、アカウント不要。',
+    h1: '投稿する前に、画像が各プラットフォームでどう見えるか確認。',
+    intro: 'YouTube、Instagram、TikTok、LinkedIn、X など、リアルなプラットフォームモックアップ内で画像をトリミング・リサイズ・プレビュー。すべてブラウザ内で完結。アップロード不要、アカウント不要、端末の外にデータが出ません。',
+    h2: '投稿する前にプレビュー',
+    body: 'RealResizer は、Instagram ストーリーから YouTube サムネイル、LinkedIn フィード投稿まで、あらゆるプラットフォームでの画像の最終的な見え方を正確に表示します。プラットフォームを選んでプリセットでトリミング・リサイズし、カット後にリアルなモックアップでプレビュー。端末から外に出る前に最終イメージを確認できます。アップロードもアカウントもサーバー処理も不要、すべてブラウザ内でローカルに完結します。',
     popularHeading: '人気のツール',
   },
   de: {
     title: 'RealResizer — Bilder gratis online zuschneiden und skalieren',
-    description: 'Schneiden Sie Bilder für Instagram, YouTube, TikTok, Facebook, LinkedIn u. v. m. direkt im Browser zu und skalieren Sie sie. Kein Upload, keine Konten, Ihre Daten verlassen nie Ihr Gerät.',
-    h1: 'Bilder online zuschneiden und skalieren — privat',
-    intro: 'Eine schnelle, präzise, im Browser laufende Bild-Zuschneide- und Skalierungsfunktion mit Vorgaben je Plattform. Hochladen, Ziel wählen, Ausschnitt anpassen und exportieren — alles auf Ihrem Gerät.',
-    h2: 'Ein datenschutzfreundliches Werkzeug zum Zuschneiden und Skalieren',
-    body: 'RealResizer ist ein Bildbeschneider und -skalierer, der in Ihrem Browser läuft. Ihre Fotos verlassen nie Ihr Gerät: kein Upload, keine Konten und keine Serververarbeitung. Alles passiert lokal, sodass Ihre Bilder privat bleiben und das Werkzeug schnell ist. Wählen Sie eine Zielplattform, und RealResizer setzt das exakte Seitenverhältnis, damit der Bildausschnitt auf Anhieb stimmt.',
+    description: 'Sehen Sie, wie Ihr Bild auf Instagram, YouTube, TikTok, LinkedIn, X und mehr aussieht — bevor Sie posten. Zuschneiden und skalieren mit realistischen Plattform-Vorschauen, komplett im Browser. Kein Upload, kein Konto.',
+    h1: 'Sehen Sie, wie Ihr Bild auf jeder Plattform aussieht — bevor Sie posten.',
+    intro: 'Zuschneiden, skalieren und in realistischen Plattform-Mockups vorschauen: YouTube, Instagram, TikTok, LinkedIn, X und mehr. Die gesamte Verarbeitung erfolgt lokal in Ihrem Browser. Kein Upload, kein Konto, Ihre Daten verlassen nie Ihr Gerät.',
+    h2: 'Vor dem Veröffentlichen ansehen',
+    body: 'RealResizer zeigt Ihnen genau, wie Ihr Bild auf jeder Plattform erscheint — von einer Instagram Story über ein YouTube-Thumbnail bis zum LinkedIn-Feed-Beitrag. Wählen Sie ein Ziel, schneiden Sie mit der Plattform-Vorgabe zu, schneiden Sie aus und sehen Sie das Ergebnis in einem realistischen Mockup. Sie sehen das Endergebnis, bevor irgendetwas Ihr Gerät verlässt. Keine Uploads, keine Konten, keine Serververarbeitung: Alles passiert lokal in Ihrem Browser.',
     popularHeading: 'Beliebte Werkzeuge',
   },
   pt: {
     title: 'RealResizer — Recorte e redimensione imagens grátis',
-    description: 'Recorte e redimensione imagens para Instagram, YouTube, TikTok, Facebook, LinkedIn e outros, tudo no seu navegador. Sem uploads, sem contas e sem que seus dados saiam do dispositivo.',
-    h1: 'Recorte e redimensione imagens online, de forma privada',
-    intro: 'Uma ferramenta rápida e precisa para recortar e redimensionar imagens no navegador, com predefinições por plataforma. Envie, escolha um destino, ajuste o recorte e exporte — tudo no seu dispositivo.',
-    h2: 'Uma ferramenta de recorte e redimensionamento que prioriza a privacidade',
-    body: 'O RealResizer é um recortador e redimensionador de imagens que roda no seu navegador. Suas fotos nunca saem do seu dispositivo: sem uploads, sem contas e sem processamento em servidores. Tudo acontece localmente, mantendo suas imagens privadas e a ferramenta rápida. Escolha uma plataforma de destino e o RealResizer fixa a proporção exata, para o enquadramento sair certo de primeira.',
+    description: 'Veja como sua imagem fica no Instagram, YouTube, TikTok, LinkedIn, X e outros — antes de publicar. Recorte e redimensione com visualizações realistas de plataforma, tudo no seu navegador. Sem uploads, sem conta.',
+    h1: 'Veja como sua imagem fica em cada plataforma — antes de publicar.',
+    intro: 'Recorte, redimensione e previsualize sua imagem dentro de maquetes realistas de plataformas: YouTube, Instagram, TikTok, LinkedIn, X e outros. Todo o processamento acontece no seu navegador. Sem uploads, sem contas e sem que seus dados saiam do dispositivo.',
+    h2: 'Previsualize antes de publicar',
+    body: 'O RealResizer mostra exatamente como sua imagem aparecerá em qualquer plataforma — de uma Story do Instagram a uma miniatura do YouTube ou uma postagem no feed do LinkedIn. Escolha um destino, recorte e redimensione com a predefinição da plataforma, depois recorte e previsualize o resultado dentro de uma maquete realista. Você vê a aparência final antes que qualquer coisa saia do seu dispositivo. Sem uploads, sem contas e sem processamento em servidores: tudo acontece localmente no seu navegador.',
     popularHeading: 'Ferramentas populares',
   },
 };
@@ -509,7 +532,9 @@ const HOME_COPY = {
 for (const loc of LOCALES) {
   const c = COMMON[loc.code] || COMMON.en;
   const cp = HOME_COPY[loc.code] || HOME_COPY.en;
-  const url = `${SITE_BASE_URL}/${loc.slug}/`;
+  const url = loc.code === DEFAULT_LOCALE
+    ? `${SITE_BASE_URL}/`
+    : `${SITE_BASE_URL}/${loc.slug}/`;
 
   // Localized "Popular resizers" grid — links only to pages that exist for
   // this locale (published tools), else to that tool's English page.
@@ -570,7 +595,11 @@ ${popularLinks}
     isEnglishOnlyTool: false,
   });
   emit(`${loc.slug}/index.html`, html);
-  sitemapEntries.push(`/${loc.slug}/`);
+  // For the English home, canonical is root / — avoid adding /en/ to the sitemap
+  // since it is a duplicate route (valid 200 but not the canonical home).
+  if (loc.code !== DEFAULT_LOCALE) {
+    sitemapEntries.push(`/${loc.slug}/`);
+  }
 }
 
 // -- Tool pages (all published locales for each tool) -----------------------
