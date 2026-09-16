@@ -788,6 +788,92 @@ const COMMON = {
   pt: { home: 'Início', allTools: 'Todas as ferramentas', sitemap: 'Mapa do site', breadcrumbHome: 'Início', relatedLabel: 'Ferramentas relacionadas', faqHeading: 'Perguntas frequentes', footerHome: 'Início', footerAllTools: 'Todas as ferramentas' },
 };
 
+
+// ---------------------------------------------------------------------------
+// Trust / legal pages (English). Generated once per slug at the SITE_ROOT,
+// shared crawlable across every localized page via the unified footer.
+// ---------------------------------------------------------------------------
+const TRUST_REGISTRY = [
+  {
+    slug: 'about',
+    h1: 'About RealResizer',
+    lede: 'RealResizer is a free, browser-based image tool that shows you exactly how your picture will look on each platform before you post.',
+    rows: [
+      { h2: 'Why RealResizer exists', p: [
+        'Every day, millions of images are posted without ever being checked inside the real platform interface. Text gets cut off, logos sit in safe zones, faces fall behind interface elements. RealResizer exists to close that gap: crop, resize, and preview your image inside realistic platform mockups so you see the final look before anything leaves your device.',
+      ] },
+      { h2: 'How it works', p: [
+        'Everything runs inside your browser. You upload nothing, and all processing happens locally in the browser. Your image never leaves your device.',
+      ] },
+      { h2: 'Who is behind RealResizer', p: [
+        'RealResizer is built and maintained by Pratham as an independent, free tool — no accounts, no sign-up, and no server-side processing.',
+      ] },
+    ],
+    faq: [
+      { q: 'Is RealResizer really free?', a: 'Yes. RealResizer is free to use with no watermarks and no sign-up required.' },
+      { q: 'Is my image uploaded anywhere?', a: 'No. Your image is processed entirely in your browser and never leaves your device.' },
+    ],
+  },
+  {
+    slug: 'privacy-policy',
+    h1: 'Privacy Policy',
+    lede: 'This policy explains what happens to your images and what tools the site itself uses. Your images are processed locally in your browser and never uploaded to our servers.',
+    rows: [
+      { h2: 'Your images', p: [
+        'RealResizer processes images entirely in your browser. Your image never leaves your device: there is no upload to our servers)Skip. This is the core privacy promise of the tool.',
+      ] },
+      { h2: 'Anonymous analytics and advertising', p: [
+        'To understand how the site is used and to keep it free, RealResizer uses Google Analytics (GA4) and Google AdSense advertising. These are normal website technologies that may use cookies and collect anonymous usage statistics. They do not see your images, which stay local to your device and are never shared with Google or anyone else.',
+      ] },
+      { h2: 'ads.txt', p: [
+        'As required, RealResizer serves an ads.txt file at /ads.txt declaring its Google AdSense direct-sell relationship.',
+      ] },
+    ],
+    faq: [
+      { q: 'Do you see my images?', a: 'No. Images are processed locally in your browser and never cross the network.' },
+      { q: 'Does Google Analytics see my images?', a: 'No. GA4 and AdSense only collect standard anonymous site-usage data; your image data never leaves your device.' },
+    ],
+  },
+  {
+    slug: 'terms',
+    h1: 'Terms of Service',
+    lede: 'These terms govern your use of RealResizer. By using the tool you agree to them.',
+    rows: [
+      { h2: 'Acceptable use', p: [
+        'You may use RealResizer for any lawful purpose. Do not use it to process content you do not have the right to use.',
+      ] },
+      { h2: 'No warranty', p: [
+        'RealResizer is provided “as is”, without warranty of any kind. While the tool is designed to resize and preview images accurately, we do not guarantee specific results on every platform for every image.',
+      ] },
+      { h2: 'Changes', p: [
+        'We may update these terms from time to time. Continued use of the tool after changes means you accept the updated terms.',
+      ] },
+    ],
+    faq: [
+      { q: 'Do I need an account?', a: 'No. RealResizer needs no account and no sign-up.' },
+    ],
+  },
+  {
+    slug: 'contact',
+    h1: 'Contact RealResizer',
+    lede: 'Questions, feedback, or a request for a missing preset? Reach out below.',
+    rows: [
+      { h2: 'Email', p: [
+        'Email us at <a href="mailto:Pratham.LG.128@gmail.com">Pratham.LG.128@gmail.com</a> for support, feedback, business enquiries, or to request a missing platform preset.',
+      ] },
+      { h2: 'Response time', p: [
+        'We aim to reply within a few business days.',
+      ] },
+    ],
+    faq: [
+      { q: 'Can I request a new platform preset?', a: 'Yes — email us with the platform name and we will look into adding it.' },
+    ],
+  },
+];
+
+// Sitemap: trust pages are appended to the generated sitemap by gen_seo.js
+// using TRUST_REGISTRY, so regeneration preserves their URLs.
+
 module.exports = {
   LOCALES,
   DEFAULT_LOCALE,
