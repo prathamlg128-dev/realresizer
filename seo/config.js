@@ -781,11 +781,11 @@ const SWITCH_LABEL = {
 };
 
 const COMMON = {
-  en: { home: 'Home', allTools: 'All tools', sitemap: 'Sitemap', breadcrumbHome: 'Home', relatedLabel: 'Related tools', faqHeading: 'Frequently asked questions', footerHome: 'Home', footerAllTools: 'All tools' },
-  es: { home: 'Inicio', allTools: 'Todas las herramientas', sitemap: 'Mapa del sitio', breadcrumbHome: 'Inicio', relatedLabel: 'Herramientas relacionadas', faqHeading: 'Preguntas frecuentes', footerHome: 'Inicio', footerAllTools: 'Todas las herramientas' },
-  ja: { home: 'ホーム', allTools: 'すべてのツール', sitemap: 'サイトマップ', breadcrumbHome: 'ホーム', relatedLabel: '関連ツール', faqHeading: 'よくある質問', footerHome: 'ホーム', footerAllTools: 'すべてのツール' },
-  de: { home: 'Startseite', allTools: 'Alle Werkzeuge', sitemap: 'Sitemap', breadcrumbHome: 'Startseite', relatedLabel: 'Verwandte Werkzeuge', faqHeading: 'Häufige Fragen', footerHome: 'Startseite', footerAllTools: 'Alle Werkzeuge' },
-  pt: { home: 'Início', allTools: 'Todas as ferramentas', sitemap: 'Mapa do site', breadcrumbHome: 'Início', relatedLabel: 'Ferramentas relacionadas', faqHeading: 'Perguntas frequentes', footerHome: 'Início', footerAllTools: 'Todas as ferramentas' },
+  en: { home: 'Home', allTools: 'All tools', sitemap: 'Sitemap', breadcrumbHome: 'Home', relatedLabel: 'Related tools', faqHeading: 'Frequently asked questions', footerHome: 'Home', footerAllTools: 'All tools', footerAbout: 'About', footerPrivacy: 'Privacy Policy', footerTerms: 'Terms', footerContact: 'Contact' },
+  es: { home: 'Inicio', allTools: 'Todas las herramientas', sitemap: 'Mapa del sitio', breadcrumbHome: 'Inicio', relatedLabel: 'Herramientas relacionadas', faqHeading: 'Preguntas frecuentes', footerHome: 'Inicio', footerAllTools: 'Todas las herramientas', footerAbout: 'Acerca de', footerPrivacy: 'Política de privacidad', footerTerms: 'Términos', footerContact: 'Contacto' },
+  ja: { home: 'ホーム', allTools: 'すべてのツール', sitemap: 'サイトマップ', breadcrumbHome: 'ホーム', relatedLabel: '関連ツール', faqHeading: 'よくある質問', footerHome: 'ホーム', footerAllTools: 'すべてのツール', footerAbout: 'このサイトについて', footerPrivacy: 'プライバシーポリシー', footerTerms: '利用規約', footerContact: 'お問い合わせ' },
+  de: { home: 'Startseite', allTools: 'Alle Werkzeuge', sitemap: 'Sitemap', breadcrumbHome: 'Startseite', relatedLabel: 'Verwandte Werkzeuge', faqHeading: 'Häufige Fragen', footerHome: 'Startseite', footerAllTools: 'Alle Werkzeuge', footerAbout: 'Über uns', footerPrivacy: 'Datenschutzerklärung', footerTerms: 'Nutzungsbedingungen', footerContact: 'Kontakt' },
+  pt: { home: 'Início', allTools: 'Todas as ferramentas', sitemap: 'Mapa do site', breadcrumbHome: 'Início', relatedLabel: 'Ferramentas relacionadas', faqHeading: 'Perguntas frequentes', footerHome: 'Início', footerAllTools: 'Todas as ferramentas', footerAbout: 'Sobre', footerPrivacy: 'Política de Privacidade', footerTerms: 'Termos', footerContact: 'Contato' },
 };
 
 
@@ -885,4 +885,5 @@ module.exports = {
   COMMON,
   FOOTER_NOTES,
   NAV_LABELS,
+  TRUST_REGISTRY,
 };

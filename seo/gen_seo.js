@@ -35,6 +35,7 @@ const {
   SWITCH_LABEL,
   COMMON,
   FOOTER_NOTES,
+  TRUST_REGISTRY,
   NAV_LABELS,
 } = require('./config');
 
@@ -396,13 +397,17 @@ ${indent(appShell)}
 
   // Unified footer.
   parts.push('<footer class="seo-footer">');
-  if (!isHome) parts.push(relatedToolsFor(PAGES.find(p=>p.slug===toolSlug), localeCode));
+  if (!isHome && toolSlug) parts.push(relatedToolsFor(PAGES.find(p=>p.slug===toolSlug), localeCode));
   const footerHomeHref = localeCode === DEFAULT_LOCALE ? '/' : `/${localeCode}/`;
   parts.push(`      <nav class="seo-footer-nav" aria-label="Footer">
         <ul>
           <li><a href="/">${c.footerHome}</a></li>
           <li><a href="${footerHomeHref}">${c.footerAllTools}</a></li>
           <li><a href="/sitemap.xml">${c.sitemap}</a></li>
+          <li><a href="/about/">${c.footerAbout}</a></li>
+          <li><a href="/privacy-policy/">${c.footerPrivacy}</a></li>
+          <li><a href="/terms/">${c.footerTerms}</a></li>
+          <li><a href="/contact/">${c.footerContact}</a></li>
           <li><span class="shortcut-hint"><kbd>Cmd</kbd>/<kbd>Ctrl</kbd> + <kbd>V</kbd> to paste</span></li>
         </ul>
       </nav>
@@ -666,6 +671,59 @@ for (const page of PAGES) {
     sitemapEntries.push(`/${locCode}/${slug}/`);
   }
 }
+
+// ---------------------------------------------------------------------------
+// Trust pages (About / Privacy Policy / Terms / Contact) — EN only, emitted at
+// the site root so the English footer trust links always resolve.
+// ---------------------------------------------------------------------------
+for (const trustPage of TRUST_REGISTRY) {
+  const c = COMMON[DEFAULT_LOCALE] || COMMON.en;
+  const url = `${SITE_BASE_URL}/${trustPage.slug}/`;
+  const crumbs = [
+    { label: c.breadcrumbHome, href: '/' },
+    { label: trustPage.h1 },
+  ];
+  const jsonLd = jsonLdScripts([
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: trustPage.h1,
+      url,
+      inLanguage: 'en',
+      description: (trustPage.lede || trustPage.h1).replace(/<[^>]*>/g, ''),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: c.breadcrumbHome, item: `${SITE_BASE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: trustPage.h1, item: url },
+      ],
+    },
+  ]);
+  const html = buildPage({
+    localeCode: DEFAULT_LOCALE,
+    kind: 'trust',
+    toolSlug: undefined,
+    preset: undefined,
+    url,
+    title: `${trustPage.h1} — RealResizer`,
+    description: (trustPage.lede || trustPage.h1).replace(/<[^>]*>/g, ''),
+    h1: trustPage.h1,
+    intro: trustPage.lede,
+    contentSection: content(DEFAULT_LOCALE, trustPage),
+    jsonLdHtml: jsonLd,
+    alternates: [],
+    isHome: false,
+    isEnglishOnlyTool: true,
+    currentCrumbs: crumbs,
+    breadcrumbHtml: breadcrumb(crumbs),
+  });
+  emit(`${trustPage.slug}/index.html`, html);
+  sitemapEntries.push(`/${trustPage.slug}/`);
+  console.log(`WROTE ${trustPage.slug}/index.html`);
+}
+
 
 // ===========================================================================
 // robots.txt + sitemap.xml
