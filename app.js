@@ -529,7 +529,6 @@
     presetsEmpty: document.getElementById('presets-empty'),
     presetsEmptyQuery: document.getElementById('presets-empty-query'),
     presetsEmptyRequest: document.getElementById('presets-empty-request'),
-    presetsEmptyConfirm: document.getElementById('presets-empty-confirm'),
 
     // Actions
     btnCut: document.getElementById('btn-cut'),
@@ -2505,12 +2504,6 @@ function resolvePostCutElements() {
         const subject = `RealResizer preset request: ${rawQuery}`;
         const body = `Hey Pratham!\n\nI'd like to request this app preset for RealResizer:\n${rawQuery}\n\nPlease add it when you get a chance. Thanks!`;
         elements.presetsEmptyRequest.href = `mailto:${requestEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        if (!elements.presetsEmptyRequest.dataset.requestWired) {
-          elements.presetsEmptyRequest.dataset.requestWired = '1';
-          elements.presetsEmptyRequest.addEventListener('click', () => {
-            if (elements.presetsEmptyConfirm) elements.presetsEmptyConfirm.classList.remove('hidden');
-          });
-        }
       }
     }
   }
