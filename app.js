@@ -526,6 +526,10 @@
     presetsGrid: document.getElementById('presets-grid'),
     presetsSearch: document.getElementById('presets-search'),
     presetsBackdrop: document.getElementById('presets-backdrop'),
+    presetsEmpty: document.getElementById('presets-empty'),
+    presetsEmptyQuery: document.getElementById('presets-empty-query'),
+    presetsEmptyRequest: document.getElementById('presets-empty-request'),
+    presetsEmptyConfirm: document.getElementById('presets-empty-confirm'),
 
     // Actions
     btnCut: document.getElementById('btn-cut'),
@@ -2487,6 +2491,28 @@ function resolvePostCutElements() {
           .toLowerCase();
       card.classList.toggle('hidden', !!q && !haystack.includes(q));
     });
+    const visibleCards = presetCards.filter(({ card }) => !card.classList.contains('hidden'));
+    visibleCards.forEach(({ card }) => {
+      card.classList.remove('hidden');
+    });
+    const rawQuery = (query || '').trim();
+    const showEmpty = !!rawQuery && visibleCards.length === 0;
+    if (elements.presetsEmpty) {
+      elements.presetsEmpty.classList.toggle('hidden', !showEmpty);
+      if (elements.presetsEmptyQuery) elements.presetsEmptyQuery.textContent = rawQuery;
+      if (showEmpty && elements.presetsEmptyRequest) {
+        const requestEmail = 'pratham.lg.128@gmail.com';
+        const subject = `RealResizer preset request: ${rawQuery}`;
+        const body = `Hey Pratham!\n\nI'd like to request this app preset for RealResizer:\n${rawQuery}\n\nPlease add it when you get a chance. Thanks!`;
+        elements.presetsEmptyRequest.href = `mailto:${requestEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        if (!elements.presetsEmptyRequest.dataset.requestWired) {
+          elements.presetsEmptyRequest.dataset.requestWired = '1';
+          elements.presetsEmptyRequest.addEventListener('click', () => {
+            if (elements.presetsEmptyConfirm) elements.presetsEmptyConfirm.classList.remove('hidden');
+          });
+        }
+      }
+    }
   }
 
   function resetPresetSearch() {
