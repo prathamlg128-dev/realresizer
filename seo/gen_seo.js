@@ -36,6 +36,7 @@ const {
   COMMON,
   FOOTER_NOTES,
   TRUST_REGISTRY,
+  TRUST_LOCALIZED,
   NAV_LABELS,
 } = require('./config');
 
@@ -70,6 +71,10 @@ appShell = appShell.replace('href="style.css"', 'href="/style.css"');
 appShell = appShell.replace('src="app.js"', 'src="/app.js"');
 appShell = appShell.replace(/\s*<script src="\/app\.js"><\/script>\s*$/, '');
 appShell = appShell.replace(/\s*<footer class="app-footer">[\s\S]*?<\/footer>/, '');
+// The app shell (root index.html) also carries its own crawlable seo-footer.
+// Strip it too: generated pages must have exactly ONE footer — the unified,
+// locale-aware one that buildPage emits below (prevents duplicate footers).
+appShell = appShell.replace(/\s*<footer class="seo-footer">[\s\S]*?<\/footer>/, '');
 // index.html (the root /) carries its own inline language-switch script for the
 // live root page. Remove ALL inline <script> blocks from the extracted shell so
 // generated SEO pages rely only on the scripts the generator injects itself
@@ -101,6 +106,73 @@ appHeaderBlock = appHeaderBlock.replace(/\s*<nav class="seo-lang-switch"[\s\S]*?
 const indent = (s, n = 4) => s.split('\n').map(l => ' '.repeat(n) + l).join('\n');
 
 // ---------------------------------------------------------------------------
+// Locale-aware routing
+// ---------------------------------------------------------------------------
+// Canonical route for a page, per kind:
+//   home  : en -> '/',            other -> '/<locale>/'
+//   trust : en -> '/<page>/',     other -> '/<locale>/<page>/'
+//   tool  : always '/<locale>/<page>/'
+// English is canonical at the root for both home ('/') and trust ('/<page>/');
+// every other locale is grouped under its own /<locale>/ prefix so the two
+// never collide.
+function homeRoute(localeCode) {
+  return localeCode === DEFAULT_LOCALE ? '/' : `/${localeCode}/`;
+}
+function trustRoute(localeCode, slug) {
+  return localeCode === DEFAULT_LOCALE ? `/${slug}/` : `/${localeCode}/${slug}/`;
+}
+function toolRoute(localeCode, slug) {
+  return `/${localeCode}/${slug}/`;
+}
+// Best link for (targetLocale, pageKind, pageSlug): keep the visitor on the
+// SAME page but in the target locale when one exists; otherwise fall back to
+// that page's English version — never to the target locale's Home.
+function langPreservingHref(localeCode, kind, pageSlug) {
+  if (kind === 'home') return homeRoute(localeCode);
+  if (kind === 'trust') return trustRoute(localeCode, pageSlug);
+  if (kind === 'tool' && pageSlug) {
+    const page = PAGES.find(p => p.slug === pageSlug);
+    const published = page && page.published.includes(localeCode);
+    return published ? toolRoute(localeCode, pageSlug) : toolRoute(DEFAULT_LOCALE, pageSlug);
+  }
+  return homeRoute(localeCode);
+}
+// Localized content for a trust page; null when the locale has no translation.
+function trustContentFor(localeCode, slug) {
+  return (TRUST_LOCALIZED[slug] && TRUST_LOCALIZED[slug][localeCode]) || null;
+}
+
+// Theme toggle (dark/light) for standalone trust pages that do not load app.js.
+// Mirrors app.js behaviour so the toggle stays live on pages without the tool.
+const themeToggleScript = `    <script>
+      (function () {
+        var btn = document.getElementById('btn-theme-toggle');
+        if (!btn) return;
+        var darkIcon = btn.querySelector('.theme-dark-icon');
+        var lightIcon = btn.querySelector('.theme-light-icon');
+        function apply(theme) {
+          var isLight = theme === 'light';
+          if (isLight) document.documentElement.setAttribute('data-theme', 'light');
+          else document.documentElement.removeAttribute('data-theme');
+          btn.setAttribute('aria-pressed', String(isLight));
+          btn.title = isLight ? 'Switch to dark theme' : 'Switch to light theme';
+          btn.setAttribute('aria-label', btn.title);
+          btn.classList.toggle('active', isLight);
+          if (darkIcon) darkIcon.classList.toggle('hidden', isLight);
+          if (lightIcon) lightIcon.classList.toggle('hidden', !isLight);
+        }
+        var saved = 'dark';
+        try { saved = localStorage.getItem('rr_theme') || 'dark'; } catch (e) {}
+        apply(saved);
+        btn.addEventListener('click', function () {
+          var next = btn.getAttribute('aria-pressed') === 'true' ? 'dark' : 'light';
+          apply(next);
+          try { localStorage.setItem('rr_theme', next); } catch (e) {}
+        });
+      })();
+    </script>`;
+
+// ---------------------------------------------------------------------------
 // Language switcher (compact dropdown) — injected into header
 // ---------------------------------------------------------------------------
 // A single compact toggle labelled with the CURRENT locale's native language
@@ -110,25 +182,17 @@ const indent = (s, n = 4) => s.split('\n').map(l => ' '.repeat(n) + l).join('\n'
 // The menu keeps real crawlable <a href> links so it degrades gracefully and
 // stays indexable. A tiny optional inline script toggles the popover.
 //
-// For a page of (locale, kind, toolSlug), build the locale links:
-// - kind 'home'  -> each locale links to /<slug>/   (that locale's home)
-// - kind 'tool'  -> each locale links to /<slug>/<toolSlug>/ IF the tool is
-//                   published in that locale, else falls back to /<slug>/
-function langSwitch(localeCode, kind, toolSlug) {
+// For a page of (locale, kind, pageSlug), build the locale links so choosing a
+// language always keeps the visitor on the SAME page, in that language:
+// - kind 'home'  -> each locale links to that locale's home route
+// - kind 'trust' -> each locale links to /<slug>/<page>/   (all locales exist)
+// - kind 'tool'  -> /<slug>/<page>/ when published there, else the page's
+//                   English /en/<page>/ (never that locale's Home)
+function langSwitch(localeCode, kind, pageSlug) {
   const current = LOCALES.find(l => l.code === localeCode);
   const label = (SWITCH_LABEL[current.code] || SWITCH_LABEL.en);
   const items = LOCALES.map(loc => {
-    let href;
-    if (kind === 'home') {
-      // Canonical English home is root /; other locales keep /<slug>/.
-      href = loc.code === DEFAULT_LOCALE
-        ? '/'
-        : `/${loc.slug}/`;
-    } else {
-      const page = PAGES.find(p => p.slug === toolSlug);
-      const published = page && page.published.includes(loc.code);
-      href = published ? `/${loc.slug}/${toolSlug}/` : `/${loc.slug}/`;
-    }
+    const href = langPreservingHref(loc.code, kind, pageSlug);
     const active = loc.code === current.code ? ' aria-current="true"' : '';
     const role = ` role="menuitem"`;
     return `            <a href="${href}" hreflang="${loc.htmlLang}" lang="${loc.htmlLang}"${active}${role}>${loc.name}</a>`;
@@ -177,7 +241,8 @@ const langSwitchScript = `(function () {
 // Crawlable physical favicon files (kept in sync with root index.html).
 // Do not inline favicons as data URIs: Google and browsers cannot fetch them,
 // so the generic/failed favicon is shown in search results and tabs.
-const FAVICON_LINKS = `    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
+const FAVICON_LINKS = `    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
     <link rel="icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">`;
 
@@ -193,7 +258,7 @@ function head({ htmlLang, dir, title, description, url, alternates }) {
   const ogType = 'website';
   return `  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>${title}</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${url}">
@@ -344,8 +409,8 @@ ${lines}
 function buildPage(opts) {
   const {
     localeCode, kind, toolSlug, preset, url, title, description, h1, intro,
-    contentSection, jsonLdHtml, alternates, isHome, currentCrumbs, breadcrumbHtml,
-    isEnglishOnlyTool,
+    contentSection, jsonLdHtml, alternates, isHome, isTrust, currentCrumbs,
+    breadcrumbHtml, isEnglishOnlyTool,
   } = opts;
   const loc = LOCALES.find(l => l.code === localeCode);
   const c = COMMON[localeCode] || COMMON.en;
@@ -362,10 +427,18 @@ function buildPage(opts) {
   // children (.header-brand left, .header-actions right) and all existing
   // controls plus the language selector stay grouped on the right.
   const switchHtml = langSwitch(localeCode, kind, toolSlug || null);
-  const headerWithSwitch = appHeaderBlock.replace(
+  let headerWithSwitch = appHeaderBlock.replace(
     /\n(\s*)<\/div>\n\s*<\/header>/,
     `\n$1  ${indent(switchHtml, 2)}\n$1</div>\n      </header>`
   );
+  // Standalone trust pages do not load app.js, so header controls that depend on
+  // it (sound fx + fullscreen) would be clickable but inert. Keep only the theme
+  // toggle (wired by themeToggleScript) and the privacy badge on those pages.
+  if (isTrust) {
+    headerWithSwitch = headerWithSwitch
+      .replace(/\s*<!-- Sound Toggle -->[\s\S]*?<\/button>/, '')
+      .replace(/\s*<button type="button" class="btn-icon" id="btn-fullscreen"[\s\S]*?<\/button>/, '');
+  }
   parts.push(`    <div class="seo-app-header-seat">
 ${indent(headerWithSwitch)}
     </div>`);
@@ -377,6 +450,7 @@ ${indent(headerWithSwitch)}
   // SEO H1 + lede and the embedded app. On home pages the app/upload UI is the
   // first thing users see, so the SEO hero moves BELOW the app but stays the
   // page's single H1. On tool pages the original order (hero above tool) is kept.
+  // Standalone trust pages render only the hero (no in-page tool/upload UI).
   const heroHtml = `    <section class="seo-hero">
       <h1>${h1}</h1>
       ${intro ? `<p class="seo-hero-lede">${intro}</p>` : ''}
@@ -384,7 +458,9 @@ ${indent(headerWithSwitch)}
   const toolHtml = `    <div class="seo-tool-wrap${isHome ? ' seo-tool-wrap-home' : ''}">
 ${indent(appShell)}
     </div>`;
-  if (isHome) {
+  if (isTrust) {
+    parts.push(heroHtml);
+  } else if (isHome) {
     parts.push(toolHtml);
     parts.push(heroHtml);
   } else {
@@ -397,17 +473,17 @@ ${indent(appShell)}
 
   // Unified footer.
   parts.push('<footer class="seo-footer">');
-  if (!isHome && toolSlug) parts.push(relatedToolsFor(PAGES.find(p=>p.slug===toolSlug), localeCode));
-  const footerHomeHref = localeCode === DEFAULT_LOCALE ? '/' : `/${localeCode}/`;
+  if (!isHome && kind !== 'trust' && toolSlug) parts.push(relatedToolsFor(PAGES.find(p=>p.slug===toolSlug), localeCode));
+  const footerHomeHref = homeRoute(localeCode);
   parts.push(`      <nav class="seo-footer-nav" aria-label="Footer">
         <ul>
-          <li><a href="/">${c.footerHome}</a></li>
+          <li><a href="${footerHomeHref}">${c.footerHome}</a></li>
           <li><a href="${footerHomeHref}">${c.footerAllTools}</a></li>
           <li><a href="/sitemap.xml">${c.sitemap}</a></li>
-          <li><a href="/about/">${c.footerAbout}</a></li>
-          <li><a href="/privacy-policy/">${c.footerPrivacy}</a></li>
-          <li><a href="/terms/">${c.footerTerms}</a></li>
-          <li><a href="/contact/">${c.footerContact}</a></li>
+          <li><a href="${trustRoute(localeCode, 'about')}">${c.footerAbout}</a></li>
+          <li><a href="${trustRoute(localeCode, 'privacy-policy')}">${c.footerPrivacy}</a></li>
+          <li><a href="${trustRoute(localeCode, 'terms')}">${c.footerTerms}</a></li>
+          <li><a href="${trustRoute(localeCode, 'contact')}">${c.footerContact}</a></li>
           <li><span class="shortcut-hint"><kbd>Cmd</kbd>/<kbd>Ctrl</kbd> + <kbd>V</kbd> to paste</span></li>
         </ul>
       </nav>
@@ -415,19 +491,27 @@ ${indent(appShell)}
     </footer>`);
 
   // Default preset init + footer year + language-switch popover + app bootstrap.
-  const presetLine = (!isHome && preset) ? `window.REALRESIZER_DEFAULT_PRESET = '${preset}';` : '';
+  // Trust pages never embed the tool (no app.js, no localizer): they only need
+  // their own theme-toggle so the header's dark/light button stays live.
+  const presetLine = (!isHome && !isTrust && preset) ? `window.REALRESIZER_DEFAULT_PRESET = '${preset}';` : '';
   parts.push(`    <script>
       ${presetLine}
       document.getElementById('yr').textContent = new Date().getFullYear();
       ${langSwitchScript}
     </script>`);
-  const locScript = localizerScript(localeCode);
-  if (locScript) parts.push(locScript);
-  parts.push('    <script src="/app.js"></script>');
+  if (isTrust) {
+    parts.push(themeToggleScript);
+  } else {
+    const locScript = localizerScript(localeCode);
+    if (locScript) parts.push(locScript);
+    parts.push('    <script src="/app.js"></script>');
+  }
 
   parts.push('  </body>');
   parts.push('</html>');
-  return parts.join('\n');
+  // Normalize output: strip trailing whitespace from every line so generated
+  // pages stay clean and diff-friendly regardless of app-shell whitespace.
+  return parts.join('\n').replace(/[ \t]+$/gm, '');
 }
 
 // ---------------------------------------------------------------------------
@@ -437,34 +521,30 @@ function jsonLdScripts(blocks) {
   return blocks.map(b => `    <script type="application/ld+json">${JSON.stringify(b)}</script>`).join('\n');
 }
 
-// Build hreflang alternates for a page: every other locale that publishes the
-// same page kind (home) or same tool (tool), plus x-default -> English.
-function alternatesFor(localeCode, kind, toolSlug) {
+// Build hreflang alternates for a page: every locale that publishes the same
+// kind/page (home, trust) or same tool, plus x-default -> English equivalent.
+function alternatesFor(localeCode, kind, pageSlug) {
   const alts = [];
-  const locales = kind === 'home'
-    ? LOCALES
+  const locales = (kind === 'home' || kind === 'trust')
+    ? [...LOCALES]
     : LOCALES.filter(loc => {
-        const page = PAGES.find(p => p.slug === toolSlug);
+        const page = PAGES.find(p => p.slug === pageSlug);
         return page && page.published.includes(loc.code);
       });
   // Order: en first, then others, for stable deterministic output.
   const ordered = [...locales].sort((a, b) => (a.code === DEFAULT_LOCALE ? -1 : b.code === DEFAULT_LOCALE ? 1 : a.code.localeCompare(b.code)));
   for (const loc of ordered) {
     let url;
-    if (kind === 'home') {
-      // Canonical English home is root /; other locales keep /<slug>/.
-      url = loc.code === DEFAULT_LOCALE
-        ? `${SITE_BASE_URL}/`
-        : `${SITE_BASE_URL}/${loc.slug}/`;
-    } else {
-      url = `${SITE_BASE_URL}/${loc.slug}/${toolSlug}/`;
-    }
+    if (kind === 'home') url = `${SITE_BASE_URL}${homeRoute(loc.code)}`;
+    else if (kind === 'trust') url = `${SITE_BASE_URL}${trustRoute(loc.code, pageSlug)}`;
+    else url = `${SITE_BASE_URL}${toolRoute(loc.code, pageSlug)}`;
     alts.push({ lang: loc.htmlLang, url });
   }
   // x-default -> English equivalent (root / for home).
-  const xDefaultUrl = kind === 'home'
-    ? `${SITE_BASE_URL}/`
-    : `${SITE_BASE_URL}/${DEFAULT_LOCALE}/${toolSlug}/`;
+  let xDefaultUrl;
+  if (kind === 'home') xDefaultUrl = `${SITE_BASE_URL}${homeRoute(DEFAULT_LOCALE)}`;
+  else if (kind === 'trust') xDefaultUrl = `${SITE_BASE_URL}${trustRoute(DEFAULT_LOCALE, pageSlug)}`;
+  else xDefaultUrl = `${SITE_BASE_URL}${toolRoute(DEFAULT_LOCALE, pageSlug)}`;
   alts.push({ lang: 'x-default', url: xDefaultUrl });
   return alts;
 }
@@ -623,7 +703,7 @@ for (const page of PAGES) {
     const isEnglishOnlyTool = page.published.length === 1 && page.published[0] === 'en';
 
     const crumbs = [
-      { label: c.breadcrumbHome, href: '/' },
+      { label: c.breadcrumbHome, href: homeRoute(locCode) },
       { label: meta.h1 },
     ];
     const jsonLd = jsonLdScripts([
@@ -642,7 +722,7 @@ for (const page of PAGES) {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: c.breadcrumbHome, item: `${SITE_BASE_URL}/` },
+          { '@type': 'ListItem', position: 1, name: c.breadcrumbHome, item: `${SITE_BASE_URL}${homeRoute(locCode)}` },
           { '@type': 'ListItem', position: 2, name: meta.h1, item: url },
         ],
       },
@@ -673,55 +753,72 @@ for (const page of PAGES) {
 }
 
 // ---------------------------------------------------------------------------
-// Trust pages (About / Privacy Policy / Terms / Contact) — EN only, emitted at
-// the site root so the English footer trust links always resolve.
+// Trust pages (About / Privacy Policy / Terms / Contact) — one page per locale
+// so the footer and language switcher can stay in-language everywhere:
+//   en  -> /about/ /privacy-policy/ /terms/ /contact/   (canonical root)
+//   es/ja/de/pt -> /<locale>/about/ … /<locale>/contact/
+// English stays the canonical fallback for crawlers and the wiki team.
 // ---------------------------------------------------------------------------
 for (const trustPage of TRUST_REGISTRY) {
-  const c = COMMON[DEFAULT_LOCALE] || COMMON.en;
-  const url = `${SITE_BASE_URL}/${trustPage.slug}/`;
-  const crumbs = [
-    { label: c.breadcrumbHome, href: '/' },
-    { label: trustPage.h1 },
-  ];
-  const jsonLd = jsonLdScripts([
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      name: trustPage.h1,
+  const slug = trustPage.slug;
+  for (const loc of LOCALES) {
+    // English content lives on the registry entry itself; other locales use the
+    // translated copy (every locale is translated, so a page always exists).
+    const meta = loc.code === DEFAULT_LOCALE
+      ? { h1: trustPage.h1, lede: trustPage.lede, rows: trustPage.rows, faq: trustPage.faq }
+      : trustContentFor(loc.code, slug);
+    if (!meta) {
+      console.warn(`[skip] no trust content for ${slug} in ${loc.code}`);
+      continue;
+    }
+    const c = COMMON[loc.code] || COMMON.en;
+    const route = trustRoute(loc.code, slug);
+    const url = `${SITE_BASE_URL}${route}`;
+    const crumbs = [
+      { label: c.breadcrumbHome, href: homeRoute(loc.code) },
+      { label: meta.h1 },
+    ];
+    const jsonLd = jsonLdScripts([
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: meta.h1,
+        url,
+        inLanguage: loc.htmlLang,
+        description: (meta.lede || meta.h1).replace(/<[^>]*>/g, ''),
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: c.breadcrumbHome, item: `${SITE_BASE_URL}${homeRoute(loc.code)}` },
+          { '@type': 'ListItem', position: 2, name: meta.h1, item: url },
+        ],
+      },
+      { '@context': 'https://schema.org', '@type': 'WebSite', name: 'RealResizer', url: `${SITE_BASE_URL}/`, inLanguage: loc.htmlLang },
+    ]);
+    const html = buildPage({
+      localeCode: loc.code,
+      kind: 'trust',
+      toolSlug: slug,
+      preset: null,
       url,
-      inLanguage: 'en',
-      description: (trustPage.lede || trustPage.h1).replace(/<[^>]*>/g, ''),
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: c.breadcrumbHome, item: `${SITE_BASE_URL}/` },
-        { '@type': 'ListItem', position: 2, name: trustPage.h1, item: url },
-      ],
-    },
-  ]);
-  const html = buildPage({
-    localeCode: DEFAULT_LOCALE,
-    kind: 'trust',
-    toolSlug: undefined,
-    preset: undefined,
-    url,
-    title: `${trustPage.h1} — RealResizer`,
-    description: (trustPage.lede || trustPage.h1).replace(/<[^>]*>/g, ''),
-    h1: trustPage.h1,
-    intro: trustPage.lede,
-    contentSection: content(DEFAULT_LOCALE, trustPage),
-    jsonLdHtml: jsonLd,
-    alternates: [],
-    isHome: false,
-    isEnglishOnlyTool: true,
-    currentCrumbs: crumbs,
-    breadcrumbHtml: breadcrumb(crumbs),
-  });
-  emit(`${trustPage.slug}/index.html`, html);
-  sitemapEntries.push(`/${trustPage.slug}/`);
-  console.log(`WROTE ${trustPage.slug}/index.html`);
+      title: `${meta.h1} — RealResizer`,
+      description: (meta.lede || meta.h1).replace(/<[^>]*>/g, ''),
+      h1: meta.h1,
+      intro: meta.lede,
+      contentSection: content(loc.code, meta),
+      jsonLdHtml: jsonLd,
+      alternates: alternatesFor(loc.code, 'trust', slug),
+      isHome: false,
+      isTrust: true,
+      isEnglishOnlyTool: false,
+      currentCrumbs: crumbs,
+      breadcrumbHtml: breadcrumb(crumbs),
+    });
+    emit(`${route}index.html`, html);
+    sitemapEntries.push(route);
+  }
 }
 
 

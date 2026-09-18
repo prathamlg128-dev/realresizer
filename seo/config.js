@@ -820,10 +820,10 @@ const TRUST_REGISTRY = [
     lede: 'This policy explains what happens to your images and what tools the site itself uses. Your images are processed locally in your browser and never uploaded to our servers.',
     rows: [
       { h2: 'Your images', p: [
-        'RealResizer processes images entirely in your browser. Your image never leaves your device: there is no upload to our servers)Skip. This is the core privacy promise of the tool.',
+        'RealResizer processes images entirely in your browser. Your image never leaves your device: there is no upload to our servers. This is the core privacy promise of the tool.',
       ] },
-      { h2: 'Anonymous analytics and advertising', p: [
-        'To understand how the site is used and to keep it free, RealResizer uses Google Analytics (GA4) and Google AdSense advertising. These are normal website technologies that may use cookies and collect anonymous usage statistics. They do not see your images, which stay local to your device and are never shared with Google or anyone else.',
+      { h2: 'Analytics and advertising', p: [
+        'To understand how the site is used and to keep it free, RealResizer uses Google Analytics (GA4) and Google AdSense advertising. These are standard website technologies that may use cookies to collect usage statistics that do not identify you by name or email. They do not see your images, which stay local to your device and are never shared with Google or anyone else.',
       ] },
       { h2: 'ads.txt', p: [
         'As required, RealResizer serves an ads.txt file at /ads.txt declaring its Google AdSense direct-sell relationship.',
@@ -831,7 +831,7 @@ const TRUST_REGISTRY = [
     ],
     faq: [
       { q: 'Do you see my images?', a: 'No. Images are processed locally in your browser and never cross the network.' },
-      { q: 'Does Google Analytics see my images?', a: 'No. GA4 and AdSense only collect standard anonymous site-usage data; your image data never leaves your device.' },
+      { q: 'Does Google Analytics see my images?', a: 'No. GA4 and AdSense only collect standard site-usage data that does not identify you by name or email; your image data never leaves your device.' },
     ],
   },
   {
@@ -859,10 +859,10 @@ const TRUST_REGISTRY = [
     lede: 'Questions, feedback, or a request for a missing preset? Reach out below.',
     rows: [
       { h2: 'Email', p: [
-        'Email us at <a href="mailto:Pratham.LG.128@gmail.com">Pratham.LG.128@gmail.com</a> for support, feedback, business enquiries, or to request a missing platform preset.',
+        'Email us at <a href="mailto:pratham.lg.128@gmail.com">pratham.lg.128@gmail.com</a> for support, feedback, business enquiries, or to request a missing platform preset.',
       ] },
       { h2: 'Response time', p: [
-        'We aim to reply within a few business days.',
+        'We aim to reply within a few hours.',
       ] },
     ],
     faq: [
@@ -870,6 +870,8 @@ const TRUST_REGISTRY = [
     ],
   },
 ];
+
+const { TRUST_LOCALIZED } = require('./trust_content.js');
 
 // Sitemap: trust pages are appended to the generated sitemap by gen_seo.js
 // using TRUST_REGISTRY, so regeneration preserves their URLs.
@@ -886,4 +888,5 @@ module.exports = {
   FOOTER_NOTES,
   NAV_LABELS,
   TRUST_REGISTRY,
+  TRUST_LOCALIZED,
 };

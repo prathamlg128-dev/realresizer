@@ -2,11 +2,16 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>About RealResizer — RealResizer</title>
     <meta name="description" content="RealResizer is a free, browser-based image tool that shows you exactly how your picture will look on each platform before you post.">
     <link rel="canonical" href="https://realresizer.pages.dev/about/">
-
+    <link rel="alternate" hreflang="en" href="https://realresizer.pages.dev/about/">
+    <link rel="alternate" hreflang="de" href="https://realresizer.pages.dev/de/about/">
+    <link rel="alternate" hreflang="es" href="https://realresizer.pages.dev/es/about/">
+    <link rel="alternate" hreflang="ja" href="https://realresizer.pages.dev/ja/about/">
+    <link rel="alternate" hreflang="pt" href="https://realresizer.pages.dev/pt/about/">
+    <link rel="alternate" hreflang="x-default" href="https://realresizer.pages.dev/about/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://realresizer.pages.dev/about/">
     <meta property="og:title" content="About RealResizer — RealResizer">
@@ -21,7 +26,8 @@
     <meta name="twitter:title" content="About RealResizer — RealResizer">
     <meta name="twitter:description" content="RealResizer is a free, browser-based image tool that shows you exactly how your picture will look on each platform before you post.">
     <meta name="twitter:image" content="https://realresizer.pages.dev/assets/og-preview.png">
-        <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
     <link rel="icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <meta name="theme-color" content="#0a0a0a">
@@ -37,10 +43,11 @@
     </script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"About RealResizer","url":"https://realresizer.pages.dev/about/","inLanguage":"en","description":"RealResizer is a free, browser-based image tool that shows you exactly how your picture will look on each platform before you post."}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://realresizer.pages.dev/"},{"@type":"ListItem","position":2,"name":"About RealResizer","item":"https://realresizer.pages.dev/about/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RealResizer","url":"https://realresizer.pages.dev/","inLanguage":"en"}</script>
   </head>
   <body>
     <div class="seo-app-header-seat">
-    
+
         <header class="app-header">
           <div class="header-brand">
             <a href="/" class="brand-logo" id="brand-logo" aria-label="RealResizer Home">
@@ -55,21 +62,9 @@
               <span class="brand-name">RealResizer</span>
             </a>
           </div>
-    
+
           <div class="header-actions">
-            <!-- Sound Toggle -->
-            <button type="button" class="btn-icon active" id="btn-sound-toggle" title="Toggle tactile sound effects" aria-label="Toggle sound effects" aria-pressed="true">
-              <svg class="sound-on-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-              </svg>
-              <svg class="sound-off-icon hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <line x1="23" y1="9" x2="17" y2="15"></line>
-                <line x1="17" y1="9" x2="23" y2="15"></line>
-              </svg>
-            </button>
-    
+
             <!-- Theme Toggle -->
             <button type="button" class="btn-icon" id="btn-theme-toggle" title="Switch to light theme" aria-label="Switch to light theme" aria-pressed="false">
               <!-- Moon: shown in dark mode -->
@@ -89,22 +84,7 @@
                 <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
               </svg>
             </button>
-    
-            <button type="button" class="btn-icon" id="btn-fullscreen" title="Enter fullscreen" aria-label="Enter fullscreen" aria-pressed="false">
-              <svg class="fullscreen-enter-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <polyline points="9 21 3 21 3 15"></polyline>
-                <line x1="21" y1="3" x2="14" y2="10"></line>
-                <line x1="3" y1="21" x2="10" y2="14"></line>
-              </svg>
-              <svg class="fullscreen-exit-icon hidden" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="9 3 3 3 3 9"></polyline>
-                <polyline points="15 21 21 21 21 15"></polyline>
-                <line x1="3" y1="3" x2="10" y2="10"></line>
-                <line x1="21" y1="21" x2="14" y2="14"></line>
-              </svg>
-            </button>
-    
+
             <span class="privacy-badge">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -118,11 +98,11 @@
                   <svg class="seo-lang-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </button>
                 <div class="seo-lang-menu" role="menu" aria-label="Language">
-                  <a href="/en/" hreflang="en" lang="en" aria-current="true" role="menuitem">English</a>
-                  <a href="/es/" hreflang="es" lang="es" role="menuitem">Español</a>
-                  <a href="/ja/" hreflang="ja" lang="ja" role="menuitem">日本語</a>
-                  <a href="/de/" hreflang="de" lang="de" role="menuitem">Deutsch</a>
-                  <a href="/pt/" hreflang="pt" lang="pt" role="menuitem">Português</a>
+                  <a href="/about/" hreflang="en" lang="en" aria-current="true" role="menuitem">English</a>
+                  <a href="/es/about/" hreflang="es" lang="es" role="menuitem">Español</a>
+                  <a href="/ja/about/" hreflang="ja" lang="ja" role="menuitem">日本語</a>
+                  <a href="/de/about/" hreflang="de" lang="de" role="menuitem">Deutsch</a>
+                  <a href="/pt/about/" hreflang="pt" lang="pt" role="menuitem">Português</a>
                 </div>
               </nav>
           </div>
@@ -181,7 +161,7 @@
       <p class="seo-footer-note">&copy; <span id="yr"></span> RealResizer &middot; All image processing happens locally in your browser.</p>
     </footer>
     <script>
-      
+
       document.getElementById('yr').textContent = new Date().getFullYear();
       (function () {
   document.querySelectorAll('.seo-lang-toggle').forEach(function (btn) {

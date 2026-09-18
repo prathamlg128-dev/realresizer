@@ -4586,6 +4586,22 @@ body:has(.loaded-view:not(.hidden)) .workspace-actions {
 /* ==========================================================================
    Footer
    ========================================================================== */
+
+/* Google AdSense (homepage only; generated pages carry no ad unit). The unit
+   has no styling of its own, so give it a max-width aligned with the content
+   column, inline padding, and a reserved minimum height to reduce layout shift
+   (CLS) as the unit fills in asynchronously. */
+.adsense-container {
+  width: 100%;
+  max-width: 760px;
+  margin: var(--space-lg) auto var(--space-md);
+  padding: 0 var(--space-xl);
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .app-footer {
   height: calc(48px + env(safe-area-inset-bottom));
   padding:
