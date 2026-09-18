@@ -1273,22 +1273,21 @@ body:has(.loaded-view:not(.hidden)) .app-footer {
   gap: var(--space-xs);
 }
 
-/* Editor action dock: crop controls stay reachable at the bottom edge while
-   the metadata and crop workspace retain their own stable vertical space. */
+/* Editor action dock: crop controls sit inline below the editor and scroll
+   naturally with the workspace. z-index: 10 keeps them above the canvas but
+   below the sticky header. */
 body:has(.loaded-view:not(.hidden)) .workspace-actions {
-  position: fixed;
-  left: 50%;
-  bottom: max(var(--space-sm), env(safe-area-inset-bottom));
-  z-index: 40;
-  width: min(1100px, calc(100vw - (2 * var(--space-xl))));
-  justify-content: flex-end;
+  position: static;
+  width: 100%;
+  max-width: min(1100px, calc(100vw - (2 * var(--space-xl))));
+  margin: 0 auto;
+  z-index: 10;
   padding: var(--space-xs);
   box-sizing: border-box;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   background-color: color-mix(in srgb, var(--bg-surface) 92%, transparent);
   box-shadow: var(--shadow-md);
-  transform: translateX(-50%);
 }
 
 /* Live Selection Percentage Pill (replaces the removed zoom slider).
@@ -1443,6 +1442,9 @@ body:has(.loaded-view:not(.hidden)) .workspace-actions {
   /* Sharp corners — the image must have crisp 90-degree edges, no masking. */
   border-radius: 0;
   position: relative;
+  /* isolate: contain child z-index (handles, guides) within this frame's
+     stacking context so they cannot paint above the sticky app-header. */
+  isolation: isolate;
   /* NOTE: no overflow:hidden here — it would clip the ruler handles at the
      extreme crop positions. Each grid cell clips its own interior visuals via
      its own radius (viewport / pill rail ends). */
@@ -4913,7 +4915,6 @@ body:has(.loaded-view:not(.hidden)) .workspace-actions {
 
   body:has(.loaded-view:not(.hidden)) .workspace-actions {
     width: calc(100vw - (2 * var(--space-md)));
-    bottom: max(var(--space-xs), env(safe-area-inset-bottom));
   }
 
   /* Mobile POST-CUT: the action controls become a persistent fixed bottom bar,
