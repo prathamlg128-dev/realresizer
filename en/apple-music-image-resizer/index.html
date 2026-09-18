@@ -187,7 +187,7 @@
               </div>
               <div class="highlight-item">
                 <span class="highlight-bullet">&bull;</span>
-                <span>Lossless browser processing</span>
+                <span>Browser-based processing</span>
               </div>
               <div class="highlight-item">
                 <span class="highlight-bullet">&bull;</span>
@@ -542,8 +542,8 @@
         <div class="seo-container">
           <section class="seo-block">
             <h2>Apple Music image sizes and ratios</h2>
-            <p>Apple Music album cover art is square (1:1) and commonly prepared at 3000 × 3000 pixels for maximum quality. RealResizer’s Apple Music preset locks this square ratio so your cover art displays correctly across the catalog.</p>
-            <p>Playlist covers are also square (1080 × 1080), while the Apple Music artist profile uses a wide banner (2048 × 1152, 16:9). Covering all three with one editor keeps your artist page cohesive.</p>
+            <p>Apple Music album cover art is square (1:1) and commonly prepared at 3000 × 3000 pixels. That large footprint exists because a single artwork file is used across every surface Apple controls — the iTunes Store, Apple Music search, recommendations, the now-playing view, CarPlay, and connected devices like the HomePod — and it is scaled down, never reliably up-scaled. Shipping the square at maximum resolution means it stays crisp in every size.</p>
+            <p>Playlist covers are also square (1080 × 1080), while the Apple Music artist profile uses a wide banner (2048 × 1152, 16:9) that appears across the artist page header. Because of the small circular and square crops used in the store, keeping key artwork — logos, titles, faces — inside the central ~80% of the square avoids awkward clipping.</p>
           </section>
           <section class="seo-block">
             <h2>How to resize an image for Apple Music</h2>
@@ -576,11 +576,19 @@
         <h2>Frequently asked questions</h2>
           <details class="seo-faq">
             <summary>What size is Apple Music cover art?</summary>
-            <p>Apple Music album cover art is square, commonly prepared at 3000 × 3000 pixels.</p>
+            <p>Apple Music album cover art is square, commonly prepared at 3000 × 3000 pixels so it stays sharp at every display size.</p>
           </details>
           <details class="seo-faq">
             <summary>Is my artwork processed privately?</summary>
             <p>Yes — everything happens locally in your browser.</p>
+          </details>
+          <details class="seo-faq">
+            <summary>What is the artist page banner ratio?</summary>
+            <p>The Apple Music artist profile banner is 2048 × 1152 (16:9).</p>
+          </details>
+          <details class="seo-faq">
+            <summary>Which formats does the tool support?</summary>
+            <p>JPG, JPEG, PNG, and WebP input; PNG, JPEG, or WebP export with no hard file-size limit.</p>
           </details>
       </section>
     </section>

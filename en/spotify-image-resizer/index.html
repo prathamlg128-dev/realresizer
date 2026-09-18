@@ -187,7 +187,7 @@
               </div>
               <div class="highlight-item">
                 <span class="highlight-bullet">&bull;</span>
-                <span>Lossless browser processing</span>
+                <span>Browser-based processing</span>
               </div>
               <div class="highlight-item">
                 <span class="highlight-bullet">&bull;</span>
@@ -542,7 +542,8 @@
         <div class="seo-container">
           <section class="seo-block">
             <h2>Spotify image sizes and ratios</h2>
-            <p>Spotify album and playlist artwork is square (1:1), commonly at 1080 × 1080 pixels. RealResizer’s Spotify preset locks that square ratio so your cover fills the rounded tile cleanly without awkward cropping.</p>
+            <p>Spotify album and playlist artwork is square (1:1), commonly at 1080 × 1080 pixels. Where the crop really bites is in the player: Spotify shows covers as small circles in the now-playing bar on mobile, as rounded squares in search and artist pages, and full-screen on the now-playing view. Detail meant for the full-size view is lost in the tiny circular thumbnail, so keeping a strong central focal point is the difference between an artwork that works everywhere and one that only works at full size.</p>
+            <p>Distribution partners also expect square artwork at specific resolutions (commonly 3000 × 3000 for album covers via labels and distributors) before a release is accepted on Spotify. Resizing an image for Spotify with a square preset keeps this consistent.</p>
             <p>Beyond the cover, Spotify also uses a vertical Canvas format (720 × 1280, 9:16) and a wide artist header (1920 × 640, 3:1). Preparing all three from one editor keeps your artist profile visually consistent.</p>
           </section>
           <section class="seo-block">
@@ -576,11 +577,19 @@
         <h2>Frequently asked questions</h2>
           <details class="seo-faq">
             <summary>What size is a Spotify cover?</summary>
-            <p>Spotify album and playlist artwork is square, commonly 1080 × 1080 pixels.</p>
+            <p>Spotify album and playlist artwork is square, commonly 1080 × 1080 pixels. Distribution partners often require 3000 × 3000 before accepting a release.</p>
           </details>
           <details class="seo-faq">
             <summary>Does my artwork get uploaded?</summary>
             <p>No. All processing happens locally in your browser.</p>
+          </details>
+          <details class="seo-faq">
+            <summary>Will my cover be cropped by Spotify?</summary>
+            <p>Covers stay square, but they are shown as small circles in the mobile player. A strong central focal point keeps the artwork legible at every display size.</p>
+          </details>
+          <details class="seo-faq">
+            <summary>What formats can I use?</summary>
+            <p>JPG, JPEG, PNG, and WebP are supported for input, with PNG, JPEG, or WebP available on export.</p>
           </details>
       </section>
     </section>

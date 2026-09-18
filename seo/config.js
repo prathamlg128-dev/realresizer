@@ -108,11 +108,10 @@ const CONTENT = {
       description: 'Crop and resize images and thumbnails to the Instagram Reel format in your browser. Private, precise, with an accurate Reel preview before export.',
       h1: 'Instagram Reel Resizer & Cropper',
       intro: 'Frame your content for the Instagram Reel format — full-screen, vertical, and ready to post. Preview the result in a Reel-style mockup before you cut.',
-      rows: [
+rows: [
         { h2: 'Instagram Reels size and aspect ratio', p: [
-          'Instagram Reels play full-screen in a vertical 9:16 format, matching the 1080 × 1920 pixel resolution commonly recommended for Reels. RealResizer’s Reel preset locks that 9:16 ratio so your full-frame image is ready to pair with a video cover or a still designed for the Reel feed.',
+          'Instagram Reels play full-screen in a vertical 9:16 format, matching the 1080 × 1920 pixel resolution commonly recommended for Reels. But unlike a Story — which lives for 24 hours and auto-loops in the Stories tray — a Reel is permanent content: it appears in the Reels tab, can be shown to non-followers on the Explore page, and its cover image is exactly what visitors see on your profile grid. The cover is what earns the tap, so it deserves the same care as any other profile photo.',
           'Because the Reel frame is tall and narrow, center your main subject and leave room around the edges. The interface elements of the Reel player occupy the top and bottom of the screen, so keep critical content within the central area.',
-          'The same editor also prepares square Instagram feed posts (1080 × 1080) and portrait feed images (1080 × 1350), so you can resize an image for the whole Instagram feed from one place.',
         ] },
         { h2: 'How to crop an image for a Reel cover', ul: [
           'Upload or drag and drop an image into the tool.',
@@ -137,6 +136,8 @@ const CONTENT = {
       faq: [
         { q: 'What ratio should a Reel image use?', a: 'Reels are vertical at a 9:16 ratio, commonly 1080 × 1920 pixels.' },
         { q: 'Is this private?', a: 'Yes. Every image is processed locally in your browser; nothing is uploaded.' },
+        { q: 'What image formats are supported?', a: 'Input accepts JPG, JPEG, PNG, and WebP. You can export as PNG, JPEG, or WebP.' },
+        { q: 'Is there a file-size limit?', a: 'No hard limit is enforced, but very large images (roughly over 20 megapixels) may slow an older or low-memory browser.' },
       ],
     },
   },
@@ -148,7 +149,7 @@ const CONTENT = {
       intro: 'Crop and resize images to the 16:9 YouTube thumbnail format so your videos stand out in search and suggestions.',
       rows: [
         { h2: 'YouTube thumbnail size and aspect ratio', p: [
-          'The standard YouTube thumbnail is 1280 × 720 pixels at a 16:9 widescreen ratio. RealResizer’s YouTube preset locks this 16:9 ratio so your image is framed exactly the way thumbnails are displayed across desktop, mobile, and TV.',
+          'The standard YouTube thumbnail is 1280 × 720 pixels at a 16:9 widescreen ratio. Despite the 720p resolution, viewers almost never see a thumbnail at full size — it appears small in search results, on the home page, and in the related-video rail, and even smaller before it is scaled up on a TV. Because the crop is final on YouTube’s side, pre-cropping yourself to exactly 16:9 is the only way to control how your thumbnail is framed.',
           'It helps to separate “resolution” from “aspect ratio.” Aspect ratio (16:9) decides the shape of the frame; resolution (1280×720) decides how much detail the file holds. RealResizer keeps the crop at the right 16:9 shape, and you can export a high-resolution PNG or JPEG to keep it crisp.',
           'Beyond video thumbnails, the editor can also prepare a YouTube channel banner (2560 × 1440) and profile avatar (800 × 800), so your entire channel art stays consistent as you resize an image for YouTube.',
         ] },
@@ -178,6 +179,8 @@ const CONTENT = {
       faq: [
         { q: 'What size is a YouTube thumbnail?', a: 'The commonly recommended size is 1280 × 720 pixels at a 16:9 ratio.' },
         { q: 'Do I need a minimum resolution?', a: 'Sharpness matters because thumbnails are shown small. Export at high resolution to keep detail.' },
+        { q: 'What if my original image is not 16:9?', a: 'The tool crops to 16:9 so nothing is distorted. YouTube would otherwise scale or crop non-16:9 images itself.' },
+        { q: 'Which export formats keep thumbnails sharp?', a: 'PNG is lossless. JPEG and WebP are also supported with adjustable quality, though they trade a little detail for smaller files.' },
       ],
     },
   },
@@ -188,10 +191,9 @@ const CONTENT = {
       h1: 'YouTube Shorts Resizer',
       intro: 'Frame your images for the vertical, full-screen YouTube Shorts format and preview how they’ll look before you post.',
       rows: [
-        { h2: 'YouTube Shorts size and aspect ratio', p: [
-          'YouTube Shorts are vertical and full-screen, using the familiar 9:16 ratio, commonly produced at 1080 × 1920 pixels. RealResizer’s Shorts preset locks that 9:16 ratio so your cover image or still is framed for the Shorts feed.',
-          'As with other vertical formats, the Shorts player shows interface elements at the top and bottom of the screen. Keep important content in the central area of the frame and center your subject.',
-          'When a Shorts cover needs a 16:9 pairing, the editor can also prepare a standard video thumbnail or channel banner, so resizing an image for YouTube Shorts and your channel stays consistent.',
+{ h2: 'YouTube Shorts size and aspect ratio', p: [
+          'YouTube Shorts are vertical and full-screen, using the familiar 9:16 ratio, commonly produced at 1080 × 1920 pixels. A Shorts cover differs from a standard video thumbnail in one important way: it largely appears on the Shorts shelf and in autoplaying loops, where viewers catch it for a fraction of a second before scrolling past. A single clear subject that reads instantly — not a busy collage — performs far better.',
+          'Because Shorts are watched full-screen on phones, the right edge of the frame carries the action buttons in most mobile layouts. Keep your subject centered and clear of that right-side rail.',
         ] },
         { h2: 'How to resize an image for YouTube Shorts', ul: [
           'Upload or drag and drop an image into the tool.',
@@ -201,7 +203,7 @@ const CONTENT = {
           'Export in your preferred format.',
         ] },
         { h2: 'YouTube Shorts safe zone', p: [
-          'The Shorts player shows interface elements (your name, title, and action buttons) at the top and bottom of the screen. Keep critical content in the central area of the frame — roughly the middle 70% — and leave about the top 14% and bottom 20% clear of important detail.',
+          'The Shorts player places its action buttons — like, comment, share, and the channel avatar — in a rail along the right edge, with the caption and username near the bottom-left. That right rail is the main safe-zone concern: keep names, faces, and text clear of roughly the right 15% of the frame and off the bottom caption area. The central band is the safest spot for critical detail.',
         ] },
         { h2: 'See how it looks before you post', p: [
           'After you CUT the image, tap the <em>See how it looks</em> button to preview your still inside a realistic Shorts mockup. Use the mobile view to confirm your subject reads well near the screen edges.',
@@ -213,6 +215,8 @@ const CONTENT = {
       faq: [
         { q: 'What ratio are YouTube Shorts?', a: 'Shorts are vertical at a 9:16 ratio, commonly 1080 × 1920 pixels.' },
         { q: 'Do my images stay private?', a: 'Yes — processing happens entirely in your browser.' },
+        { q: 'Can I use a regular 16:9 video thumbnail for a Shorts cover?', a: 'It will be cropped by the player. A 9:16 crop keeps your cover’s framing under your control.' },
+        { q: 'What formats does the tool accept?', a: 'JPG, JPEG, PNG, and WebP are supported, with no hard file-size limit.' },
       ],
     },
   },
@@ -224,8 +228,8 @@ const CONTENT = {
       intro: 'Resize and crop an image for your Facebook page cover and see how it will look before you publish.',
       rows: [
         { h2: 'Facebook cover dimensions and ratio', p: [
-          'For desktop, the Facebook page cover is commonly prepared at a ratio close to 851 × 315 pixels (roughly 2.7:1). RealResizer’s Facebook Cover preset locks this wide, banner-like ratio so your cover is framed the way a cover is displayed.',
-          'Covers are wide and short, so a tall source image will have most of its height cropped away. Crop with the central horizontal band in mind, and keep critical content away from the left edge where the profile picture overlaps the cover.',
+          'For desktop, the Facebook page cover is commonly prepared at a ratio close to 851 × 315 pixels (roughly 2.7:1). The surprising part is how differently the same cover displays on mobile: Facebook crops the tall cover down to a smaller central area on phones, so text placed near the far left or right edge of the desktop frame simply disappears on mobile. Design for the mobile crop first, then check the desktop view.',
+          'The profile picture overlaps the bottom-left of the cover on desktop, and call-to-action buttons sit near the bottom-right. Keep faces, text, and logos in the central horizontal band — commonly the inner 820 × 360 safe area — so nothing critical hides behind the avatar or buttons.',
           'The same editor can prepare other Facebook content too — a standard post image (1200 × 630), a square post (1080 × 1080), or an event cover (1920 × 1080) — so resizing an image for Facebook stays consistent across your page.',
         ] },
         { h2: 'How to resize an image for a Facebook cover', ul: [
@@ -251,6 +255,8 @@ const CONTENT = {
       faq: [
         { q: 'What ratio is a Facebook cover?', a: 'The desktop cover is commonly prepared at about 851 × 315 pixels, near a 2.7:1 ratio.' },
         { q: 'Is my cover image uploaded?', a: 'No. Everything is processed locally in your browser.' },
+        { q: 'Why does my cover look different on mobile?', a: 'Facebook crops the tall desktop cover to a smaller central area on phones, so content placed at the far edges of the desktop frame is not visible on mobile.' },
+        { q: 'What file formats are supported?', a: 'JPG, JPEG, PNG, and WebP for input; PNG, JPEG, or WebP for export, with no hard file-size limit.' },
       ],
     },
   },
@@ -262,8 +268,8 @@ const CONTENT = {
       intro: 'Resize and crop images for LinkedIn posts and banners, keeping your feed content crisp and correctly proportioned.',
       rows: [
         { h2: 'LinkedIn image size and ratio', p: [
-          'LinkedIn feed images are commonly shared at a landscape 1.91:1 ratio, frequently prepared at 1200 × 627 pixels. RealResizer’s LinkedIn preset locks this wide 1.91:1 ratio so your post image fits the feed cleanly.',
-          'The same wide aspect ratio also suits many LinkedIn banners and hero images. Keeping a consistent landscape ratio across your feed and profile makes your page look polished and professional.',
+          'LinkedIn feed images are commonly shared at a landscape 1.91:1 ratio, frequently prepared at 1200 × 627 pixels. LinkedIn is a professional, mostly text-driven feed, and a large part of it is consumed on mobile. That means most of your audience sees the image at a small width with your headline around it — so a clean crop with a clear focal point beats a busy design, and any text inside the image should stay readable at thumbnail size.',
+          'The feed also auto-crops images to its preview frame; if your image is not already 1.91:1, LinkedIn picks the crop for you. Locking the ratio yourself keeps the composition under your control.',
           'The editor can also handle the LinkedIn profile banner (1584 × 396) and the company banner (1128 × 191), so resizing an image for LinkedIn keeps every part of your presence on-brand.',
         ] },
         { h2: 'How to resize an image for LinkedIn', ul: [
@@ -289,6 +295,8 @@ const CONTENT = {
       faq: [
         { q: 'What ratio is a LinkedIn post image?', a: 'Feed images are commonly shared at a 1.91:1 landscape ratio, often 1200 × 627 pixels.' },
         { q: 'Are my images private?', a: 'Yes — all processing happens locally in your browser.' },
+        { q: 'What happens if I upload a non-1.91:1 image?', a: 'LinkedIn will auto-crop it to its preview frame. Cropping to 1.91:1 yourself keeps the composition in your control.' },
+        { q: 'Can I edit my company page banner here?', a: 'Yes — the editor also includes the profile banner (1584 × 396) and company banner (1128 × 191) ratios.' },
       ],
     },
   },
@@ -300,9 +308,9 @@ const CONTENT = {
       intro: 'Frame your images for the full-screen, vertical TikTok format and preview how they’ll look before you post.',
       rows: [
         { h2: 'TikTok image size and aspect ratio', p: [
-          'TikTok content plays full-screen in a vertical 9:16 ratio, commonly produced at 1080 × 1920 pixels. RealResizer’s TikTok preset locks that 9:16 ratio so your cover, still, or photo post is framed for the full-screen TikTok experience.',
-          'As with other vertical formats, the interface places elements at the top and bottom of the screen. Keep important content in the central area and center your subject.',
-          'The same editor can also prepare a shape for TikTok Reels and a TikTok profile picture (400 × 400), so resizing an image for TikTok covers both your content and your profile.',
+          'TikTok content plays full-screen in a vertical 9:16 ratio, commonly produced at 1080 × 1920 pixels. Video covers on TikTok are subtly different from other platforms: the cover is what appears in the grid for a split second before autoplay starts, and for photo-mode carousels the first image in the set is the whole hook. A single strong subject that reads instantly outperforms a busy design.',
+          'The TikTok player stacks its action buttons — like, comment, bookmark, and share — in a column along the right edge, with the caption and username near the bottom. Keep faces, text, and logos clear of that right-edge rail.',
+          'The same editor can also prepare a TikTok profile picture (400 × 400) and other full-screen formats, so resizing an image for TikTok covers both your content and your profile.',
         ] },
         { h2: 'How to resize an image for TikTok', ul: [
           'Upload or drag and drop an image into the tool.',
@@ -327,6 +335,8 @@ const CONTENT = {
       faq: [
         { q: 'What ratio is a TikTok image?', a: 'TikTok uses a vertical 9:16 ratio, commonly 1080 × 1920 pixels.' },
         { q: 'Do my images get uploaded?', a: 'No. All processing is done locally in your browser.' },
+        { q: 'What about TikTok photo-mode carousels?', a: 'They use the same 9:16 vertical ratio. The first image sets the hook, so treat it as the most important crop.' },
+        { q: 'Which formats can I export?', a: 'PNG (lossless), JPEG, or WebP with adjustable quality.' },
       ],
     },
   },
@@ -338,8 +348,8 @@ const CONTENT = {
       intro: 'Resize and crop images for your X (Twitter) header, posts, and profile photo so your account looks polished on any device.',
       rows: [
         { h2: 'X (Twitter) header and post sizes', p: [
-          'The X profile header is wide and short, commonly prepared around 1500 × 500 pixels (a 3:1 ratio). RealResizer’s X preset locks that exact shape so your header banner is framed correctly across mobile and desktop.',
-          'In-stream images on X are displayed in a wide 16:9 frame (often 1600 × 900), and your profile photo is a square. The same tool can switch between these, so you can prepare a consistent header, post, and avatar without leaving the editor.',
+          'The X profile header is wide and short, commonly prepared around 1500 × 500 pixels (a 3:1 ratio). X compresses uploaded images noticeably, so starting from a sharp, high-quality source matters more on X than on almost any other platform.',
+          'The header is also cropped aggressively on mobile — phones show only the center of the banner, roughly the middle 1280 × 330 pixels — while in-stream post images display in a wide 16:9 frame (often 1600 × 900) and the profile photo is shown as a circle, not a square. Prepare each shape so the important content survives the platform’s cropping and compression.',
         ] },
         { h2: 'How to resize an image for X (Twitter)', ul: [
           'Upload or drag and drop an image into the tool.',
@@ -364,6 +374,8 @@ const CONTENT = {
       faq: [
         { q: 'What size is an X (Twitter) header?', a: 'The profile header is commonly prepared at about 1500 × 500 pixels, a 3:1 ratio.' },
         { q: 'Are my images private?', a: 'Yes — all processing happens locally in your browser.' },
+        { q: 'Does X resize my images?', a: 'X compresses uploaded images, so exporting at high quality from a sharp source keeps detail. Cropping to the platform ratio yourself prevents X from choosing its own crop.' },
+        { q: 'Why does my header look cut off on a phone?', a: 'Mobile shows only the central area of the 1500 × 500 banner. Keep text and logos within the middle 1280 × 330 region.' },
       ],
     },
   },
@@ -375,7 +387,8 @@ const CONTENT = {
       intro: 'Resize and crop images for Spotify album covers, playlists, canvases, and artist headers so your music looks professional on every screen.',
       rows: [
         { h2: 'Spotify image sizes and ratios', p: [
-          'Spotify album and playlist artwork is square (1:1), commonly at 1080 × 1080 pixels. RealResizer’s Spotify preset locks that square ratio so your cover fills the rounded tile cleanly without awkward cropping.',
+          'Spotify album and playlist artwork is square (1:1), commonly at 1080 × 1080 pixels. Where the crop really bites is in the player: Spotify shows covers as small circles in the now-playing bar on mobile, as rounded squares in search and artist pages, and full-screen on the now-playing view. Detail meant for the full-size view is lost in the tiny circular thumbnail, so keeping a strong central focal point is the difference between an artwork that works everywhere and one that only works at full size.',
+          'Distribution partners also expect square artwork at specific resolutions (commonly 3000 × 3000 for album covers via labels and distributors) before a release is accepted on Spotify. Resizing an image for Spotify with a square preset keeps this consistent.',
           'Beyond the cover, Spotify also uses a vertical Canvas format (720 × 1280, 9:16) and a wide artist header (1920 × 640, 3:1). Preparing all three from one editor keeps your artist profile visually consistent.',
         ] },
         { h2: 'How to resize an image for a Spotify cover', ul: [
@@ -399,8 +412,10 @@ const CONTENT = {
         ] },
       ],
       faq: [
-        { q: 'What size is a Spotify cover?', a: 'Spotify album and playlist artwork is square, commonly 1080 × 1080 pixels.' },
+        { q: 'What size is a Spotify cover?', a: 'Spotify album and playlist artwork is square, commonly 1080 × 1080 pixels. Distribution partners often require 3000 × 3000 before accepting a release.' },
         { q: 'Does my artwork get uploaded?', a: 'No. All processing happens locally in your browser.' },
+        { q: 'Will my cover be cropped by Spotify?', a: 'Covers stay square, but they are shown as small circles in the mobile player. A strong central focal point keeps the artwork legible at every display size.' },
+        { q: 'What formats can I use?', a: 'JPG, JPEG, PNG, and WebP are supported for input, with PNG, JPEG, or WebP available on export.' },
       ],
     },
   },
@@ -412,8 +427,8 @@ const CONTENT = {
       intro: 'Resize and crop images for Apple Music album covers, playlists, and artist banners so your releases look sharp in the Apple Music catalog.',
       rows: [
         { h2: 'Apple Music image sizes and ratios', p: [
-          'Apple Music album cover art is square (1:1) and commonly prepared at 3000 × 3000 pixels for maximum quality. RealResizer’s Apple Music preset locks this square ratio so your cover art displays correctly across the catalog.',
-          'Playlist covers are also square (1080 × 1080), while the Apple Music artist profile uses a wide banner (2048 × 1152, 16:9). Covering all three with one editor keeps your artist page cohesive.',
+          'Apple Music album cover art is square (1:1) and commonly prepared at 3000 × 3000 pixels. That large footprint exists because a single artwork file is used across every surface Apple controls — the iTunes Store, Apple Music search, recommendations, the now-playing view, CarPlay, and connected devices like the HomePod — and it is scaled down, never reliably up-scaled. Shipping the square at maximum resolution means it stays crisp in every size.',
+          'Playlist covers are also square (1080 × 1080), while the Apple Music artist profile uses a wide banner (2048 × 1152, 16:9) that appears across the artist page header. Because of the small circular and square crops used in the store, keeping key artwork — logos, titles, faces — inside the central ~80% of the square avoids awkward clipping.',
         ] },
         { h2: 'How to resize an image for Apple Music', ul: [
           'Upload or drag and drop an image into the tool.',
@@ -436,8 +451,10 @@ const CONTENT = {
         ] },
       ],
       faq: [
-        { q: 'What size is Apple Music cover art?', a: 'Apple Music album cover art is square, commonly prepared at 3000 × 3000 pixels.' },
+        { q: 'What size is Apple Music cover art?', a: 'Apple Music album cover art is square, commonly prepared at 3000 × 3000 pixels so it stays sharp at every display size.' },
         { q: 'Is my artwork processed privately?', a: 'Yes — everything happens locally in your browser.' },
+        { q: 'What is the artist page banner ratio?', a: 'The Apple Music artist profile banner is 2048 × 1152 (16:9).' },
+        { q: 'Which formats does the tool support?', a: 'JPG, JPEG, PNG, and WebP input; PNG, JPEG, or WebP export with no hard file-size limit.' },
       ],
     },
   },
@@ -449,8 +466,8 @@ const CONTENT = {
       intro: 'Resize and crop images for your SoundCloud profile banner and track artwork so your page looks sharp and on-brand.',
       rows: [
         { h2: 'SoundCloud banner size and ratio', p: [
-          'The SoundCloud profile banner is very wide and short, commonly prepared around 2480 × 620 pixels (a 4:1 ratio). RealResizer’s SoundCloud preset locks that wide, banner-like shape so your artwork spans the page without distortion.',
-          'Because the banner is so wide, a tall source image will have most of its height cropped away. Keep key text and logos within the central horizontal band so they stay visible on smaller screens.',
+          'The SoundCloud profile banner is very wide and short, commonly prepared around 2480 × 620 pixels (a 4:1 ratio) — among the widest banner formats of any platform. On the web profile the banner spans the full header width, but the artist name, follower count, and the Follow button are overlaid near the bottom-left of that same banner, sitting directly on top of your artwork.',
+          'Because the banner is so wide, a tall source image will have most of its height cropped away, and on mobile the banner is reduced to a much narrower strip. Keep key text and logos within the central horizontal band — the practical safe area is roughly the inner 80% — and clear of where the artist name and stats sit on the left.',
         ] },
         { h2: 'How to resize an image for SoundCloud', ul: [
           'Upload or drag and drop an image into the tool.',
@@ -475,6 +492,8 @@ const CONTENT = {
       faq: [
         { q: 'What size is a SoundCloud banner?', a: 'The SoundCloud profile banner is commonly prepared at about 2480 × 620 pixels, a 4:1 ratio.' },
         { q: 'Are my images private?', a: 'Yes — all processing happens locally in your browser.' },
+        { q: 'Why is my banner being overlapped by my artist name?', a: 'SoundCloud places the artist name, follower count, and Follow button over the bottom-left of the banner. Keep text and logos out of that area.' },
+        { q: 'Can I also prepare track artwork?', a: 'Yes. Track and playlist artwork is square (1:1), and the editor can crop for it as well.' },
       ],
     },
   },
@@ -490,8 +509,8 @@ const CONTENT = {
       intro: 'Resize your photos to the 9:16 full-screen Story format and preview how they’ll look in an Instagram Story before you post.',
       rows: [
         { h2: 'The right dimensions for an Instagram Story', p: [
-          'Instagram Stories fill the full phone screen in portrait orientation. The standard Story size is 1080 × 1920 pixels — the familiar 9:16 vertical aspect ratio. RealResizer’s Story preset locks this ratio automatically so your image is framed the way Stories expect.',
-          'Because a Story is tall and narrow, a landscape source image will leave large areas cropped away on the sides. Use the crop preview to choose which part of your photo stays in frame, and keep key subjects away from the very top and bottom edges where the interface and safe zones live.',
+          'Instagram Stories fill the full phone screen in portrait orientation. The standard Story size is 1080 × 1920 pixels — the familiar 9:16 vertical aspect ratio. A Story is temporary content: it appears in the Stories tray for 24 hours, auto-advances to the next Story, and auto-loops while viewed. Because viewers mostly catch it for seconds at a time, a single clear subject that reads instantly matters more than fine detail.',
+          'The Story interface paints the top band (your name, date, and controls) and the bottom band (caption, reply field, and link sticker) directly over the image. Keeping text and faces out of roughly the top 14% and bottom 20% of the 1080 × 1920 frame keeps them visible, and the central horizontal band is the safest place for what matters.',
           'The same editor can also prepare other Instagram formats — square feed posts (1080 × 1080), portrait feed images (1080 × 1350), and Reel covers (9:16) — so you can keep every image on your profile consistent as you resize an image for Instagram.',
         ] },
         { h2: 'How to resize an image for a Story', ul: [
@@ -519,6 +538,8 @@ const CONTENT = {
       faq: [
         { q: 'Does the image get uploaded anywhere?', a: 'No. All processing happens in your browser and your image never leaves your device.' },
         { q: 'What is the Instagram Story size?', a: 'Stories are displayed at a 9:16 vertical ratio, commonly produced at 1080 × 1920 pixels.' },
+        { q: 'What image formats are supported?', a: 'JPG, JPEG, PNG, and WebP are accepted. Export is available as PNG (lossless), JPEG, or WebP.' },
+        { q: 'Is there a file-size limit?', a: 'No hard limit is enforced. Very large images (roughly over 20 megapixels) may slow down an older or low-memory browser.' },
       ],
     },
     es: {
@@ -556,6 +577,8 @@ const CONTENT = {
       faq: [
         { q: '¿La imagen se sube a algún sitio?', a: 'No. Todo el procesamiento ocurre en tu navegador y tu imagen nunca sale de tu dispositivo.' },
         { q: '¿Qué tamaño tiene una Historia de Instagram?', a: 'Las Historias se muestran en proporción vertical 9:16 y normalmente se crean a 1080 × 1920 píxeles.' },
+        { q: '¿Qué formatos de imagen se admiten?', a: 'Se aceptan JPG, JPEG, PNG y WebP. Puedes exportar en PNG (sin pérdida), JPEG o WebP.' },
+        { q: '¿Hay un límite de tamaño de archivo?', a: 'No se aplica un límite estricto. Las imágenes muy grandes (más de unos 20 megapíxeles) pueden hacer más lento un navegador antiguo o con poca memoria.' },
       ],
     },
     ja: {
@@ -593,6 +616,8 @@ const CONTENT = {
       faq: [
         { q: '画像はどこかにアップロードされますか？', a: 'いいえ。処理はすべてブラウザ内で行われ、画像が端末の外に出ることはありません。' },
         { q: 'Instagramストーリーのサイズは？', a: 'ストーリーは9:16の縦長比率で表示され、一般的には1080×1920ピクセルで作成されます。' },
+        { q: '対応している画像形式は？', a: 'JPG・JPEG・PNG・WebPに対応。書き出しはPNG（ロスレス）・JPEG・WebPから選択できます。' },
+        { q: 'ファイルサイズの上限はありますか？', a: '厳密な上限はありません。ただし非常に大きな画像（約2000万画素以上）は、古いブラウザやメモリの少ない環境で動作が遅くなる可能性があります。' },
       ],
     },
     de: {
@@ -630,6 +655,8 @@ const CONTENT = {
       faq: [
         { q: 'Wird das Bild irgendwo hochgeladen?', a: 'Nein. Die gesamte Verarbeitung erfolgt in Ihrem Browser, und Ihr Bild verlässt nie Ihr Gerät.' },
         { q: 'Welche Größe hat eine Instagram Story?', a: 'Storys werden im vertikalen Verhältnis 9:16 angezeigt, üblicherweise mit 1080 × 1920 Pixeln erzeugt.' },
+        { q: 'Welche Bildformate werden unterstützt?', a: 'Akzeptiert werden JPG, JPEG, PNG und WebP. Der Export erfolgt als PNG (verlustfrei), JPEG oder WebP.' },
+        { q: 'Gibt es eine Dateigrößenbegrenzung?', a: 'Es wird keine harte Grenze erzwungen. Sehr große Bilder (über etwa 20 Megapixel) können ältere oder speicherschwache Browser verlangsamen.' },
       ],
     },
     pt: {
@@ -667,6 +694,8 @@ const CONTENT = {
       faq: [
         { q: 'A imagem é enviada para algum lugar?', a: 'Não. Todo o processamento acontece no seu navegador e a sua imagem nunca sai do seu dispositivo.' },
         { q: 'Qual é o tamanho de um Story do Instagram?', a: 'Os Stories são exibidos na proporção vertical 9:16, geralmente criados em 1080 × 1920 pixels.' },
+        { q: 'Quais formatos de imagem são aceitos?', a: 'JPG, JPEG, PNG e WebP são aceitos. Você pode exportar em PNG (sem perdas), JPEG ou WebP.' },
+        { q: 'Existe um limite de tamanho de arquivo?', a: 'Nenhum limite rígido é imposto. Imagens muito grandes (mais de cerca de 20 megapixels) podem deixar navegadores antigos ou com pouca memória mais lentos.' },
       ],
     },
   },
@@ -687,7 +716,7 @@ const APP_UI = {
     '.upload-heading': 'Subir una imagen',
     '.upload-subtext': 'Arrastra y suelta aquí, pega desde el portapapeles o <span class="browse-link">explora archivos</span>',
     '.highlight-item:nth-of-type(1)': 'Subida cero al servidor',
-    '.highlight-item:nth-of-type(2)': 'Procesamiento sin pérdida',
+    '.highlight-item:nth-of-type(2)': 'Procesamiento en el navegador',
     '.highlight-item:nth-of-type(3)': 'Ajustes por plataforma',
     '#btn-mode-custom span': 'Personalizado',
     '#btn-mode-presets span': 'Ajustes',
@@ -708,7 +737,7 @@ const APP_UI = {
     '.upload-heading': '画像をアップロード',
     '.upload-subtext': 'ここにドラッグ＆ドロップ、クリップボードから貼り付けるか、<span class="browse-link">ファイルを選択</span>',
     '.highlight-item:nth-of-type(1)': 'サーバーへアップロードなし',
-    '.highlight-item:nth-of-type(2)': 'ロスレスのブラウザ処理',
+    '.highlight-item:nth-of-type(2)': 'ブラウザ内で処理',
     '.highlight-item:nth-of-type(3)': 'プラットフォーム別プリセット',
     '#btn-mode-custom span': 'カスタム',
     '#btn-mode-presets span': 'プリセット',
@@ -729,7 +758,7 @@ const APP_UI = {
     '.upload-heading': 'Bild hochladen',
     '.upload-subtext': 'Hierher ziehen, aus der Zwischenablage einfügen oder <span class="browse-link">Dateien durchsuchen</span>',
     '.highlight-item:nth-of-type(1)': 'Kein Server-Upload',
-    '.highlight-item:nth-of-type(2)': 'Verlustfreie Verarbeitung',
+    '.highlight-item:nth-of-type(2)': 'Verarbeitung im Browser',
     '.highlight-item:nth-of-type(3)': 'Vorgaben je Plattform',
     '#btn-mode-custom span': 'Benutzerdefiniert',
     '#btn-mode-presets span': 'Vorgaben',
@@ -750,7 +779,7 @@ const APP_UI = {
     '.upload-heading': 'Enviar uma imagem',
     '.upload-subtext': 'Arraste e solte aqui, cole da área de transferência ou <span class="browse-link">procure arquivos</span>',
     '.highlight-item:nth-of-type(1)': 'Zero upload para servidores',
-    '.highlight-item:nth-of-type(2)': 'Processamento sem perdas',
+    '.highlight-item:nth-of-type(2)': 'Processamento no navegador',
     '.highlight-item:nth-of-type(3)': 'Predefinições por plataforma',
     '#btn-mode-custom span': 'Personalizado',
     '#btn-mode-presets span': 'Predefinições',
@@ -799,19 +828,37 @@ const TRUST_REGISTRY = [
     h1: 'About RealResizer',
     lede: 'RealResizer is a free, browser-based image tool that shows you exactly how your picture will look on each platform before you post.',
     rows: [
-      { h2: 'Why RealResizer exists', p: [
-        'Every day, millions of images are posted without ever being checked inside the real platform interface. Text gets cut off, logos sit in safe zones, faces fall behind interface elements. RealResizer exists to close that gap: crop, resize, and preview your image inside realistic platform mockups so you see the final look before anything leaves your device.',
+      { h2: 'What RealResizer is', p: [
+        'RealResizer is a free, browser-based image utility focused on one thing: showing you exactly how your picture will look on a given platform before you publish it. Instead of guessing whether a photo fits an Instagram Story, a YouTube thumbnail, or a LinkedIn feed post, you pick a destination preset, crop and resize to the platform’s exact dimensions, and preview the result inside a realistic mockup of that platform.',
       ] },
-      { h2: 'How it works', p: [
-        'Everything runs inside your browser. You upload nothing, and all processing happens locally in the browser. Your image never leaves your device.',
+      { h2: 'Why RealResizer exists', p: [
+        'Every day, millions of images are posted without ever being checked inside the real platform interface. Text gets cut off, logos sit in safe zones, faces fall behind interface elements, and covers get cropped in ways the creator never intended. RealResizer exists to close that gap: crop, resize, and preview your image inside realistic platform mockups so you see the final look before anything leaves your device.',
+      ] },
+      { h2: 'Platform presets and mockup previews', p: [
+        'The tool ships with dimension presets for the most common destinations: Instagram Stories, Reels and feed posts; YouTube thumbnails, Shorts and channel art; TikTok; Facebook covers; LinkedIn posts and banners; X (Twitter) profile headers and posts; Spotify and Apple Music covers; and SoundCloud banners. After you cut an image, one tap opens a realistic preview so you can check how it reads at a glance — including mobile, desktop, and TV views where the platform behaves differently across devices.',
+      ] },
+      { h2: 'Safe-zone guidance', p: [
+        'RealResizer pages explain the safe zones of each platform — the areas where interface elements such as profile names, captions, duration badges, and action buttons overlap the image. That guidance helps you keep text, logos, and faces in the part of the frame that stays visible, rather than discovering after posting that critical detail is hidden.',
+      ] },
+      { h2: 'Supported exports', p: [
+        'Once your crop is ready, export as PNG (lossless), JPEG, or WebP. The export dimensions match the preset you chose, and JPEG/WebP quality is adjustable. PNG keeps every pixel intact; JPEG and WebP trade some detail for much smaller files.',
+      ] },
+      { h2: 'Local browser processing and privacy', p: [
+        'Everything runs inside your browser. You upload nothing, and all processing happens locally — your image is loaded into an in-memory canvas and never transmitted. There are no accounts, no sign-up, and no server-side processing. Your image never leaves your device.',
       ] },
       { h2: 'Who is behind RealResizer', p: [
-        'RealResizer is built and maintained by Pratham as an independent, free tool — no accounts, no sign-up, and no server-side processing.',
+        'RealResizer is built and maintained by Pratham as an independent, free tool. It is a single-person project, and it is supported by Google Analytics for anonymous usage statistics and Google AdSense for advertising, both declared in the Privacy Policy.',
+      ] },
+      { h2: 'Feedback and preset requests', p: [
+        'RealResizer is feedback-driven. If a platform preset is missing, a dimension looks out of date, or something behaves unexpectedly, you can request a change through the <a href="/contact/">contact page</a>. Preset requests are reviewed and, where feasible, added.',
       ] },
     ],
     faq: [
-      { q: 'Is RealResizer really free?', a: 'Yes. RealResizer is free to use with no watermarks and no sign-up required.' },
-      { q: 'Is my image uploaded anywhere?', a: 'No. Your image is processed entirely in your browser and never leaves your device.' },
+      { q: 'Is RealResizer really free?', a: 'Yes. RealResizer is free to use with no watermarks, no account, and no sign-up required.' },
+      { q: 'Is my image uploaded anywhere?', a: 'No. Your image is processed entirely in your browser, loaded into an in-memory canvas, and never leaves your device.' },
+      { q: 'Which formats can I export?', a: 'PNG, JPEG, and WebP. PNG export is lossless; JPEG and WebP quality is adjustable during export.' },
+      { q: 'What should I do if a preset is missing or wrong?', a: 'Email us through the <a href="/contact/">contact page</a> with the platform name and we will review it.' },
+      { q: 'Do I need to sign up to use the tool?', a: 'No. There are no accounts and no sign-up. Open the page, upload an image, and start working immediately.' },
     ],
   },
   {

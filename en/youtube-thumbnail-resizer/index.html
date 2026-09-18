@@ -187,7 +187,7 @@
               </div>
               <div class="highlight-item">
                 <span class="highlight-bullet">&bull;</span>
-                <span>Lossless browser processing</span>
+                <span>Browser-based processing</span>
               </div>
               <div class="highlight-item">
                 <span class="highlight-bullet">&bull;</span>
@@ -542,7 +542,7 @@
         <div class="seo-container">
           <section class="seo-block">
             <h2>YouTube thumbnail size and aspect ratio</h2>
-            <p>The standard YouTube thumbnail is 1280 × 720 pixels at a 16:9 widescreen ratio. RealResizer’s YouTube preset locks this 16:9 ratio so your image is framed exactly the way thumbnails are displayed across desktop, mobile, and TV.</p>
+            <p>The standard YouTube thumbnail is 1280 × 720 pixels at a 16:9 widescreen ratio. Despite the 720p resolution, viewers almost never see a thumbnail at full size — it appears small in search results, on the home page, and in the related-video rail, and even smaller before it is scaled up on a TV. Because the crop is final on YouTube’s side, pre-cropping yourself to exactly 16:9 is the only way to control how your thumbnail is framed.</p>
             <p>It helps to separate “resolution” from “aspect ratio.” Aspect ratio (16:9) decides the shape of the frame; resolution (1280×720) decides how much detail the file holds. RealResizer keeps the crop at the right 16:9 shape, and you can export a high-resolution PNG or JPEG to keep it crisp.</p>
             <p>Beyond video thumbnails, the editor can also prepare a YouTube channel banner (2560 × 1440) and profile avatar (800 × 800), so your entire channel art stays consistent as you resize an image for YouTube.</p>
           </section>
@@ -587,6 +587,14 @@
           <details class="seo-faq">
             <summary>Do I need a minimum resolution?</summary>
             <p>Sharpness matters because thumbnails are shown small. Export at high resolution to keep detail.</p>
+          </details>
+          <details class="seo-faq">
+            <summary>What if my original image is not 16:9?</summary>
+            <p>The tool crops to 16:9 so nothing is distorted. YouTube would otherwise scale or crop non-16:9 images itself.</p>
+          </details>
+          <details class="seo-faq">
+            <summary>Which export formats keep thumbnails sharp?</summary>
+            <p>PNG is lossless. JPEG and WebP are also supported with adjustable quality, though they trade a little detail for smaller files.</p>
           </details>
       </section>
     </section>

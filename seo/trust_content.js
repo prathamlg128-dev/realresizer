@@ -13,76 +13,148 @@ const TRUST_LOCALIZED = {
       h1: 'Acerca de RealResizer',
       lede: 'RealResizer es una herramienta gratuita de imágenes que funciona en el navegador y te muestra exactamente cómo se verá tu imagen en cada plataforma antes de publicar.',
       rows: [
+        { h2: 'Qué es RealResizer', p: [
+          'RealResizer es una utilidad gratuita de imágenes que funciona en el navegador y centra todo su esfuerzo en una sola cosa: mostrarte exactamente cómo se verá tu imagen en una plataforma concreta antes de publicarla. En lugar de adivinar si una foto cabe en una Historia de Instagram, una miniatura de YouTube o una publicación de LinkedIn, eliges un ajuste de destino, recortas y redimensionas a las dimensiones exactas de la plataforma y previsualizas el resultado dentro de una maqueta realista de esa plataforma.',
+        ] },
         { h2: 'Por qué existe RealResizer', p: [
           'Cada día se publican millones de imágenes sin comprobar nunca cómo se ven dentro de la interfaz real de la plataforma. El texto se corta, los logotipos caen en zonas seguras y las caras quedan detrás de los elementos de la interfaz. RealResizer existe para cerrar esa brecha: recorta, redimensiona y previsualiza tu imagen dentro de maquetas realistas de plataformas para que veas el aspecto final antes de que cualquier cosa salga de tu dispositivo.',
         ] },
-        { h2: 'Cómo funciona', p: [
-          'Todo se ejecuta dentro de tu navegador. No subes nada y todo el procesamiento ocurre localmente en el navegador. Tu imagen nunca sale de tu dispositivo.',
+        { h2: 'Ajustes de plataforma y vistas previas', p: [
+          'La herramienta incluye ajustes de dimensiones para los destinos más habituales: Historias, Reels y publicaciones de Instagram; miniaturas, Shorts y arte de canal de YouTube; TikTok; portadas de Facebook; publicaciones y banners de LinkedIn; encabezados y publicaciones de X (Twitter); portadas de Spotify y Apple Music; y banners de SoundCloud. Después de recortar una imagen, un solo toque abre una vista previa realista para comprobar cómo se lee de un vistazo, incluidas las vistas móvil, escritorio y TV donde la plataforma se comporta de forma distinta según el dispositivo.',
+        ] },
+        { h2: 'Guía de zonas seguras', p: [
+          'Las páginas de RealResizer explican las zonas seguras de cada plataforma: las áreas donde los elementos de la interfaz (nombre de perfil, pies de foto, insignias de duración y botones de acción) se superponen a la imagen. Esa guía te ayuda a mantener el texto, los logotipos y las caras en la parte del encuadre que sigue siendo visible, en lugar de descubrir después de publicar que un detalle importante quedó oculto.',
+        ] },
+        { h2: 'Exportaciones compatibles', p: [
+          'Cuando tu recorte esté listo, exporta como PNG (sin pérdida), JPEG o WebP. Las dimensiones de exportación coinciden con el ajuste que elegiste y la calidad de JPEG/WebP es ajustable. El PNG conserva cada píxel intacto; el JPEG y el WebP intercambian algo de detalle por archivos mucho más pequeños.',
+        ] },
+        { h2: 'Procesamiento local en el navegador y privacidad', p: [
+          'Todo se ejecuta dentro de tu navegador. No subes nada y todo el procesamiento ocurre localmente: tu imagen se carga en un lienzo en memoria y nunca se transmite. Sin cuentas, sin registro y sin procesamiento en el servidor. Tu imagen nunca sale de tu dispositivo.',
         ] },
         { h2: 'Quién está detrás de RealResizer', p: [
-          'RealResizer está creado y mantenido por Pratham como una herramienta independiente y gratuita: sin cuentas, sin registro y sin procesamiento en el servidor.',
+          'RealResizer está creado y mantenido por Pratham como una herramienta independiente y gratuita. Es un proyecto de una sola persona y se apoya en Google Analytics para estadísticas de uso anónimas y en Google AdSense para publicidad, ambas declaradas en la Política de privacidad.',
+        ] },
+        { h2: 'Comentarios y solicitudes de ajustes', p: [
+          'RealResizer se impulsa con los comentarios de los usuarios. Si falta un ajuste de plataforma, una dimensión parece desactualizada o algo no se comporta como se espera, puedes solicitarlo a través de la <a href="/es/contact/">página de contacto</a>. Las solicitudes de ajustes se revisan y, cuando es viable, se añaden.',
         ] },
       ],
       faq: [
-        { q: '¿RealResizer es realmente gratis?', a: 'Sí. RealResizer es gratis, sin marcas de agua y sin necesidad de registrarse.' },
-        { q: '¿Mi imagen se sube a algún sitio?', a: 'No. Tu imagen se procesa por completo en tu navegador y nunca sale de tu dispositivo.' },
+        { q: '¿RealResizer es realmente gratis?', a: 'Sí. RealResizer es gratis, sin marcas de agua, sin cuentas y sin necesidad de registrarse.' },
+        { q: '¿Mi imagen se sube a algún sitio?', a: 'No. Tu imagen se procesa por completo en tu navegador, se carga en un lienzo en memoria y nunca sale de tu dispositivo.' },
+        { q: '¿Qué formatos puedo exportar?', a: 'PNG, JPEG y WebP. La exportación PNG no tiene pérdida; la calidad de JPEG y WebP se puede ajustar al exportar.' },
+        { q: '¿Qué hago si falta un ajuste o está desactualizado?', a: 'Escríbenos a través de la <a href="/es/contact/">página de contacto</a> con el nombre de la plataforma y lo revisaremos.' },
+        { q: '¿Necesito registrarme para usar la herramienta?', a: 'No. No hay cuentas ni registro. Abre la página, sube una imagen y empieza a trabajar de inmediato.' },
       ],
     },
     ja: {
       h1: 'RealResizerについて',
       lede: 'RealResizerはブラウザ上で動作する無料の画像ツールです。投稿する前に、画像が各プラットフォームでどのように見えるかを正確に確認できます。',
       rows: [
+        { h2: 'RealResizerとは', p: [
+          'RealResizerはブラウザ上で動作する無料の画像ユーティリティで、1つのことに集中しています。それは「画像が特定のプラットフォームで実際にどう見えるかを、投稿する前に正確に確認できる」ことです。Instagramのストーリー、YouTubeのサムネイル、LinkedInの投稿に画像が収まるかを推測する代わりに、投稿先のプリセットを選び、プラットフォームの正確な寸法にトリミング・リサイズして、そのプラットフォームのリアルなモックアップの中で結果をプレビューできます。',
+        ] },
         { h2: 'RealResizerが存在する理由', p: [
           '毎日、何百万もの画像が実際のプラットフォームの画面で確認されることなく投稿されています。テキストが切れたり、ロゴがセーフゾーンにかかったり、顔がインターフェース要素の裏に隠れたりします。RealResizerはそのギャップを埋めるためにあります。画像をトリミング・リサイズし、リアルなプラットフォームのモックアップ内でプレビューして、端末の外に出る前に最終的な見え方を確認できます。',
         ] },
-        { h2: '仕組み', p: [
-          'すべてブラウザ内で実行されます。アップロードは不要で、処理はすべてブラウザ内でローカルに完結します。画像が端末の外に出ることはありません。',
+        { h2: 'プラットフォームのプリセットとプレビュー', p: [
+          'このツールには、よく使われる投稿先の寸法プリセットが用意されています。Instagramのストーリー・リール・フィード投稿、YouTubeのサムネイル・Shorts・チャンネルアート、TikTok、Facebookのカバー、LinkedInの投稿とバナー、X（Twitter）のヘッダーと投稿、SpotifyとApple Musicのジャケット、SoundCloudのバナーなど。画像をトリミングしたら、ワンタップでリアルなプレビューを開き、一目でどう読めるかを確認できます。プラットフォームが端末によって表示を変える場合も、モバイル・デスクトップ・TVの各ビューで確認できます。',
+        ] },
+        { h2: 'セーフゾーンのガイド', p: [
+          'RealResizerの各ツールページでは、各プラットフォームのセーフゾーンを説明しています。プロフィール名、キャプション、時間バッジ、アクション（操作）ボタンなどのUI要素が画像の上に重なる領域のことです。このガイドを参考に、テキスト・ロゴ・顔を、投稿後に重要なディテールが隠れてしまう場所ではなく、常に表示されるフレーム内に配置できます。',
+        ] },
+        { h2: '対応している書き出し形式', p: [
+          'トリミングが完了したら、PNG（ロスレス）、JPEG、WebPで書き出せます。書き出し寸法は選んだプリセットに一致し、JPEG/WebPの品質は調整可能です。PNGは全ピクセルをそのまま保持し、JPEGとWebPはわずかなディテールと引き換えにファイルを大幅に小さくします。',
+        ] },
+        { h2: 'ブラウザ内でのローカル処理とプライバシー', p: [
+          'すべてブラウザ内で実行されます。アップロードは不要で、処理はすべてローカルで完結します。画像はメモリ内のキャンバスに読み込まれ、送信されることはありません。アカウントもサインアップもサーバー側の処理もありません。画像が端末の外に出ることはありません。',
         ] },
         { h2: 'RealResizerの運営者', p: [
-          'RealResizerはPrathamが個人で開発・運営する無料ツールです。アカウント不要、サインアップ不要、サーバー側の処理もありません。',
+          'RealResizerは、Prathamが独立した無料ツールとして開発・保守しています。個人によるプロジェクトであり、匿名の利用統計のためにGoogle Analytics、広告表示のためにGoogle AdSenseを使用しています。いずれもプライバシーポリシーで宣言されています。',
+        ] },
+        { h2: 'フィードバックとプリセットのリクエスト', p: [
+          'RealResizerはユーザーのフィードバックをもとに進化しています。プラットフォームのプリセットが足りない、寸法が古そう、期待通りに動作しない、といった場合は、<a href="/ja/contact/">お問い合わせページ</a>からご連絡ください。プリセットのリクエストは確認のうえ、実現可能なものから追加されます。',
         ] },
       ],
       faq: [
-        { q: 'RealResizerは本当に無料ですか？', a: 'はい。RealResizerは無料で、透かしもサインアップも不要です。' },
-        { q: '画像はどこかにアップロードされますか？', a: 'いいえ。画像はブラウザ内で完全に処理され、端末の外に出ることはありません。' },
+        { q: 'RealResizerは本当に無料ですか？', a: 'はい。RealResizerは無料で、透かしもアカウントもサインアップも不要です。' },
+        { q: '画像はどこかにアップロードされますか？', a: 'いいえ。画像はブラウザ内で完全に処理され、メモリ内のキャンバスに読み込まれて送信されることはありません。端末の外に出ることはありません。' },
+        { q: 'どの形式で書き出せますか？', a: 'PNG・JPEG・WebPです。PNG書き出しはロスレスで、JPEGとWebPの品質は書き出し時に調整できます。' },
+        { q: 'プリセットが足りない場合や古い場合は？', a: '<a href="/ja/contact/">お問い合わせページ</a>からプラットフォーム名を添えてご連絡ください。確認します。' },
+        { q: '登録は必要ですか？', a: 'いいえ。アカウントもサインアップもありません。ページを開いて画像をアップロードし、すぐに作業を始められます。' },
       ],
     },
     de: {
       h1: 'Über RealResizer',
       lede: 'RealResizer ist ein kostenloses, browserbasiertes Bildtool, das Ihnen genau zeigt, wie Ihr Bild auf jeder Plattform aussieht, bevor Sie es veröffentlichen.',
       rows: [
+        { h2: 'Was RealResizer ist', p: [
+          'RealResizer ist ein kostenloses, browserbasiertes Bild-Werkzeug, das sich auf genau eine Sache konzentriert: Ihnen zu zeigen, wie Ihr Bild auf einer bestimmten Plattform aussehen wird, bevor Sie es veröffentlichen. Statt zu raten, ob ein Foto in eine Instagram-Story, eine YouTube-Miniatur oder einen LinkedIn-Beitrag passt, wählen Sie eine Zielvorlage, schneiden und skalieren Sie auf die exakten Plattform-Maße und sehen eine Vorschau in einem realistischen Mock-up dieser Plattform.',
+        ] },
         { h2: 'Warum es RealResizer gibt', p: [
           'Jeden Tag werden Millionen von Bildern gepostet, ohne jemals in der echten Oberfläche der Plattform geprüft zu werden. Text wird abgeschnitten, Logos liegen in Sicherheitszonen und Gesichter verschwinden hinter UI-Elementen. RealResizer schließt diese Lücke: Schneiden, skalieren und Vorschau in realistischen Plattform-Mockups, damit Sie den finalen Look sehen, bevor irgendetwas Ihr Gerät verlässt.',
         ] },
-        { h2: 'So funktioniert es', p: [
-          'Alles läuft in Ihrem Browser. Sie laden nichts hoch und die gesamte Verarbeitung erfolgt lokal im Browser. Ihr Bild verlässt nie Ihr Gerät.',
+        { h2: 'Plattform-Vorlagen und Vorschauen', p: [
+          'Das Tool enthält Größen-Vorlagen für die gängigsten Ziele: Instagram-Storys, Reels und Feed-Beiträge; YouTube-Miniaturen, Shorts und Kanal-Art; TikTok; Facebook-Cover; LinkedIn-Beiträge und Banner; X-(Twitter-)Header und Beiträge; Spotify- und Apple-Music-Cover sowie SoundCloud-Banner. Nach dem Zuschneiden öffnet ein Tippen die realistische Vorschau, um zu prüfen, wie gut das Bild auf den ersten Blick erkennbar ist — einschließlich Mobil-, Desktop- und TV-Ansichten, wo die Plattform je nach Gerät anders anzeigt.',
+        ] },
+        { h2: 'Leitfaden zu Sicherheitszonen', p: [
+          'Die RealResizer-Seiten erklären die Sicherheitszonen jeder Plattform: die Bereiche, in denen UI-Elemente (Profilname, Bildunterschrift, Zeit-Badges und Aktionsschaltflächen) das Bild überlagern. Dieser Leitfaden hilft Ihnen, Text, Logos und Gesichter in dem Bereich des Frames zu halten, der sichtbar bleibt — statt erst nach dem Veröffentlichen zu entdecken, dass ein wichtiges Detail verdeckt wird.',
+        ] },
+        { h2: 'Unterstützte Exporte', p: [
+          'Wenn Ihr Zuschnitt fertig ist, exportieren Sie als PNG (verlustfrei), JPEG oder WebP. Die Exportmaße entsprechen der gewählten Vorlage, und die JPEG-/WebP-Qualität ist einstellbar. PNG erhält jedes Pixel; JPEG und WebP tauschen ein wenig Detail gegen deutlich kleinere Dateien.',
+        ] },
+        { h2: 'Lokale Verarbeitung im Browser und Datenschutz', p: [
+          'Alles läuft in Ihrem Browser. Sie laden nichts hoch und die gesamte Verarbeitung erfolgt lokal: Ihr Bild wird auf eine Leinwand im Arbeitsspeicher geladen und nie übertragen. Keine Konten, keine Anmeldung und keine Serververarbeitung. Ihr Bild verlässt nie Ihr Gerät.',
         ] },
         { h2: 'Wer steckt hinter RealResizer', p: [
-          'RealResizer wird von Pratham als unabhängiges, kostenloses Tool entwickelt und gepflegt — keine Konten, keine Anmeldung und keine Serververarbeitung.',
+          'RealResizer wird von Pratham als unabhängiges, kostenloses Tool entwickelt und gepflegt. Es ist ein Ein-Personen-Projekt und verwendet Google Analytics für anonyme Nutzungsstatistiken sowie Google AdSense für Werbung; beides ist in der Datenschutzerklärung offengelegt.',
+        ] },
+        { h2: 'Feedback und Vorgaben-Anfragen', p: [
+          'RealResizer lebt vom Feedback seiner Nutzer. Fehlt eine Plattform-Vorlage, wirkt eine Größe veraltet oder verhält sich etwas nicht wie erwartet, können Sie über die <a href="/de/contact/">Kontaktseite</a> Anfragen senden. Anfragen zu Vorgaben werden geprüft und, wo machbar, umgesetzt.',
         ] },
       ],
       faq: [
-        { q: 'Ist RealResizer wirklich kostenlos?', a: 'Ja. RealResizer ist kostenlos nutzbar, ohne Wasserzeichen und ohne Anmeldung.' },
-        { q: 'Wird mein Bild irgendwo hochgeladen?', a: 'Nein. Ihr Bild wird vollständig in Ihrem Browser verarbeitet und verlässt nie Ihr Gerät.' },
+        { q: 'Ist RealResizer wirklich kostenlos?', a: 'Ja. RealResizer ist kostenlos nutzbar — ohne Wasserzeichen, ohne Konten und ohne Anmeldung.' },
+        { q: 'Wird mein Bild irgendwo hochgeladen?', a: 'Nein. Ihr Bild wird vollständig in Ihrem Browser verarbeitet, auf eine Leinwand im Arbeitsspeicher geladen und nie übertragen. Es verlässt nie Ihr Gerät.' },
+        { q: 'In welchen Formaten kann ich exportieren?', a: 'PNG, JPEG und WebP. Der PNG-Export ist verlustfrei; die Qualität von JPEG und WebP lässt sich beim Export einstellen.' },
+        { q: 'Was, wenn eine Vorlage fehlt oder veraltet ist?', a: 'Melden Sie es über die <a href="/de/contact/">Kontaktseite</a> mit dem Namen der Plattform — wir prüfen das.' },
+        { q: 'Muss ich mich registrieren?', a: 'Nein. Es gibt keine Konten und keine Anmeldung. Öffnen Sie die Seite, laden Sie ein Bild hoch und starten Sie sofort.' },
       ],
     },
     pt: {
       h1: 'Sobre o RealResizer',
       lede: 'O RealResizer é uma ferramenta gratuita de imagens baseada no navegador que mostra exatamente como sua imagem ficará em cada plataforma antes de você publicar.',
       rows: [
+        { h2: 'O que é o RealResizer', p: [
+          'O RealResizer é uma utilidade gratuita de imagens que roda no navegador e concentra todo o esforço em uma única coisa: mostrar exatamente como sua imagem ficará em uma plataforma específica antes de você publicar. Em vez de adivinhar se uma foto cabe em um Story do Instagram, uma miniatura do YouTube ou um post do LinkedIn, você escolhe uma predefinição de destino, recorta e redimensiona para as dimensões exatas da plataforma e visualiza o resultado dentro de uma maquete realista dela.',
+        ] },
         { h2: 'Por que o RealResizer existe', p: [
           'Todos os dias, milhões de imagens são publicadas sem nunca serem conferidas dentro da interface real da plataforma. Textos são cortados, logotipos ficam em zonas seguras e rostos somem atrás de elementos da interface. O RealResizer existe para fechar essa lacuna: recorte, redimensione e visualize sua imagem dentro de maquetes realistas de plataformas para ver o resultado final antes que qualquer coisa saia do seu dispositivo.',
         ] },
-        { h2: 'Como funciona', p: [
-          'Tudo roda dentro do seu navegador. Você não envia nada e todo o processamento acontece localmente no navegador. Sua imagem nunca sai do seu dispositivo.',
+        { h2: 'Predefinições de plataforma e visualizações', p: [
+          'A ferramenta inclui predefinições de dimensões para os destinos mais comuns: Stories, Reels e posts do Instagram; miniaturas, Shorts e artes de canal do YouTube; TikTok; capas do Facebook; posts e banners do LinkedIn; cabeçalhos e posts do X (Twitter); capas do Spotify e do Apple Music; e banners do SoundCloud. Depois de recortar uma imagem, um toque abre uma visualização realista para conferir como ela se lê à primeira vista, incluindo visualizações de celular, desktop e TV, onde a plataforma exibe de forma diferente por dispositivo.',
+        ] },
+        { h2: 'Guia de zonas seguras', p: [
+          'As páginas do RealResizer explicam as zonas seguras de cada plataforma: as áreas onde os elementos da interface (nome do perfil, legendas, selos de duração e botões de ação) se sobrepõem à imagem. Esse guia ajuda você a manter texto, logotipos e rostos na parte do enquadramento que continua visível, em vez de só descobrir depois da publicação que um detalhe importante ficou escondido.',
+        ] },
+        { h2: 'Exportações compatíveis', p: [
+          'Quando o recorte estiver pronto, exporte como PNG (sem perdas), JPEG ou WebP. As dimensões de exportação correspondem à predefinição escolhida e a qualidade de JPEG/WebP é ajustável. O PNG mantém cada pixel intacto; o JPEG e o WebP trocam um pouco de detalhe por arquivos bem menores.',
+        ] },
+        { h2: 'Processamento local no navegador e privacidade', p: [
+          'Tudo roda dentro do seu navegador. Você não envia nada e todo o processamento acontece localmente: sua imagem é carregada em uma tela na memória e nunca é transmitida. Sem contas, sem cadastro e sem processamento no servidor. Sua imagem nunca sai do seu dispositivo.',
         ] },
         { h2: 'Quem está por trás do RealResizer', p: [
-          'O RealResizer é criado e mantido por Pratham como uma ferramenta gratuita e independente — sem contas, sem cadastro e sem processamento no servidor.',
+          'O RealResizer é criado e mantido por Pratham como uma ferramenta gratuita e independente. É um projeto de uma pessoa só e usa o Google Analytics para estatísticas de uso anônimas e o Google AdSense para publicidade, ambos declarados na Política de Privacidade.',
+        ] },
+        { h2: 'Feedback e pedidos de predefinições', p: [
+          'O RealResizer é movido pelo feedback dos usuários. Se faltar uma predefinição de plataforma, uma dimensão parecer desatualizada ou algo não se comportar como esperado, você pode pedir pela <a href="/pt/contact/">página de contato</a>. Pedidos de predefinições são analisados e, quando viáveis, adicionados.',
         ] },
       ],
       faq: [
-        { q: 'O RealResizer é realmente gratuito?', a: 'Sim. O RealResizer é gratuito, sem marcas d\u2019água e sem necessidade de cadastro.' },
-        { q: 'Minha imagem é enviada para algum lugar?', a: 'Não. Sua imagem é processada inteiramente no seu navegador e nunca sai do seu dispositivo.' },
+        { q: 'O RealResizer é realmente gratuito?', a: 'Sim. O RealResizer é gratuito, sem marcas d\u2019água, sem contas e sem necessidade de cadastro.' },
+        { q: 'Minha imagem é enviada para algum lugar?', a: 'Não. Sua imagem é processada inteiramente no seu navegador, carregada em uma tela na memória e nunca transmitida. Ela nunca sai do seu dispositivo.' },
+        { q: 'Quais formatos posso exportar?', a: 'PNG, JPEG e WebP. A exportação em PNG é sem perdas; a qualidade de JPEG e WebP pode ser ajustada na exportação.' },
+        { q: 'E se faltar uma predefinição ou ela estiver desatualizada?', a: 'Envie uma mensagem pela <a href="/pt/contact/">página de contato</a> com o nome da plataforma e vamos analisar.' },
+        { q: 'Preciso me cadastrar para usar a ferramenta?', a: 'Não. Não há contas nem cadastro. Abra a página, carregue uma imagem e comece imediatamente.' },
       ],
     },
   },
