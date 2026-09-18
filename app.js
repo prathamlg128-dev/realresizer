@@ -3728,6 +3728,18 @@ try {
     img.src = objectUrl;
   }
 
+  // ---------------------------------------------------------------------------
+  // Homepage info-section visibility (root page only)
+  // ---------------------------------------------------------------------------
+  // The root homepage shows informational SEO sections below the tool in its
+  // initial empty/upload state.  Once an image is loaded into the crop or
+  // post-cut workspace they are hidden (to focus the workspace); they are
+  // restored when the tool returns to the empty state.  The switch is a single
+  // body class consumed by CSS — content itself is never modified or removed.
+  function syncHomeSectionsVisibility() {
+    document.body.classList.toggle('in-workspace', !!state.image);
+  }
+
   function renderLoadedState() {
     if (!state.image) return;
 
@@ -3765,6 +3777,7 @@ try {
     });
 
     router.view = 'cropper';
+    syncHomeSectionsVisibility();
   }
 
   function resetApplication() {
@@ -3800,6 +3813,7 @@ try {
     elements.loadedView.classList.add('hidden');
     elements.loadedView.classList.remove('crop-wide');
     elements.landingView.classList.remove('hidden');
+    syncHomeSectionsVisibility();
 
     if (hadImage) triggerHaptic(18);
   }

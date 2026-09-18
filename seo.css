@@ -211,6 +211,17 @@
   padding: var(--space-2xl) var(--space-xl) var(--space-xl);
 }
 
+/* ---------------------------------------------------------------
+   Homepage info sections (root only, marked .home-info) are shown
+   in the initial empty/upload state.  Once an image is loaded
+   (crop workspace or post-cut result), they are hidden to focus
+   the workspace.  Toggled via body.in-workspace set by app.js.
+   The footer remains visible in every state.
+   --------------------------------------------------------------- */
+body.in-workspace .home-info {
+  display: none;
+}
+
 .seo-container {
   max-width: 760px;
   margin: 0 auto;
