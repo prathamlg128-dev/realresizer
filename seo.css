@@ -256,6 +256,180 @@ body.in-workspace .home-info {
   margin-bottom: 6px;
 }
 
+/* --- Visual proof strip (root homepage) ------------------------ */
+/* Self-contained, zero-asset "crop → preview → export" diagram built from
+   inline SVG + design-system variables. Lives inside .home-info so it is also
+   hidden whenever the workspace is active (body.in-workspace). */
+:root {
+  /* The app's accent is greyscale and theme-swapped via --accent-white /
+     --text-inverse; expose theme-safe aliases for the visual strip. */
+  --seo-accent: var(--accent-white);
+  --seo-accent-text: var(--text-inverse);
+}
+
+.seo-visual .seo-visual-steps {
+  list-style: none;
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.seo-visual-step {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  background-color: var(--bg-surface);
+}
+
+.seo-visual-art {
+  background-color: var(--bg-surface-elevated);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+  margin-bottom: var(--space-md);
+  min-height: 118px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seo-visual-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+}
+
+.seo-visual-steps {
+  counter-reset: seo-visual;
+}
+
+.seo-visual-step h3 {
+  counter-increment: seo-visual;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2xs);
+}
+
+/* Numbered step badge (counter-driven, no markup required). */
+.seo-visual-step h3::before {
+  content: counter(seo-visual);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-right: var(--space-xs);
+  border-radius: 999px;
+  background-color: var(--seo-accent);
+  color: var(--seo-accent-text);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.seo-visual-step p {
+  margin-bottom: 0;
+}
+
+/* Inline-SVG palette — all colours map to theme variables so the strip follows
+   the active dark/light theme. */
+.sv-art-photo {
+  fill: var(--bg-surface-elevated);
+  stroke: var(--border-subtle);
+  stroke-width: 1.5;
+}
+.sv-art-crop {
+  fill: color-mix(in srgb, var(--seo-accent) 8%, transparent);
+  stroke: var(--seo-accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 3;
+}
+.sv-art-handle {
+  fill: var(--seo-accent);
+  stroke: var(--bg-surface);
+  stroke-width: 1.5;
+}
+.sv-art-ghost {
+  stroke: var(--text-muted);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+  fill: none;
+}
+.sv-art-subject {
+  fill: var(--text-muted);
+  opacity: 0.55;
+}
+.sv-art-subject-soft {
+  fill: var(--text-muted);
+  opacity: 0.3;
+}
+.sv-art-ticks {
+  stroke: var(--text-muted);
+  stroke-width: 1;
+}
+.sv-art-device,
+.sv-art-surface {
+  fill: var(--border-subtle);
+}
+.sv-art-screen {
+  fill: var(--bg-app);
+}
+.sv-art-title {
+  fill: var(--text-secondary);
+}
+.sv-art-muted {
+  fill: var(--text-muted);
+}
+.sv-art-action {
+  fill: var(--text-secondary);
+}
+.sv-art-panel {
+  fill: var(--bg-app);
+  stroke: var(--border-subtle);
+  stroke-width: 1;
+}
+.sv-art-chip {
+  fill: var(--bg-surface-elevated);
+  stroke: var(--border-subtle);
+  stroke-width: 1;
+}
+.sv-art-chip-text {
+  font-size: 9px;
+  font-weight: 700;
+  fill: var(--text-primary);
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+.sv-art-rail {
+  fill: var(--border-subtle);
+}
+.sv-art-knob {
+  fill: var(--seo-accent);
+}
+.sv-art-btn {
+  fill: var(--seo-accent);
+}
+.sv-art-arr {
+  stroke: var(--seo-accent-text);
+  stroke-width: 1.8;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sv-art-btntext {
+  font-size: 9px;
+  font-weight: 700;
+  fill: var(--seo-accent-text);
+}
+.sv-art-qlabel {
+  font-size: 8.5px;
+  fill: var(--text-muted);
+}
+
 .seo-table {
   width: 100%;
   border-collapse: collapse;
@@ -430,5 +604,9 @@ body.in-workspace .home-info {
   .seo-content {
     padding-left: var(--space-md);
     padding-right: var(--space-md);
+  }
+
+  .seo-visual .seo-visual-steps {
+    grid-template-columns: 1fr;
   }
 }

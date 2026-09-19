@@ -149,7 +149,7 @@ rows: [
       intro: 'Crop and resize images to the 16:9 YouTube thumbnail format so your videos stand out in search and suggestions.',
       rows: [
         { h2: 'YouTube thumbnail size and aspect ratio', p: [
-          'The standard YouTube thumbnail is 1280 × 720 pixels at a 16:9 widescreen ratio. Despite the 720p resolution, viewers almost never see a thumbnail at full size — it appears small in search results, on the home page, and in the related-video rail, and even smaller before it is scaled up on a TV. Because the crop is final on YouTube’s side, pre-cropping yourself to exactly 16:9 is the only way to control how your thumbnail is framed.',
+          'The commonly recommended YouTube thumbnail size is 1280 × 720 pixels at a 16:9 widescreen ratio. Despite the 720p resolution, viewers almost never see a thumbnail at full size — it appears small in search results, on the home page, and in the related-video rail, and even smaller before it is scaled up on a TV. Because the crop is final on YouTube’s side, pre-cropping yourself to exactly 16:9 is the only way to control how your thumbnail is framed.',
           'It helps to separate “resolution” from “aspect ratio.” Aspect ratio (16:9) decides the shape of the frame; resolution (1280×720) decides how much detail the file holds. RealResizer keeps the crop at the right 16:9 shape, and you can export a high-resolution PNG or JPEG to keep it crisp.',
           'Beyond video thumbnails, the editor can also prepare a YouTube channel banner (2560 × 1440) and profile avatar (800 × 800), so your entire channel art stays consistent as you resize an image for YouTube.',
         ] },
@@ -295,7 +295,7 @@ rows: [
       faq: [
         { q: 'What ratio is a LinkedIn post image?', a: 'Feed images are commonly shared at a 1.91:1 landscape ratio, often 1200 × 627 pixels.' },
         { q: 'Are my images private?', a: 'Yes — all processing happens locally in your browser.' },
-        { q: 'What happens if I upload a non-1.91:1 image?', a: 'LinkedIn will auto-crop it to its preview frame. Cropping to 1.91:1 yourself keeps the composition in your control.' },
+        { q: 'What happens if I upload a non-1.91:1 image?', a: 'LinkedIn may auto-crop it to fit its preview frame. Cropping to 1.91:1 yourself keeps the composition in your control.' },
         { q: 'Can I edit my company page banner here?', a: 'Yes — the editor also includes the profile banner (1584 × 396) and company banner (1128 × 191) ratios.' },
       ],
     },
@@ -348,7 +348,7 @@ rows: [
       intro: 'Resize and crop images for your X (Twitter) header, posts, and profile photo so your account looks polished on any device.',
       rows: [
         { h2: 'X (Twitter) header and post sizes', p: [
-          'The X profile header is wide and short, commonly prepared around 1500 × 500 pixels (a 3:1 ratio). X compresses uploaded images noticeably, so starting from a sharp, high-quality source matters more on X than on almost any other platform.',
+          'The X profile header is wide and short, commonly prepared around 1500 × 500 pixels (a 3:1 ratio). X applies noticeable image compression in many views, so starting from a sharp, high-quality source matters more than on some other platforms.',
           'The header is also cropped aggressively on mobile — phones show only the center of the banner, roughly the middle 1280 × 330 pixels — while in-stream post images display in a wide 16:9 frame (often 1600 × 900) and the profile photo is shown as a circle, not a square. Prepare each shape so the important content survives the platform’s cropping and compression.',
         ] },
         { h2: 'How to resize an image for X (Twitter)', ul: [
@@ -388,7 +388,7 @@ rows: [
       rows: [
         { h2: 'Spotify image sizes and ratios', p: [
           'Spotify album and playlist artwork is square (1:1), commonly at 1080 × 1080 pixels. Where the crop really bites is in the player: Spotify shows covers as small circles in the now-playing bar on mobile, as rounded squares in search and artist pages, and full-screen on the now-playing view. Detail meant for the full-size view is lost in the tiny circular thumbnail, so keeping a strong central focal point is the difference between an artwork that works everywhere and one that only works at full size.',
-          'Distribution partners also expect square artwork at specific resolutions (commonly 3000 × 3000 for album covers via labels and distributors) before a release is accepted on Spotify. Resizing an image for Spotify with a square preset keeps this consistent.',
+          'Many distributors and labels ask for square artwork at specific resolutions (commonly a 3000 × 3000 file for album covers) — check your distributor’s current requirements before you upload. Resizing an image for Spotify with a square preset keeps this consistent.',
           'Beyond the cover, Spotify also uses a vertical Canvas format (720 × 1280, 9:16) and a wide artist header (1920 × 640, 3:1). Preparing all three from one editor keeps your artist profile visually consistent.',
         ] },
         { h2: 'How to resize an image for a Spotify cover', ul: [
@@ -412,7 +412,7 @@ rows: [
         ] },
       ],
       faq: [
-        { q: 'What size is a Spotify cover?', a: 'Spotify album and playlist artwork is square, commonly 1080 × 1080 pixels. Distribution partners often require 3000 × 3000 before accepting a release.' },
+        { q: 'What size is a Spotify cover?', a: 'Spotify album and playlist artwork is square, commonly 1080 × 1080 pixels. Many distributors commonly ask for a 3000 × 3000 file before accepting a release — confirm the current requirement with your distributor.' },
         { q: 'Does my artwork get uploaded?', a: 'No. All processing happens locally in your browser.' },
         { q: 'Will my cover be cropped by Spotify?', a: 'Covers stay square, but they are shown as small circles in the mobile player. A strong central focal point keeps the artwork legible at every display size.' },
         { q: 'What formats can I use?', a: 'JPG, JPEG, PNG, and WebP are supported for input, with PNG, JPEG, or WebP available on export.' },
@@ -427,7 +427,7 @@ rows: [
       intro: 'Resize and crop images for Apple Music album covers, playlists, and artist banners so your releases look sharp in the Apple Music catalog.',
       rows: [
         { h2: 'Apple Music image sizes and ratios', p: [
-          'Apple Music album cover art is square (1:1) and commonly prepared at 3000 × 3000 pixels. That large footprint exists because a single artwork file is used across every surface Apple controls — the iTunes Store, Apple Music search, recommendations, the now-playing view, CarPlay, and connected devices like the HomePod — and it is scaled down, never reliably up-scaled. Shipping the square at maximum resolution means it stays crisp in every size.',
+          'Apple Music album cover art is square (1:1) and commonly prepared at 3000 × 3000 pixels. That large footprint exists because a single artwork file is used across every surface Apple controls — the iTunes Store, Apple Music search, recommendations, the now-playing view, CarPlay, and connected devices like the HomePod — and it is scaled down far more often than it is up-scaled. Shipping the square at maximum resolution means it stays crisp in every size.',
           'Playlist covers are also square (1080 × 1080), while the Apple Music artist profile uses a wide banner (2048 × 1152, 16:9) that appears across the artist page header. Because of the small circular and square crops used in the store, keeping key artwork — logos, titles, faces — inside the central ~80% of the square avoids awkward clipping.',
         ] },
         { h2: 'How to resize an image for Apple Music', ul: [
@@ -509,7 +509,7 @@ rows: [
       intro: 'Resize your photos to the 9:16 full-screen Story format and preview how they’ll look in an Instagram Story before you post.',
       rows: [
         { h2: 'The right dimensions for an Instagram Story', p: [
-          'Instagram Stories fill the full phone screen in portrait orientation. The standard Story size is 1080 × 1920 pixels — the familiar 9:16 vertical aspect ratio. A Story is temporary content: it appears in the Stories tray for 24 hours, auto-advances to the next Story, and auto-loops while viewed. Because viewers mostly catch it for seconds at a time, a single clear subject that reads instantly matters more than fine detail.',
+          'The Instagram Story fills the full phone screen in portrait orientation. The commonly used Story size is 1080 × 1920 pixels — the familiar 9:16 vertical aspect ratio. A Story is temporary content: it appears in the Stories tray for 24 hours, auto-advances to the next Story, and auto-loops while viewed. Because viewers mostly catch it for seconds at a time, a single clear subject that reads instantly matters more than fine detail.',
           'The Story interface paints the top band (your name, date, and controls) and the bottom band (caption, reply field, and link sticker) directly over the image. Keeping text and faces out of roughly the top 14% and bottom 20% of the 1080 × 1920 frame keeps them visible, and the central horizontal band is the safest place for what matters.',
           'The same editor can also prepare other Instagram formats — square feed posts (1080 × 1080), portrait feed images (1080 × 1350), and Reel covers (9:16) — so you can keep every image on your profile consistent as you resize an image for Instagram.',
         ] },
