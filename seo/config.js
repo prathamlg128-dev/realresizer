@@ -96,6 +96,95 @@ const NAV_LABELS = {
   'soundcloud-image-resizer': { en: 'SoundCloud Banner Resizer', es: 'Redimensionador de Banners de SoundCloud', ja: 'SoundCloudバナー リサイズ', de: 'SoundCloud Banner Resizer', pt: 'Redimensionador de Banners do SoundCloud' },
 };
 
+// ======================================================================
+// Tools directory (/tools/) — English-only index of every RealResizer tool.
+// One-line card blurbs and format lines must match the claims on the
+// individual English tool pages they link to.
+// ======================================================================
+
+const TOOL_CARD_INFO = {
+  'instagram-story-resizer': {
+    desc: 'Resize images to the vertical Story format and preview them in a realistic Story mockup before posting.',
+    meta: '9:16 · 1080 × 1920',
+  },
+  'instagram-reel-resizer': {
+    desc: 'Frame cover images and thumbnails for Reels in the full-screen vertical format.',
+    meta: '9:16 · 1080 × 1920',
+  },
+  'tiktok-image-resizer': {
+    desc: 'Prepare vertical images for TikTok posts, including photo-mode posts and covers.',
+    meta: '9:16 · 1080 × 1920',
+  },
+  'facebook-cover-resizer': {
+    desc: 'Size your page or profile cover to the layout without surprises, with a live mockup.',
+    meta: '1.91:1 · 851 × 315',
+  },
+  'twitter-image-resizer': {
+    desc: 'Crop images for X in-stream posts, profile photos, and wide header banners.',
+    meta: 'Banner 3:1 · 1500 × 500',
+  },
+  'linkedin-image-resizer': {
+    desc: 'Cut feed images and profile or company banners to LinkedIn-friendly ratios.',
+    meta: '1.91:1 · 1200 × 627',
+  },
+  'youtube-thumbnail-resizer': {
+    desc: 'Cut thumbnails to the 16:9 frame with mobile, desktop, and TV previews.',
+    meta: '16:9 · 1280 × 720',
+  },
+  'youtube-shorts-resizer': {
+    desc: 'Frame vertical Shorts covers that stay clear of the player interface.',
+    meta: '9:16 · 1080 × 1920',
+  },
+  'spotify-image-resizer': {
+    desc: 'Export square cover art for playlists, artists, albums, and podcasts.',
+    meta: '1:1 · 3000 × 3000',
+  },
+  'apple-music-image-resizer': {
+    desc: 'Prepare single-square store artwork and wide banner-ready images for Apple platforms.',
+    meta: '1:1 · 3000 × 3000 · banner 2048 × 1152',
+  },
+  'soundcloud-image-resizer': {
+    desc: 'Size wide artist banners to the SoundCloud header ratio.',
+    meta: '4:1 · 2480 × 620',
+  },
+};
+
+const TOOLS_DIRECTORY = {
+  title: 'Image Resizer Tools | RealResizer',
+  description: 'Browse every RealResizer image resizer — presets for Instagram, TikTok, YouTube, LinkedIn, X, Facebook, Spotify, Apple Music, and SoundCloud. Private, free, and in your browser.',
+  h1: 'Image Resizer Tools',
+  intro: 'Every RealResizer tool crops and resizes an image for a specific platform or format — entirely in your browser, with nothing uploaded to any server. Each page opens with the right preset already selected, so you can frame, preview, and export in a few steps. This directory groups the tools by the platform or use case they were built for.',
+  groups: [
+    { heading: 'Social media', blurb: 'Vertical stories and posts, feed images, profile photos, and banner covers for the major social platforms.', tools: ['instagram-story-resizer', 'instagram-reel-resizer', 'tiktok-image-resizer', 'facebook-cover-resizer', 'twitter-image-resizer', 'linkedin-image-resizer'] },
+    { heading: 'Video', blurb: 'Thumbnails and covers for YouTube videos and the full-screen Shorts format.', tools: ['youtube-thumbnail-resizer', 'youtube-shorts-resizer'] },
+    { heading: 'Music', blurb: 'Square cover art and wide banners for streaming services and distributors.', tools: ['spotify-image-resizer', 'apple-music-image-resizer', 'soundcloud-image-resizer'] },
+  ],
+  howto: [
+    { h2: 'How to choose a tool', p: [
+      'Pick the tool that matches where the image will appear, rather than the source photo. Each tool locks the crop to the platform\u2019s ratio and opens with the matching preset so you cannot accidentally export an off-ratio file.',
+      'The format guides below cover the common cases:',
+    ], ul: [
+      'Vertical full-screen — Instagram Story, Instagram Reel, TikTok, and YouTube Shorts use a 9:16 frame, commonly 1080 × 1920.',
+      'Video thumbnails — YouTube thumbnails use 16:9, commonly 1280 × 720.',
+      'Wide banners — Facebook and LinkedIn covers, the X header, and the SoundCloud banner use wide ratios.',
+      'Square artwork — Spotify and Apple Music covers are square; the X profile photo is square as well.',
+    ] },
+    { h2: 'A private workflow for every format', p: [
+      'Every tool follows the same steps: choose or keep the preset, crop with the rulers and corner handle, cut the image, preview it inside a realistic mockup of the platform, then export as PNG, JPEG, or WebP with quality you control. All processing happens locally — the image never leaves your device.',
+    ] },
+    { h2: 'New to RealResizer?', p: [
+      'Start on the <a href="/">RealResizer homepage</a> to try the editor directly, then open any tool below when you need a specific format. Everything is free and private.',
+    ] },
+  ],
+  faq: [
+    { q: 'Which image resizer should I use?', a: 'Pick by where the image will appear: vertical platforms use a 9:16 frame (Instagram Story, Instagram Reel, TikTok, YouTube Shorts), YouTube thumbnails use 16:9, LinkedIn feed images use 1.91:1, and music services use square covers or wide banners. Every tool here opens with the matching preset pre-selected.' },
+    { q: 'Can I resize images without uploading them?', a: 'Yes. Every image is processed locally in your browser. Nothing is uploaded to any server, and your image never leaves your device.' },
+    { q: 'Which formats can RealResizer export?', a: 'RealResizer exports PNG (lossless), JPEG, and WebP with adjustable quality, and accepts JPEG, PNG, and WebP input images.' },
+    { q: 'Can I preview how an image will look before posting?', a: 'Yes. After you cut an image, tap See how it looks to preview the result inside a realistic mockup of the platform — including mobile, desktop, and TV views for YouTube.' },
+    { q: 'Does RealResizer support current platform sizes?', a: 'Yes — each tool includes presets for the platform\u2019s common ratios and resolutions. Platform guidance changes over time, so double-check the latest recommendations before publishing.' },
+  ],
+};
+
 const CONTENT = {
   // ======================================================================
   // The remaining tools are English-only for now, but their English content
@@ -1010,11 +1099,11 @@ const SWITCH_LABEL = {
 };
 
 const COMMON = {
-  en: { home: 'Home', allTools: 'All tools', sitemap: 'Sitemap', breadcrumbHome: 'Home', relatedLabel: 'Related tools', faqHeading: 'Frequently asked questions', footerHome: 'Home', footerAllTools: 'All tools', footerAbout: 'About', footerPrivacy: 'Privacy Policy', footerTerms: 'Terms', footerContact: 'Contact' },
-  es: { home: 'Inicio', allTools: 'Todas las herramientas', sitemap: 'Mapa del sitio', breadcrumbHome: 'Inicio', relatedLabel: 'Herramientas relacionadas', faqHeading: 'Preguntas frecuentes', footerHome: 'Inicio', footerAllTools: 'Todas las herramientas', footerAbout: 'Acerca de', footerPrivacy: 'Política de privacidad', footerTerms: 'Términos', footerContact: 'Contacto' },
-  ja: { home: 'ホーム', allTools: 'すべてのツール', sitemap: 'サイトマップ', breadcrumbHome: 'ホーム', relatedLabel: '関連ツール', faqHeading: 'よくある質問', footerHome: 'ホーム', footerAllTools: 'すべてのツール', footerAbout: 'このサイトについて', footerPrivacy: 'プライバシーポリシー', footerTerms: '利用規約', footerContact: 'お問い合わせ' },
-  de: { home: 'Startseite', allTools: 'Alle Werkzeuge', sitemap: 'Sitemap', breadcrumbHome: 'Startseite', relatedLabel: 'Verwandte Werkzeuge', faqHeading: 'Häufige Fragen', footerHome: 'Startseite', footerAllTools: 'Alle Werkzeuge', footerAbout: 'Über uns', footerPrivacy: 'Datenschutzerklärung', footerTerms: 'Nutzungsbedingungen', footerContact: 'Kontakt' },
-  pt: { home: 'Início', allTools: 'Todas as ferramentas', sitemap: 'Mapa do site', breadcrumbHome: 'Início', relatedLabel: 'Ferramentas relacionadas', faqHeading: 'Perguntas frequentes', footerHome: 'Início', footerAllTools: 'Todas as ferramentas', footerAbout: 'Sobre', footerPrivacy: 'Política de Privacidade', footerTerms: 'Termos', footerContact: 'Contato' },
+  en: { home: 'Home', allTools: 'All tools', sitemap: 'Sitemap', breadcrumbHome: 'Home', relatedLabel: 'Related tools', faqHeading: 'Frequently asked questions', footerHome: 'Home', footerAllTools: 'All tools', footerTools: 'Tools', footerAbout: 'About', footerPrivacy: 'Privacy Policy', footerTerms: 'Terms', footerContact: 'Contact' },
+  es: { home: 'Inicio', allTools: 'Todas las herramientas', sitemap: 'Mapa del sitio', breadcrumbHome: 'Inicio', relatedLabel: 'Herramientas relacionadas', faqHeading: 'Preguntas frecuentes', footerHome: 'Inicio', footerAllTools: 'Todas las herramientas', footerTools: 'Herramientas', footerAbout: 'Acerca de', footerPrivacy: 'Política de privacidad', footerTerms: 'Términos', footerContact: 'Contacto' },
+  ja: { home: 'ホーム', allTools: 'すべてのツール', sitemap: 'サイトマップ', breadcrumbHome: 'ホーム', relatedLabel: '関連ツール', faqHeading: 'よくある質問', footerHome: 'ホーム', footerAllTools: 'すべてのツール', footerTools: 'ツール', footerAbout: 'このサイトについて', footerPrivacy: 'プライバシーポリシー', footerTerms: '利用規約', footerContact: 'お問い合わせ' },
+  de: { home: 'Startseite', allTools: 'Alle Werkzeuge', sitemap: 'Sitemap', breadcrumbHome: 'Startseite', relatedLabel: 'Verwandte Werkzeuge', faqHeading: 'Häufige Fragen', footerHome: 'Startseite', footerAllTools: 'Alle Werkzeuge', footerTools: 'Tools', footerAbout: 'Über uns', footerPrivacy: 'Datenschutzerklärung', footerTerms: 'Nutzungsbedingungen', footerContact: 'Kontakt' },
+  pt: { home: 'Início', allTools: 'Todas as ferramentas', sitemap: 'Mapa do site', breadcrumbHome: 'Início', relatedLabel: 'Ferramentas relacionadas', faqHeading: 'Perguntas frequentes', footerHome: 'Início', footerAllTools: 'Todas as ferramentas', footerTools: 'Ferramentas', footerAbout: 'Sobre', footerPrivacy: 'Política de Privacidade', footerTerms: 'Termos', footerContact: 'Contato' },
 };
 
 
@@ -1134,6 +1223,8 @@ module.exports = {
   COMMON,
   FOOTER_NOTES,
   NAV_LABELS,
+  TOOL_CARD_INFO,
+  TOOLS_DIRECTORY,
   TRUST_REGISTRY,
   TRUST_LOCALIZED,
 };

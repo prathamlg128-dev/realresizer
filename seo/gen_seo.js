@@ -38,6 +38,8 @@ const {
   TRUST_REGISTRY,
   TRUST_LOCALIZED,
   NAV_LABELS,
+  TOOL_CARD_INFO,
+  TOOLS_DIRECTORY,
 } = require('./config');
 
 // ---------------------------------------------------------------------------
@@ -478,6 +480,7 @@ ${indent(appShell)}
   parts.push(`      <nav class="seo-footer-nav" aria-label="Footer">
         <ul>
           <li><a href="${footerHomeHref}">${c.footerHome}</a></li>
+          <li><a href="/tools/">${c.footerTools}</a></li>
           <li><a href="/sitemap.xml">${c.sitemap}</a></li>
           <li><a href="${trustRoute(localeCode, 'about')}">${c.footerAbout}</a></li>
           <li><a href="${trustRoute(localeCode, 'privacy-policy')}">${c.footerPrivacy}</a></li>
@@ -974,6 +977,92 @@ for (const trustPage of TRUST_REGISTRY) {
     sitemapEntries.push(route);
   }
 }
+
+// ---------------------------------------------------------------------------
+// Tools directory (/tools/) — a single English index of every tool, built from
+// TOOLS_DIRECTORY + TOOL_CARD_INFO. Localized tools carry links to their
+// localized versions; everything else links to the English tool. The directory
+// itself is intentionally English-only: it points into localized pages rather
+// than duplicating them, so no per-language copies are generated.
+// ---------------------------------------------------------------------------
+(function emitToolsDirectory() {
+  const loc = DEFAULT_LOCALE;
+  const c = COMMON[loc];
+  const route = '/tools/';
+  const url = `${SITE_BASE_URL}${route}`;
+
+  const cardHtml = (slug) => {
+    const labels = NAV_LABELS[slug] || {};
+    const card = TOOL_CARD_INFO[slug] || {};
+    const published = (CONTENT[slug] && Object.keys(CONTENT[slug])) || [];
+    const langLinks = LOCALES
+      .filter(l => l.code !== loc && published.includes(l.code))
+      .map(l => `<a href="${toolRoute(l.code, slug)}" lang="${l.htmlLang}">${l.name}</a>`);
+    return `<div class="tool-card">
+      <a class="tool-card-body" href="${toolRoute(loc, slug)}">
+        <h3>${labels[loc] || slug}</h3>
+        <p class="tool-card-desc">${card.desc || ''}</p>
+        <p class="tool-card-meta">${card.meta || ''}</p>
+      </a>
+      ${langLinks.length ? `<p class="tool-card-langs">${langLinks.join(' · ')}</p>` : ''}
+      </div>`;
+  };
+
+  const groupsHtml = TOOLS_DIRECTORY.groups.map(g => `
+    <section class="seo-block">
+      <h2>${g.heading}</h2>
+      <p class="seo-block-lede">${g.blurb}</p>
+      <div class="tools-grid">
+        ${g.tools.map(cardHtml).join('\n        ')}
+      </div>
+    </section>`).join('\n');
+
+  const crumbs = [
+    { label: c.breadcrumbHome, href: homeRoute(loc) },
+    { label: TOOLS_DIRECTORY.h1 },
+  ];
+  const jsonLd = jsonLdScripts([
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: TOOLS_DIRECTORY.h1,
+      url,
+      inLanguage: 'en',
+      description: TOOLS_DIRECTORY.description,
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: c.breadcrumbHome, item: `${SITE_BASE_URL}${homeRoute(loc)}` },
+        { '@type': 'ListItem', position: 2, name: TOOLS_DIRECTORY.h1, item: url },
+      ],
+    },
+    { '@context': 'https://schema.org', '@type': 'WebSite', name: 'RealResizer', url: `${SITE_BASE_URL}/`, inLanguage: 'en' },
+  ]);
+
+  const html = buildPage({
+    localeCode: loc,
+    kind: 'directory',
+    toolSlug: null,
+    preset: null,
+    url,
+    title: TOOLS_DIRECTORY.title,
+    description: TOOLS_DIRECTORY.description,
+    h1: TOOLS_DIRECTORY.h1,
+    intro: TOOLS_DIRECTORY.intro,
+    contentSection: groupsHtml + '\n' + content(loc, { rows: TOOLS_DIRECTORY.howto, faq: TOOLS_DIRECTORY.faq }),
+    jsonLdHtml: jsonLd,
+    alternates: [],
+    isHome: false,
+    isTrust: true,
+    isEnglishOnlyTool: true,
+    currentCrumbs: crumbs,
+    breadcrumbHtml: breadcrumb(crumbs),
+  });
+  emit('tools/index.html', html);
+  sitemapEntries.push(route);
+})();
 
 
 // ===========================================================================
