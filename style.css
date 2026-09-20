@@ -4591,17 +4591,24 @@ body:has(.loaded-view:not(.hidden)) .workspace-actions {
 
 /* Google AdSense (homepage only; generated pages carry no ad unit). The unit
    has no styling of its own, so give it a max-width aligned with the content
-   column, inline padding, and a reserved minimum height to reduce layout shift
-   (CLS) as the unit fills in asynchronously. */
+   column and inline padding. A small reserved height reduces layout shift
+   (CLS) as the unit fills in asynchronously without leaving an oversized
+   blank band when no ad is served. */
 .adsense-container {
   width: 100%;
   max-width: 760px;
-  margin: var(--space-lg) auto var(--space-md);
+  margin: var(--space-lg) auto var(--space-2xl);
   padding: 0 var(--space-xl);
-  min-height: 90px;
+  min-height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .adsense-container {
+    padding: 0 var(--space-md);
+  }
 }
 
 .app-footer {

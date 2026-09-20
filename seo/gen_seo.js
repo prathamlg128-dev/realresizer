@@ -357,7 +357,7 @@ ${html.join('\n')}
   }).join('\n');
   return `    <section class="seo-content">
         <div class="seo-container">
-${rowHtml}
+${pageContent.rawTop ? pageContent.rawTop + '\n' : ''}${rowHtml}
         </div>
         ${pageContent.faq ? faqBlock(pageContent.faq, localeCode) : ''}
     </section>`;
@@ -1004,7 +1004,7 @@ for (const trustPage of TRUST_REGISTRY) {
         <p class="tool-card-desc">${card.desc || ''}</p>
         <p class="tool-card-meta">${card.meta || ''}</p>
       </a>
-      ${langLinks.length ? `<p class="tool-card-langs">${langLinks.join(' · ')}</p>` : ''}
+      ${langLinks.length ? `<p class="tool-card-langs"><span class="tool-card-langs-label">Available in:</span> ${langLinks.join(' · ')}</p>` : ''}
       </div>`;
   };
 
@@ -1051,7 +1051,7 @@ for (const trustPage of TRUST_REGISTRY) {
     description: TOOLS_DIRECTORY.description,
     h1: TOOLS_DIRECTORY.h1,
     intro: TOOLS_DIRECTORY.intro,
-    contentSection: groupsHtml + '\n' + content(loc, { rows: TOOLS_DIRECTORY.howto, faq: TOOLS_DIRECTORY.faq }),
+    contentSection: content(loc, { rows: TOOLS_DIRECTORY.howto, faq: TOOLS_DIRECTORY.faq, rawTop: groupsHtml }),
     jsonLdHtml: jsonLd,
     alternates: [],
     isHome: false,

@@ -398,17 +398,8 @@ body.in-workspace .home-info {
   stroke: var(--border-subtle);
   stroke-width: 1;
 }
-.sv-art-chip-text {
-  font-size: 9px;
-  font-weight: 700;
-  fill: var(--text-primary);
-  font-family: var(--font-mono), ui-monospace, monospace;
-}
-.sv-art-rail {
-  fill: var(--border-subtle);
-}
-.sv-art-knob {
-  fill: var(--seo-accent);
+.sv-art-chip-dot {
+  fill: var(--text-muted);
 }
 .sv-art-btn {
   fill: var(--seo-accent);
@@ -420,14 +411,12 @@ body.in-workspace .home-info {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.sv-art-btntext {
-  font-size: 9px;
-  font-weight: 700;
-  fill: var(--seo-accent-text);
-}
-.sv-art-qlabel {
-  font-size: 8.5px;
-  fill: var(--text-muted);
+.sv-art-check {
+  stroke: var(--seo-accent-text);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .seo-table {
@@ -452,7 +441,21 @@ body.in-workspace .home-info {
 }
 
 /* --- FAQ --------------------------------------------------------- */
+/* Inside .app-container (a flex column) the wrap would otherwise
+   shrink-to-fit its text; force it to match the 760px content column
+   used by .seo-container across every page state. */
 .seo-faq-wrap {
+  width: 100%;
+  max-width: 760px;
+  margin: var(--space-xl) auto 0;
+}
+
+/* --- Explore section (root homepage) ----------------------------- */
+/* Same 760px column alignment as .seo-container and .seo-faq-wrap.
+   Sized so it never touches the viewport edges and stays in sync with
+   the content above and below it. */
+.seo-explore {
+  width: 100%;
   max-width: 760px;
   margin: var(--space-xl) auto 0;
 }
@@ -690,8 +693,24 @@ body.in-workspace .home-info {
   color: var(--text-primary);
 }
 
+.tool-card .tool-card-langs-label {
+  color: var(--text-muted);
+}
+
 @media (max-width: 600px) {
   .tools-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Horizontal breathing room for the full-width homepage blocks that
+   sit directly inside the flex .app-container (explore + FAQ). The
+   direct-child guard keeps generated pages (whose .seo-faq-wrap lives
+   inside a padded .seo-content) unchanged. */
+@media (max-width: 600px) {
+  .app-container > .seo-explore,
+  .app-container > .seo-faq-wrap {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
   }
 }
