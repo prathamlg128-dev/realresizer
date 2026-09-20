@@ -674,6 +674,47 @@ const HOME_COPY = {
     intro: 'Zuschneiden, skalieren und in realistischen Plattform-Mockups vorschauen: YouTube, Instagram, TikTok, LinkedIn, X und mehr. Die gesamte Verarbeitung erfolgt lokal in Ihrem Browser. Kein Upload, kein Konto, Ihre Daten verlassen nie Ihr Gerät.',
     h2: 'Vor dem Veröffentlichen ansehen',
     body: 'RealResizer zeigt Ihnen genau, wie Ihr Bild auf jeder Plattform erscheint — von einer Instagram Story über ein YouTube-Thumbnail bis zum LinkedIn-Feed-Beitrag. Wählen Sie ein Ziel, schneiden Sie mit der Plattform-Vorgabe zu, schneiden Sie aus und sehen Sie das Ergebnis in einem realistischen Mockup. Sie sehen das Endergebnis, bevor irgendetwas Ihr Gerät verlässt. Keine Uploads, keine Konten, keine Serververarbeitung: Alles passiert lokal in Ihrem Browser.',
+    rows: [
+      { h2: 'Vor dem Veröffentlichen ansehen', p: [
+        'RealResizer zeigt Ihnen genau, wie Ihr Bild auf jeder Plattform erscheint — von einer Instagram Story über ein YouTube-Thumbnail bis zum LinkedIn-Feed-Beitrag. Wählen Sie ein Ziel, schneiden Sie mit der Plattform-Vorgabe zu, schneiden Sie aus und sehen Sie das Ergebnis in einem realistischen Mockup. Sie sehen das Endergebnis, bevor irgendetwas Ihr Gerät verlässt. Keine Uploads, keine Konten, keine Serververarbeitung: Alles passiert lokal in Ihrem Browser.',
+        'Schneiden, skalieren und in realistischen Plattform-Mockups vorschauen: YouTube, Instagram, TikTok, LinkedIn, X und mehr. Die gesamte Verarbeitung erfolgt lokal in Ihrem Browser. Kein Upload, kein Konto, Ihre Daten verlassen nie Ihr Gerät.',
+      ] },
+      { h2: 'So verwenden Sie das Tool', ul: [
+        'Ziehen Sie ein Bild auf die Seite, fügen Sie es aus der Zwischenablage ein oder wählen Sie es über den Upload-Button.',
+        'Wählen Sie das Ziel: Instagram, YouTube, TikTok, LinkedIn, X, Facebook, Spotify, Apple Music oder SoundCloud.',
+        'Passen Sie den Bildausschnitt mit dem Lineal und den Eckgriffen an und schneiden Sie das Bild zu.',
+        'Tippen Sie auf «Ansehen», um das Ergebnis in einem realistischen Mockup der gewählten Plattform vorzusehen.',
+        'Exportieren Sie als PNG, JPEG oder WebP.',
+      ] },
+      { h2: 'Privat und kostenlos', p: [
+        'Alle Bilder werden lokal in Ihrem Browser verarbeitet. Es erfolgt kein Upload auf einen Server, kein Konto ist nötig, und keine Daten verlassen Ihr Gerät. Das Tool ist kostenlos und fügt keine Wasserzeichen hinzu.',
+      ] },
+      { h2: 'Unterstützte Formate und Grenzen', ul: [
+        'Das Bild wird nur im Speicher Ihres Browsers geöffnet und verschwindet, wenn Sie die Seite schließen oder neu laden.',
+        'Unterstützt werden JPG, JPEG, PNG und WebP. HEIC, GIF, BMP, TIFF und SVG können nicht geöffnet werden.',
+        'Es gibt keine feste Dateigrößenbegrenzung. Sehr große Bilder, etwa ab 20 Millionen Pixeln, können auf älteren Browsern oder Geräten mit wenig Speicher langsamer arbeiten.',
+      ] },
+      { h2: 'Exportqualität', ul: [
+        'PNG ist verlustfrei: Alle Pixel bleiben exakt erhalten.',
+        'JPEG und WebP bieten einen einstellbaren Qualitätsregler (Standard 92 %) und verkleinern die Datei spürbar zugunsten minimaler Details.',
+      ] },
+      { h2: 'Häufig genutzte Bildgrößen', ul: [
+        'Instagram Stories und Reels: 1080 x 1920 Pixel (Seitenverhältnis 9:16).',
+        'Feed-Beiträge: 1080 x 1080 Pixel (quadratisch) oder 1080 x 1350 Pixel (hochkant).',
+        'YouTube-Thumbnails: 1280 x 720 Pixel, in der aktuellen Richtlinie mit 2 MB Dateigrößenlimit.',
+        'Dies sind Richtwerte und können sich ändern. Prüfen Sie vor dem Veröffentlichen immer die aktuellen Angaben der jeweiligen Plattform.',
+      ] },
+      { h2: 'Ein Bild pro Durchgang', p: [
+        'Das Tool verarbeitet bewusst ein Bild pro Sitzung. So bleibt der Ablauf einfach und schnell, und Ihre Privatsphäre wird geschützt.',
+      ] },
+    ],
+    faq: [
+      { q: 'Werden meine Bilder auf einen Server hochgeladen?', a: 'Nein. Die gesamte Verarbeitung erfolgt lokal in Ihrem Browser. Das Bild bleibt nur im Speicher Ihres Geräts und wird entfernt, wenn Sie die Seite schließen oder neu laden.' },
+      { q: 'Welche Formate kann ich zuschneiden?', a: 'Unterstützt werden JPG, JPEG, PNG und WebP. Zum Export können Sie zwischen PNG (verlustfrei), JPEG oder WebP wählen.' },
+      { q: 'Gibt es eine Dateigrößenbegrenzung?', a: 'Es gibt keine feste Begrenzung. Sehr große Bilder, etwa ab 20 Millionen Pixeln, können auf älteren Browsern oder Geräten mit wenig Speicher langsamer arbeiten.' },
+      { q: 'Wie sehe ich das Ergebnis vor dem Posten?', a: 'Nach dem Zuschneiden tippen Sie auf «Ansehen». Das Bild erscheint in einem realistischen Mockup der gewählten Plattform; bei YouTube können Sie zwischen Mobile-, Desktop- und TV-Ansicht wechseln.' },
+      { q: 'Welche Größe sollte ich für Stories oder YouTube-Thumbnails verwenden?', a: 'Üblich sind 1080 x 1920 Pixel (9:16) für Stories und Reels, 1080 x 1080 für den Feed und 1280 x 720 für YouTube-Thumbnails. Das sind Richtwerte, die sich ändern können — prüfen Sie die aktuellen Angaben der Plattform vor dem Veröffentlichen.' },
+    ],
     popularHeading: 'Beliebte Werkzeuge',
   },
   pt: {
