@@ -54,7 +54,7 @@ const PAGES = [
   // definition stays here so the system scales, but only `published` locales
   // get generated pages.
   { slug: 'instagram-reel-resizer', preset: 'ig-reel', published: ['en'] },
-  { slug: 'youtube-thumbnail-resizer', preset: 'youtube', published: ['en'] },
+  { slug: 'youtube-thumbnail-resizer', preset: 'youtube', published: ['en', 'ja'] },
   { slug: 'youtube-shorts-resizer', preset: 'youtube-short', published: ['en'] },
   { slug: 'facebook-cover-resizer', preset: 'fb-cover', published: ['en'] },
   { slug: 'linkedin-image-resizer', preset: 'linkedin', published: ['en'] },
@@ -181,6 +181,47 @@ rows: [
         { q: 'Do I need a minimum resolution?', a: 'Sharpness matters because thumbnails are shown small. Export at high resolution to keep detail.' },
         { q: 'What if my original image is not 16:9?', a: 'The tool crops to 16:9 so nothing is distorted. YouTube would otherwise scale or crop non-16:9 images itself.' },
         { q: 'Which export formats keep thumbnails sharp?', a: 'PNG is lossless. JPEG and WebP are also supported with adjustable quality, though they trade a little detail for smaller files.' },
+      ],
+    },
+    ja: {
+      title: 'YouTubeサムネイルのサイズ調整・切り抜き | RealResizer',
+      description: 'YouTubeサムネイルを16:9（1280×720）の形式に、ブラウザ上でそのままリサイズ・切り抜き。アップロード不要、デスクトップ・モバイル・TVのプレビューを書き出す前に確認できます。',
+      h1: 'YouTubeサムネイル リサイズ＆クロップ',
+      intro: 'YouTubeのサムネイルは、検索結果やおすすめ、関連動画などで比較的小さく表示されることが多くあります。そのため、何をはっきり見せたいかという構図と、文字の読みやすさがとても大切です。RealResizerなら、YouTubeサムネイル用のプリセットで画像をブラウザ上でそのまま切り抜けます。アップロードの必要はなく、画像が端末の外に出ることもありません。',
+      rows: [
+        { h2: 'サムネイルの推奨サイズ（16:9）', p: [
+          'YouTubeでよく使われるサムネイルの作業サイズは1280×720ピクセル、16:9のワイド比率です。解像度と同じくらい重要なのがアスペクト比です。16:9で切り抜いておかないと、投稿後にYouTube側で拡大・クロップされて狙った構図が崩れてしまうことがあります。またサムネイルは検索結果やおすすめ欄では小さく表示されます。細かいディテールを詰め込むより、小さい表示でも印象が伝わる構図を優先しましょう。推奨サイズは変わる可能性があるため、投稿前にYouTubeの最新のガイドラインを確認することをおすすめします。',
+        ] },
+        { h2: 'サムネイル用に画像を切り抜く手順', ul: [
+          '画像をアップロードするか、ツールにドラッグ＆ドロップします。',
+          'このページではYouTubeサムネイルのプリセット（16:9）があらかじめ選択されています。',
+          'ルーラーとハンドルでクロップを調整し、見せたい部分をフレームの中心近くに配置します。',
+          'カットしたら、サムネイルのモックアップでデスクトップ・モバイル・TVの各表示にプレビューします。',
+          'PNG・JPEG・WebPで書き出します。',
+        ] },
+        { h2: '目を引くサムネイルのコツ', ul: [
+          '被写体をフレームの中央寄りに配置し、何を伝えたいのかが一目で分かる構図にします。',
+          '小さすぎるテキストは避け、縮小表示でも読める大きさを保ちます。',
+          '余白を残し、情報を詰め込みすぎないようにします。',
+          '書き出す前にクロップの位置を確認し、狙った構図になっているか見直します。',
+          'コントラストを高め、検索結果でも背景から浮き上がるようにします。',
+        ] },
+        { h2: '安全領域と構図', p: [
+          'サムネイルには、表示される場所よって再生時間のバッジや関連動画のUIなどの要素が重なることがあります。例えばデスクトップのYouTubeでは右下に再生時間が表示されることがあります。こうした要素は表示環境によって変わるため、「厳密な公式の仕様」ではなく「実用的な構図の目安」として考えてください。顔やテキスト、ロゴはフレームの中央付近、おおよそ中央80〜90%の範囲に収めると安全です。',
+        ] },
+        { h2: '公開前にプレビューで確認', p: [
+          'カットしたら<em>見え方を確認</em>ボタンをタップすると、デスクトップ・モバイル・TVの各表示でサムネイルをプレビューできます。小さなサイズでも被写体がはっきり読めるか、書き出す前にそれぞれの表示で確認しましょう。',
+        ] },
+        { h2: '関連ツール', p: [
+          'YouTubeの他のコンテンツも準備しますか？ <a href="/en/youtube-shorts-resizer/">YouTubeショート リサイズ</a>や<a href="/ja/instagram-story-resizer/">Instagramストーリー リサイズ</a>もお試しください。ホームの<a href="/ja/">RealResizer（日本語）</a>では全てのツールを一覧できます。',
+        ] },
+      ],
+      faq: [
+        { q: 'YouTubeサムネイルはどのサイズにすればよいですか？', a: 'よく使われる作業サイズは1280×720ピクセル（16:9）です。ただしこれは目安で、変わる可能性があります。投稿前にYouTubeの最新のガイドラインを確認してください。' },
+        { q: '画像はサーバーに送信されますか？', a: 'いいえ。処理はすべてブラウザ内で行われ、画像が端末の外に出ることはありません。' },
+        { q: '16:9以外の画像も使えますか？', a: 'はい。このツールが16:9にクロップするため、画像が歪むことはありません。そのまま投稿するとYouTube側でクロップされる可能性がありますが、事前に切り抜いておくことで構図を自分で制御できます。' },
+        { q: '書き出しにはどの形式を使えますか？', a: 'PNG（ロスレス）・JPEG・WebPから選択できます。テキストを含むサムネイルは、高品質のPNGかJPEGで書き出すと細部がくっきり残ります。' },
+        { q: '推奨サイズは今後変わる可能性がありますか？', a: 'はい。プラットフォームの推奨サイズは変わることがあります。投稿前にYouTubeの最新情報を確認することをおすすめします。' },
       ],
     },
   },
