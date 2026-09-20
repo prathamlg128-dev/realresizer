@@ -57,8 +57,8 @@ const PAGES = [
   { slug: 'youtube-thumbnail-resizer', preset: 'youtube', published: ['en', 'ja', 'pt'] },
   { slug: 'youtube-shorts-resizer', preset: 'youtube-short', published: ['en'] },
   { slug: 'facebook-cover-resizer', preset: 'fb-cover', published: ['en'] },
-  { slug: 'linkedin-image-resizer', preset: 'linkedin', published: ['en'] },
-  { slug: 'tiktok-image-resizer', preset: 'tiktok', published: ['en'] },
+  { slug: 'linkedin-image-resizer', preset: 'linkedin', published: ['en', 'es'] },
+  { slug: 'tiktok-image-resizer', preset: 'tiktok', published: ['en', 'es'] },
   { slug: 'twitter-image-resizer', preset: 'twitter-header', published: ['en'] },
   { slug: 'spotify-image-resizer', preset: 'spotify-cover', published: ['en'] },
   { slug: 'apple-music-image-resizer', preset: 'apple-cover', published: ['en'] },
@@ -418,6 +418,47 @@ rows: [
         { q: 'Can I edit my company page banner here?', a: 'Yes — the editor also includes the profile banner (1584 × 396) and company banner (1128 × 191) ratios.' },
       ],
     },
+    es: {
+      title: 'Redimensionador de Imágenes para LinkedIn | RealResizer',
+      description: 'Recorta y redimensiona imágenes para tus publicaciones de LinkedIn con la proporción 1.91:1 (1200 × 627) directamente en tu navegador. Privado y listo para compartir.',
+      h1: 'Redimensionador de Imágenes para LinkedIn',
+      intro: 'LinkedIn se consulta mucho desde el móvil y su feed combina imágenes con el texto de muchas publicaciones. Con RealResizer ajustas el encuadre de tus imágenes a la proporción habitual del feed directamente en tu navegador, sin subirlas a ningún servidor.',
+      rows: [
+        { h2: 'Tamaño y proporción para el feed', p: [
+          'La proporción habitual para las imágenes del feed de LinkedIn es horizontal 1.91:1, normalmente preparadas a 1200 × 627 píxeles. Si tu imagen no tiene esa proporción, es probable que la propia plataforma la recorte para encajarla en su marco de vista previa. Recortarla tú mismo te devuelve el control sobre el encuadre. Estos valores son una guía práctica y pueden cambiar; comprueba las directrices actuales de LinkedIn antes de publicar.',
+        ] },
+        { h2: 'Cómo redimensionar y recortar', ul: [
+          'Sube tu imagen o arrástrala y suéltala en la herramienta.',
+          'En esta página, el ajuste de LinkedIn (1.91:1) viene preseleccionado.',
+          'Ajusta el recorte con las reglas y las asas para componer la imagen.',
+          'Recorta y previsualiza el resultado.',
+          'Exporta en PNG, JPEG o WebP.',
+        ] },
+        { h2: 'Cómo mantener un aspecto profesional', ul: [
+          'Usa un sujeto claro y centrado que se entienda a primera vista.',
+          'Mantén el texto legible incluso cuando la imagen se vea pequeña.',
+          'Evita acumular demasiados detalles pequeños en una misma imagen.',
+          'Recuerda que gran parte del feed se ve en móvil.',
+          'Revisa el resultado antes de exportar.',
+        ] },
+        { h2: 'Zona segura', p: [
+          'El feed de LinkedIn recorta las imágenes para ajustarlas a su marco de vista previa, y el banner de una página de empresa muestra elementos de la interfaz sobre el borde izquierdo. No confundas las dimensiones del banner con las de las imágenes del feed. Como guía práctica de composición — no como una especificación fija—, mantén lo esencial en la banda central y, si preparas un banner, deja margen en el borde izquierdo.',
+        ] },
+        { h2: 'Vista previa antes de publicar', p: [
+          'Después de recortar, toca el botón <em>Ver cómo queda</em> para previsualizar tu imagen dentro de un mockup de LinkedIn. Revisa también la vista móvil, ya que gran parte del feed se lee desde el teléfono.',
+        ] },
+        { h2: 'Herramientas relacionadas', p: [
+          '¿Estás poniendo al día tus otros perfiles? Prueba el <a href="/es/instagram-story-resizer/">Redimensionador de Historias</a> o los ajustes para <a href="/en/facebook-cover-resizer/">portadas de Facebook</a> y <a href="/en/twitter-image-resizer/">X (Twitter)</a>. Visita la <a href="/es/">página inicial de RealResizer</a> para descubrir más utilidades de recorte.',
+        ] },
+      ],
+      faq: [
+        { q: '¿Cuál es el tamaño recomendado para una imagen de LinkedIn?', a: 'Las imágenes del feed suelen compartirse en proporción horizontal 1.91:1, habitualmente preparadas a 1200 × 627 píxeles. Es una guía práctica.' },
+        { q: '¿El procesamiento es local?', a: 'Sí. Todo ocurre en tu navegador y la imagen nunca sale de tu dispositivo.' },
+        { q: '¿Qué hago si mi imagen no tiene la proporción correcta?', a: 'LinkedIn puede recortarla automáticamente para encajarla en el feed. Recortarla tú a 1.91:1 te devuelve el control del encuadre.' },
+        { q: '¿Qué formatos puedo exportar?', a: 'PNG (sin pérdida), JPEG o WebP.' },
+        { q: '¿Las recomendaciones de tamaño pueden cambiar?', a: 'Sí. Confirma las directrices actuales de LinkedIn antes de publicar.' },
+      ],
+    },
   },
   'tiktok-image-resizer': {
     en: {
@@ -456,6 +497,46 @@ rows: [
         { q: 'Do my images get uploaded?', a: 'No. All processing is done locally in your browser.' },
         { q: 'What about TikTok photo-mode carousels?', a: 'They use the same 9:16 vertical ratio. The first image sets the hook, so treat it as the most important crop.' },
         { q: 'Which formats can I export?', a: 'PNG (lossless), JPEG, or WebP with adjustable quality.' },
+      ],
+    },
+    es: {
+      title: 'Redimensionador de Imágenes para TikTok | RealResizer',
+      description: 'Recorta y redimensiona imágenes al formato vertical 9:16 de TikTok (1080 × 1920) directamente en tu navegador. Privado, con una vista previa realista antes de publicar.',
+      h1: 'Redimensionador de Imágenes para TikTok',
+      intro: 'TikTok es una plataforma vertical a pantalla completa que se consume sobre todo en el móvil, así que el encuadre importa más que el detalle fino. En los carruseles de fotos, la primera imagen hace de punto de entrada visual al contenido. Con RealResizer recortas tu imagen a 9:16 en tu navegador, sin subirla a ningún servidor.',
+      rows: [
+        { h2: 'Tamaño y proporción', p: [
+          'El contenido de TikTok se ve a pantalla completa en formato vertical 9:16, habitualmente preparado a 1080 × 1920 píxeles. Un único sujeto bien definido que se lea de un vistazo suele funcionar mejor que una composición con mucho detalle. En los carruseles de foto, la primera imagen actúa como entrada visual del conjunto, por lo que merece la pena dedicarle un buen encuadre. Estos tamaños son una guía práctica y pueden cambiar; comprueba las directrices actuales de TikTok antes de publicar.',
+        ] },
+        { h2: 'Cómo recortar', ul: [
+          'Sube tu imagen o arrástrala y suéltala en la herramienta.',
+          'En esta página, el ajuste de TikTok (9:16) viene preseleccionado.',
+          'Ajusta el recorte con las reglas y las asas para encuadrar el tema.',
+          'Recorta y previsualiza el resultado en la maqueta vertical de TikTok.',
+          'Exporta en PNG, JPEG o WebP.',
+        ] },
+        { h2: 'Recorte y exportación', ul: [
+          'Mantén el sujeto importante claramente visible dentro del encuadre.',
+          'Evita texto demasiado pequeño, pensando en pantallas de móvil.',
+          'Previsualiza en tamaño móvil antes de exportar.',
+          'Exporta con calidad alta para que los detalles se mantengan nítidos.',
+        ] },
+        { h2: 'Zona segura y elementos de interfaz', p: [
+          'La interfaz de TikTok coloca botones como Me gusta, comentar y compartir junto al borde derecho, y suele mostrar la leyenda con el nombre de usuario en la parte inferior. La posición exacta varía según la versión de la app. Trata estas zonas como una guía práctica de composición, no como una especificación fija: mantén el contenido importante en la zona central y alejado del borde derecho.',
+        ] },
+        { h2: 'Comprueba cómo queda antes de publicar', p: [
+          'Después de recortar, toca el botón <em>Ver cómo queda</em> para previsualizar tu imagen dentro de un mockup vertical de TikTok. Revisa que nada importante acabe detrás de los botones del borde derecho antes de exportar.',
+        ] },
+        { h2: 'Herramientas relacionadas', p: [
+          '¿Sigues preparando contenido vertical? Prueba el <a href="/es/instagram-story-resizer/">Redimensionador de Historias</a> o los ajustes para <a href="/en/instagram-reel-resizer/">Reels de Instagram</a> y <a href="/en/youtube-shorts-resizer/">YouTube Shorts</a>. Visita la <a href="/es/">página inicial de RealResizer</a> para descubrir más utilidades de recorte.',
+        ] },
+      ],
+      faq: [
+        { q: '¿Qué tamaño debería tener una imagen para TikTok?', a: 'TikTok usa una proporción vertical 9:16, habitualmente 1080 × 1920 píxeles. Es una guía práctica y puede cambiar.' },
+        { q: '¿El procesamiento es local?', a: 'Sí. Todo ocurre en tu navegador y la imagen nunca sale de tu dispositivo.' },
+        { q: '¿Qué hago si mi imagen no es 9:16?', a: 'La herramienta la recorta a 9:16 sin distorsionarla, de modo que el encuadre queda bajo tu control.' },
+        { q: '¿Qué formatos puedo exportar?', a: 'PNG (sin pérdida), JPEG o WebP, con calidad ajustable.' },
+        { q: '¿Estas recomendaciones pueden cambiar?', a: 'Sí. Confirma las directrices actuales de TikTok antes de publicar.' },
       ],
     },
   },
