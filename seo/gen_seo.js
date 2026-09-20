@@ -581,6 +581,47 @@ const HOME_COPY = {
     intro: 'Recorta, redimensiona y previsualiza tu imagen dentro de maquetas realistas de plataformas: YouTube, Instagram, TikTok, LinkedIn, X y más. Todo el procesamiento ocurre en tu navegador, sin subidas, sin cuentas y sin que tus datos salgan de tu dispositivo.',
     h2: 'Previsualiza antes de publicar',
     body: 'RealResizer te muestra exactamente cómo se verá tu imagen en cualquier plataforma, desde una Historia de Instagram hasta una miniatura de YouTube o una publicación en el feed de LinkedIn. Elige un destino, recorta y redimensiona con el ajuste de la plataforma, luego recorta y previsualiza el resultado dentro de una maqueta realista. Ves el resultado final antes de que cualquier cosa salga de tu dispositivo. No hay subidas, ni cuentas, ni procesamiento en servidores: todo ocurre en tu navegador.',
+    rows: [
+      { h2: 'Previsualiza antes de publicar', p: [
+        'RealResizer te muestra exactamente cómo se verá tu imagen en cualquier plataforma, desde una Historia de Instagram hasta una miniatura de YouTube o una publicación en el feed de LinkedIn. Elige un destino, recorta y redimensiona con el ajuste de la plataforma, luego recorta y previsualiza el resultado dentro de una maqueta realista. Ves el resultado final antes de que cualquier cosa salga de tu dispositivo. No hay subidas, ni cuentas, ni procesamiento en servidores: todo ocurre en tu navegador.',
+        'Recorta, redimensiona y previsualiza tu imagen dentro de maquetas realistas de plataformas: YouTube, Instagram, TikTok, LinkedIn, X y más. Todo el procesamiento ocurre en tu navegador, sin subidas, sin cuentas y sin que tus datos salgan de tu dispositivo.',
+      ] },
+      { h2: 'Cómo se usa', ul: [
+        'Arrastra una imagen a la página, pégala desde el portapapeles o selecciónala con el botón de subida.',
+        'Elige el destino: Instagram, YouTube, TikTok, LinkedIn, X, Facebook, Spotify, Apple Music o SoundCloud.',
+        'Ajusta el recorte con la regla y las esquinas, y corta la imagen.',
+        'Pulsa «Ver cómo se ve» para previsualizar el resultado dentro de una maqueta realista de la plataforma elegida.',
+        'Exporta en PNG, JPEG o WebP.',
+      ] },
+      { h2: 'Privado y 100% gratis', p: [
+        'Todas las imágenes se procesan de forma local, en tu navegador. No se suben a ningún servidor, no hace falta crear una cuenta y ningún dato sale de tu dispositivo. La herramienta es gratuita y no añade marcas de agua.',
+      ] },
+      { h2: 'Formatos admitidos y límites', ul: [
+        'La imagen solo se abre en la memoria de tu navegador y desaparece al cerrar o recargar la página.',
+        'Se aceptan JPG, JPEG, PNG y WebP. No se pueden abrir HEIC, GIF, BMP, TIFF ni SVG.',
+        'No hay un límite fijo de tamaño de archivo. Las imágenes muy grandes, de más de unos 20 millones de píxeles, pueden ir más lentas en navegadores antiguos o equipos con poca memoria.',
+      ] },
+      { h2: 'Calidad de exportación', ul: [
+        'PNG es sin pérdida: conserva todos los píxeles tal cual.',
+        'JPEG y WebP ofrecen un control de calidad ajustable (92% por defecto) y reducen mucho el tamaño del archivo a cambio de un detalle mínimo.',
+      ] },
+      { h2: 'Tamaños de imagen más usados', ul: [
+        'Stories y Reels de Instagram: 1080 x 1920 píxeles (relación 9:16).',
+        'Publicaciones del feed: 1080 x 1080 píxeles (cuadrado) o 1080 x 1350 píxeles (vertical).',
+        'Miniaturas de YouTube: 1280 x 720 píxeles, con un límite de archivo de 2 MB en la política actual.',
+        'Son valores orientativos y pueden cambiar con el tiempo. Antes de publicar, confirma siempre los tamaños vigentes en la propia plataforma.',
+      ] },
+      { h2: 'Una imagen a la vez', p: [
+        'La herramienta procesa una imagen por sesión, por diseño. Así el flujo se mantiene simple y rápido, y tu privacidad queda protegida.',
+      ] },
+    ],
+    faq: [
+      { q: '¿Sube mis imágenes a algún servidor?', a: 'No. Todo el procesamiento ocurre en tu navegador, de forma local. La imagen se abre en la memoria de tu dispositivo y se elimina al cerrar o recargar la página.' },
+      { q: '¿Qué formatos puedo recortar?', a: 'Se aceptan JPG, JPEG, PNG y WebP. Para exportar puedes elegir entre PNG (sin pérdida), JPEG o WebP.' },
+      { q: '¿Hay un límite de tamaño de archivo?', a: 'No existe un límite fijo. Las imágenes muy grandes, de más de unos 20 millones de píxeles, pueden funcionar con lentitud en navegadores antiguos o con poca memoria.' },
+      { q: '¿Cómo veo cómo quedará la imagen antes de publicar?', a: 'Después de recortar, pulsa «Ver cómo se ve». La imagen se muestra dentro de una maqueta realista de la plataforma elegida; en YouTube puedes alternar entre las vistas de móvil, escritorio y televisión.' },
+      { q: '¿Qué tamaño debo usar para Stories o miniaturas de YouTube?', a: 'Los valores habituales son 1080 x 1920 píxeles (9:16) para Stories y Reels, 1080 x 1080 para el feed y 1280 x 720 para las miniaturas de YouTube. Son orientativos y pueden cambiar, así que confirma los tamaños vigentes en la plataforma antes de publicar.' },
+    ],
     popularHeading: 'Herramientas populares',
   },
   ja: {
