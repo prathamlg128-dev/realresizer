@@ -53,8 +53,8 @@ const PAGES = [
   // The remaining tools are currently published in English only. Their
   // definition stays here so the system scales, but only `published` locales
   // get generated pages.
-  { slug: 'instagram-reel-resizer', preset: 'ig-reel', published: ['en'] },
-  { slug: 'youtube-thumbnail-resizer', preset: 'youtube', published: ['en', 'ja'] },
+  { slug: 'instagram-reel-resizer', preset: 'ig-reel', published: ['en', 'pt'] },
+  { slug: 'youtube-thumbnail-resizer', preset: 'youtube', published: ['en', 'ja', 'pt'] },
   { slug: 'youtube-shorts-resizer', preset: 'youtube-short', published: ['en'] },
   { slug: 'facebook-cover-resizer', preset: 'fb-cover', published: ['en'] },
   { slug: 'linkedin-image-resizer', preset: 'linkedin', published: ['en'] },
@@ -140,6 +140,43 @@ rows: [
         { q: 'Is there a file-size limit?', a: 'No hard limit is enforced, but very large images (roughly over 20 megapixels) may slow an older or low-memory browser.' },
       ],
     },
+    pt: {
+      title: 'Redimensionador de Reels do Instagram | RealResizer',
+      description: 'Recorte e redimensione imagens para o formato vertical 9:16 dos Reels (1080 × 1920) direto no navegador. Privado, com pré-visualização em mockup antes de exportar.',
+      h1: 'Redimensionador de Reels do Instagram',
+      intro: 'Deixe sua capa de Reel no formato vertical 9:16, pronta para o seu perfil. O RealResizer já deixa o preset de Reel selecionado nesta página e processa tudo localmente, sem upload de imagem.',
+      rows: [
+        { h2: 'Formato dos Reels', p: [
+          'Os Reels são exibidos em tela cheia, no formato vertical 9:16 — frequentemente produzidos em 1080 × 1920 pixels. A diferença em relação ao Story é importante: um Story aparece no topo por cerca de 24 horas e depois desaparece. Já um Reel é um conteúdo mais duradouro: enquanto estiver disponível, ele pode aparecer no seu perfil, na guia Reels e em superfícies como o Explorar, dependendo do comportamento atual do produto Instagram. Como a capa do Reel é o que as pessoas veem primeiro, vale dedicar o mesmo cuidado que você dá a uma foto de perfil. Esses valores são uma orientação prática e podem mudar; confirme as orientações atuais do Instagram antes de publicar.',
+        ] },
+        { h2: 'Como recortar a imagem', ul: [
+          'Envie sua imagem ou arraste e solte na ferramenta.',
+          'Nesta página, o preset de Reel do Instagram (9:16) já vem selecionado.',
+          'Ajuste o recorte com as réguas e as alças para enquadrar o assunto.',
+          'Corte e visualize o resultado no mockup de Reel.',
+          'Exporte em PNG, JPEG ou WebP.',
+        ] },
+        { h2: 'Qualidade e exportação', p: [
+          'Capa de Reel costuma ser analisada rapidamente no feed, então detalhes precisam continuar nítidos. Exporte em PNG (sem perdas) ou em JPEG/WebP com alta qualidade, principalmente se a imagem tiver texto ou um produto que você quer que fique claro à primeira vista. Evite compressão desnecessária que possa borrar letras pequenas.',
+        ] },
+        { h2: 'Área segura', p: [
+          'O player de Reels pode posicionar nome, legenda e botões de ação próximos às bordas do quadro. O posicionamento varia conforme a versão do app e o tipo de conteúdo. Como orientação prática — e não uma especificação fixa — mantenha o conteúdo importante na faixa central do quadro; de modo geral, deixar livres aproximadamente os 14% superiores e os 20% inferiores ajuda a proteger texto, rostos e logotipos.',
+        ] },
+        { h2: 'Veja o Reel antes de publicar', p: [
+          'Depois de cortar, toque no botão <em>Ver como fica</em> para pré-visualizar sua capa dentro de um mockup de Reel. Use a visualização mobile para confirmar que nada importante está nas bordas antes de exportar.',
+        ] },
+        { h2: 'Ferramentas relacionadas', p: [
+          'Preparando outros conteúdos do Instagram? Experimente o <a href="/pt/instagram-story-resizer/">Redimensionador de Stories</a> ou o <a href="/pt/youtube-thumbnail-resizer/">Redimensionador de Miniaturas do YouTube</a>. Para o formato vertical de outra plataforma, veja o <a href="/en/tiktok-image-resizer/">TikTok Image Resizer</a>. A <a href="/pt/">página inicial do RealResizer</a> lista todas as ferramentas.',
+        ] },
+      ],
+      faq: [
+        { q: 'Quais são as dimensões de um Reel?', a: 'Os Reels são verticais em 9:16, frequentemente produzidos em 1080 × 1920 pixels. São valores orientativos e podem mudar.' },
+        { q: 'Qual é a diferença entre Reel e Story?', a: 'Um Story aparece no topo por cerca de 24 horas. Um Reel é um conteúdo mais duradouro: enquanto estiver disponível, pode aparecer na guia Reels, no perfil e em superfícies como o Explorar, dependendo do comportamento atual do Instagram.' },
+        { q: 'O processamento é local?', a: 'Sim. Tudo acontece no seu navegador e a imagem nunca sai do seu dispositivo.' },
+        { q: 'Quais formatos de exportação existem?', a: 'PNG (sem perdas), JPEG e WebP.' },
+        { q: 'Os valores recomendados podem mudar?', a: 'Sim. Confirme as orientações atuais do Instagram antes de publicar.' },
+      ],
+    },
   },
   'youtube-thumbnail-resizer': {
     en: {
@@ -222,6 +259,47 @@ rows: [
         { q: '16:9以外の画像も使えますか？', a: 'はい。このツールが16:9にクロップするため、画像が歪むことはありません。そのまま投稿するとYouTube側でクロップされる可能性がありますが、事前に切り抜いておくことで構図を自分で制御できます。' },
         { q: '書き出しにはどの形式を使えますか？', a: 'PNG（ロスレス）・JPEG・WebPから選択できます。テキストを含むサムネイルは、高品質のPNGかJPEGで書き出すと細部がくっきり残ります。' },
         { q: '推奨サイズは今後変わる可能性がありますか？', a: 'はい。プラットフォームの推奨サイズは変わることがあります。投稿前にYouTubeの最新情報を確認することをおすすめします。' },
+      ],
+    },
+    pt: {
+      title: 'Redimensionador de Miniaturas do YouTube | RealResizer',
+      description: 'Recorte e redimensione imagens para a proporção 16:9 (1280 × 720) das miniaturas do YouTube, direto no navegador. Privado, com pré-visualização em desktop, mobile e TV antes de exportar.',
+      h1: 'Redimensionador de Miniaturas do YouTube',
+      intro: 'Miniaturas aparecem pequenas em resultados de busca, na página inicial e em sugestões de vídeo — e é por isso que o enquadramento e a legibilidade fazem tanta diferença. Com o RealResizer você recorta sua imagem na proporção de miniatura do YouTube direto no navegador, sem enviar o arquivo para nenhum servidor.',
+      rows: [
+        { h2: 'Tamanho e proporção recomendados', p: [
+          'O tamanho de trabalho mais usado para miniaturas do YouTube é 1280 × 720 pixels, na proporção widescreen 16:9. A proporção importa tanto quanto a resolução: se você não recortar para 16:9, o próprio YouTube redimensiona ou recorta a imagem, e o enquadramento deixa de estar sob seu controle. Além disso, uma miniatura aparece em tamanhos muito diferentes — pequena nos resultados de busca e no celular, maior na TV. Por isso, prefira uma composição que comunique a ideia de relance, em vez de detalhes finos. Esses valores são uma orientação prática e podem mudar; confirme as diretrizes atuais do YouTube antes de publicar.',
+        ] },
+        { h2: 'Como recortar a imagem', ul: [
+          'Envie sua imagem ou arraste e solte na ferramenta.',
+          'Nesta página, o preset de Miniatura do YouTube (16:9) já vem selecionado.',
+          'Ajuste o recorte com as réguas e as alças para enquadrar o assunto.',
+          'Corte e visualize o resultado no mockup em desktop, mobile e TV.',
+          'Exporte em PNG, JPEG ou WebP.',
+        ] },
+        { h2: 'Dicas para uma miniatura mais clara', ul: [
+          'Mantenha o assunto principal claro e próximo do centro da composição.',
+          'Use texto grande o suficiente para continuar legível em telas pequenas.',
+          'Prefira uma composição simples, sem detalhes minúsculos.',
+          'Confira o preview em vários tamanhos antes de exportar.',
+          'Preserve contraste para a imagem se destacar na grade de resultados.',
+        ] },
+        { h2: 'Área segura e composição', p: [
+          'Dependendo de onde a miniatura é exibida, elementos da interface podem se sobrepor a partes da imagem — por exemplo, o selo de duração no canto inferior direito no desktop. Essas sobreposições variam conforme o dispositivo, então trate as áreas seguras como um guia prático de composição, e não como uma especificação fixa. Manter rostos, texto e logotipos na região central do quadro geralmente é suficiente.',
+        ] },
+        { h2: 'Veja o resultado antes de publicar', p: [
+          'Depois de cortar, toque no botão <em>Ver como fica</em> para pré-visualizar a sua miniatura em desktop, mobile e TV. Confirme que o assunto continua legível mesmo nos tamanhos menores antes de exportar.',
+        ] },
+        { h2: 'Ferramentas relacionadas', p: [
+          'Preparando outros conteúdos em vídeo? Experimente o <a href="/pt/instagram-reel-resizer/">Redimensionador de Reels do Instagram</a> ou o <a href="/pt/instagram-story-resizer/">Redimensionador de Stories</a>. Para Shorts, veja o <a href="/en/youtube-shorts-resizer/">YouTube Shorts Resizer</a>. A <a href="/pt/">página inicial do RealResizer</a> lista todas as ferramentas.',
+        ] },
+      ],
+      faq: [
+        { q: 'Qual é o tamanho recomendado para uma miniatura do YouTube?', a: 'O tamanho de trabalho mais usado é 1280 × 720 pixels na proporção 16:9. É uma orientação prática — confirme as diretrizes atuais do YouTube antes de publicar.' },
+        { q: 'A imagem é enviada para algum servidor?', a: 'Não. Todo o processamento acontece no seu navegador e a imagem nunca sai do seu dispositivo.' },
+        { q: 'Posso usar uma imagem que não é 16:9?', a: 'Sim. A ferramenta recorta para 16:9 sem distorcer a imagem, devolvendo o controle do enquadramento para você.' },
+        { q: 'Quais formatos de exportação existem?', a: 'PNG (sem perdas), JPEG e WebP. Para miniaturas com texto, exportar em alta qualidade mantém os detalhes nítidos.' },
+        { q: 'As recomendações de tamanho podem mudar?', a: 'Sim. Os valores adequados podem mudar conforme a plataforma evolui, então confirme as orientações atuais antes de publicar.' },
       ],
     },
   },
